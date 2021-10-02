@@ -22,7 +22,7 @@ export default {
                 <v-list-item-icon>
                 <v-icon>mdi-text-box-search</v-icon>
                 </v-list-item-icon>
-                <v-list-item-title>查詢</v-list-item-title>
+                <v-list-item-title>感測器資料</v-list-item-title>
             </v-list-item>
         </router-link>
         <router-link to="/Data">
@@ -30,7 +30,7 @@ export default {
                 <v-list-item-icon>
                 <v-icon>mdi-chart-bell-curve</v-icon>
                 </v-list-item-icon>
-                <v-list-item-title>圖表</v-list-item-title>
+                <v-list-item-title>折線圖</v-list-item-title>
             </v-list-item>
         </router-link>
         </v-list>
@@ -40,7 +40,7 @@ export default {
       color="#161616"
       dark
     >
-      <v-toolbar-title>後臺管理系統</v-toolbar-title>
+      <v-toolbar-title>茶農管理系統</v-toolbar-title>
 
       <v-spacer></v-spacer>
     </v-app-bar>

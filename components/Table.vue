@@ -18,8 +18,6 @@ export default {
             page: 1,
             pageCount: 0,
             search: '',
-            type: [],
-            selecttime:'day',
             deletedialog: false,
             showPwd: false,
             pwdRules: [
@@ -32,6 +30,8 @@ export default {
             deleteid: null,
             deletename: "",
             //datePicker
+            type: [],
+            selecttime:'day',
             activePicker: null,
             menustart: false,
             menuend: false,
@@ -261,7 +261,7 @@ export default {
                         bottom
                     >          
                         <v-toolbar-title>
-                            <h3>查詢</h3>
+                            <h3>感測器資料</h3>
                         </v-toolbar-title>                       
                         <v-spacer></v-spacer>
         <!-- 起始日 --> <v-dialog
@@ -316,7 +316,7 @@ export default {
                                 <v-card-actions>
                                 <v-spacer></v-spacer>
                                 <v-btn
-                                    color="error"
+                                    dark
                                     @click="closestart"
                                 >
                                     取消
@@ -384,7 +384,7 @@ export default {
                                 <v-card-actions>
                                 <v-spacer></v-spacer>
                                     <v-btn
-                                        color="error"
+                                        dark
                                         @click="closeend"
                                     >
                                         取消
@@ -409,6 +409,7 @@ export default {
                         <v-spacer></v-spacer>
                         <v-btn
                             color="#40b47f"
+                            class="mr-5"
                             elevation="8"
                             @click="searchdata"
                         >
@@ -417,7 +418,6 @@ export default {
                             </v-icon>
                             感測器資料
                         </v-btn>
-                        <v-spacer></v-spacer>
                         <v-btn
                             color="error"
                             elevation="8"
@@ -427,70 +427,70 @@ export default {
                         </v-btn>
                     </v-toolbar>
                     <v-card-text>
-                        <v-container>
-                            <v-row>
-                                <v-col>
+                        <v-container fluid>
+                            <v-row justify="center">
+                                <v-col class="text-center">
                                     <v-btn   
                                         :color="tempcolor"
                                         @click="temp"
                                         elevation="10"
                                     >溫度</v-btn>
                                 </v-col>
-                                <v-col>
+                                <v-col class="text-center">
                                     <v-btn
                                         :color="humiditycolor"
                                         @click="humidity"
                                         elevation="10"
                                     >濕度</v-btn>
                                 </v-col>
-                                <v-col>
-                                    <v-btn
-                                        :color="atpcolor"
-                                        @click="atp"
-                                        elevation="10"
-                                    >ATP</v-btn>
-                                </v-col>
-                                <v-col>
-                                    <v-btn
-                                        :color="luminancecolor"
-                                        @click="luminance"
-                                        elevation="10"
-                                    >光照</v-btn>
-                                </v-col>
-                                <v-col>
-                                    <v-btn
-                                        :color="eccolor"
-                                        @click="ec"
-                                        elevation="10"
-                                    >EC值</v-btn>
-                                </v-col>
-                                <v-col>
-                                    <v-btn
-                                        :color="phcolor"
-                                        @click="ph"
-                                        elevation="10"
-                                    >PH值</v-btn>
-                                </v-col>
-                                <v-col>
+                                <v-col class="text-center">
                                     <v-btn
                                         :color="soil_tempcolor"
                                         @click="soil_temp"
                                         elevation="10"
                                     >土壤溫度</v-btn>
                                 </v-col>
-                                <v-col>
+                                <v-col class="text-center">
                                     <v-btn
                                         :color="soil_humidcolor"
                                         @click="soil_humid"
                                         elevation="10"
                                     >土壤濕度</v-btn>
                                 </v-col>
-                                <v-col>
+                                <v-col class="text-center">
+                                    <v-btn
+                                        :color="phcolor"
+                                        @click="ph"
+                                        elevation="10"
+                                    >PH值</v-btn>
+                                </v-col>
+                                <v-col class="text-center">
+                                    <v-btn
+                                        :color="eccolor"
+                                        @click="ec"
+                                        elevation="10"
+                                    >EC值</v-btn>
+                                </v-col>
+                                <v-col class="text-center">
                                     <v-btn
                                         :color="uvcolor"
                                         @click="uv"
                                         elevation="10"
                                     >UV值</v-btn>
+                                </v-col>
+                                <v-col class="text-center">
+                                    <v-btn
+                                        :color="atpcolor"
+                                        @click="atp"
+                                        elevation="10"
+                                    >ATP</v-btn>
+                                </v-col>
+                                <v-col class="text-center">
+                                    <v-btn
+                                        :color="luminancecolor"
+                                        @click="luminance"
+                                        elevation="10"
+                                    >光照</v-btn>
                                 </v-col>
                             </v-row>
                         </v-container>

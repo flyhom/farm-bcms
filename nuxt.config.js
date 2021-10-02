@@ -1,7 +1,7 @@
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: 'search-dashboard',
+    title: '茶農管理系統',
     htmlAttrs: {
       lang: 'en'
     },
