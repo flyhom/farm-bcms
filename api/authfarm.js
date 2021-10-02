@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const authRequest = axios.create({
-    baseURL: 'http://farm-api.flyhom.com/api/',
+    baseURL: 'https://farm-api.flyhom.com/api/',
     headers: { 'Content-Type': 'application/json' },
 })
 

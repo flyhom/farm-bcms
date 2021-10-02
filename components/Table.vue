@@ -409,11 +409,14 @@ export default {
                         ></v-select>    
                         <v-spacer></v-spacer>
                         <v-btn
-                            color="primary"
+                            color="#40b47f"
                             elevation="8"
                             @click="searchdata"
                         >
-                            感測器查詢
+                            <v-icon left>
+                                mdi-magnify
+                            </v-icon>
+                            感測器資料
                         </v-btn>
                         <v-spacer></v-spacer>
                         <v-btn
