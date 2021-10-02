@@ -14,7 +14,7 @@
         </v-row>
         <v-row justify="center">
           <v-col cols="7">
-            <Chart :courseScore="newArr" :chartWidth="width" :chartHeight="height" :title="title" :date="timeArr"/>
+            <!-- <Chart :courseScore="newArr" :chartWidth="width" :chartHeight="height" :title="title" :date="timeArr"/> -->
           </v-col>
         </v-row>
       </v-container>
@@ -83,17 +83,17 @@ export default {
       ]
     }
   },
-  mounted(){
-    for (let index = 0; index < this.data.length; index++) {
-      this.timeArr.push(this.data[index].time)
-      this.newArr.push(this.data[index].uv)
-    }
-    this.$store.dispatch('chartdata', {
-      type: ["temp","ec"], 
-      start_time: "2021-04-01 00:00:00", 
-      end_time: "2021-05-01 00:00:00", 
-      time: "day",
-    });
-  }
+  // mounted(){
+  //   for (let index = 0; index < this.data.length; index++) {
+  //     this.timeArr.push(this.data[index].time)
+  //     this.newArr.push(this.data[index].uv)
+  //   }
+  //   this.$store.dispatch('chartdata', {
+  //     type: ["temp","ec"], 
+  //     start_time: "2021-04-01 00:00:00", 
+  //     end_time: "2021-05-01 00:00:00", 
+  //     time: "day",
+  //   });
+  // }
 }
 </script>
