@@ -43,7 +43,7 @@ export const mutations = {
         state.farmArr = [];
     },
     getfarmdata(state, res){
-        // console.log(res.data);
+        console.log(res.data);
         if (res.data.status == 200){
             this.$toast.success(res.data.msg, { icon: 'check_circle' });
             state.farmArr = res.data.datas;

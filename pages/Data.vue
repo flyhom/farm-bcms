@@ -397,7 +397,7 @@ export default {
                       <v-icon left>
                           mdi-magnify
                       </v-icon>
-                      感測器資料
+                      搜尋
                   </v-btn>
                   <v-btn
                       color="error"
@@ -464,7 +464,7 @@ export default {
                                 :color="atpcolor"
                                 @click="atp"
                                 elevation="10"
-                            >ATP</v-btn>
+                            >大氣壓力</v-btn>
                         </v-col>
                         <v-col class="text-center">
                             <v-btn
