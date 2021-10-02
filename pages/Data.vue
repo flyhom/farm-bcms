@@ -9,7 +9,7 @@ export default {
       loading: false,
       chartloading: false,
       width: '100%',
-      height: '400px',
+      height: '600px',
       title: '感測器數值',
       //查詢工具列
       type: [],
