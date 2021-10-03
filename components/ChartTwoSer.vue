@@ -49,7 +49,7 @@ export default {
             tooltip: {
                 trigger: "axis",
                 axisPointer: {
-                    type: "shadow"
+                    type: 'cross'
                 }
             },
             legend: {
@@ -65,17 +65,34 @@ export default {
             xAxis: {
                 type: "category",
                 data: this.timeData,
+                axisTick: {
+                    alignWithLabel: true
+                },
             },
             yAxis: [
                 {
                     type: "value",
                     name: this.type1title,
+                    nameTextStyle:{
+                        color:'#40b47f',
+                        fontSize: 12,
+                    },
                     position: 'left',
+                    axisLabel:{
+                        color:'#40b47f'
+                    }
                 },
                 {
                     type: "value",
                     name: this.type2title,
+                    nameTextStyle:{
+                        color:'#f49f42',
+                        fontSize: 12,
+                    },
                     position: 'right',
+                    axisLabel:{
+                        color:'#f49f42'
+                    }
                 },
             ],
             series: [
