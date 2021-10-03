@@ -12,6 +12,9 @@ export const state = () => ({
     soil_tempArr:[],
     soil_humidArr:[],
     uvArr:[],
+
+    isFarm: false,
+    isChart: false,
 });
 export const actions = {
     handClearfarm({commit}){
@@ -43,18 +46,19 @@ export const mutations = {
         state.farmArr = [];
     },
     getfarmdata(state, res){
-        console.log(res.data);
+        // console.log(res.data);
         if (res.data.status == 200){
             this.$toast.success(res.data.msg, { icon: 'check_circle' });
             state.farmArr = res.data.datas;
+            state.isFarm = true;
         }
         else {
             this.$toast.error(res.data.msg, { icon: 'error' });
-            state.farmArr = [];
+            state.isFarm = false;
         }
     },
     getchartdata(state, res){
-        console.log(res.data);
+        // console.log(res.data);
         if (res.data.status == 200){
             this.$toast.success(res.data.msg, { icon: 'check_circle' });
             state.timeArr = res.data.datas[0].time;
@@ -67,19 +71,11 @@ export const mutations = {
             state.soil_tempArr = res.data.datas[0].soil_temp;
             state.soil_humidArr = res.data.datas[0].soil_humid;
             state.uvArr = res.data.datas[0].uv;
+            state.isChart = true;
         }
         else {
             this.$toast.error(res.data.msg, { icon: 'error' });
-            state.timeArr = [];
-            state.tempArr = [];
-            state.humidityArr = [];
-            state.luminanceArr = [];
-            state.atpArr = [];
-            state.ecArr = [];
-            state.phArr = [];
-            state.soil_tempArr = [];
-            state.soil_humidArr = [];
-            state.uvArr = [];
+            state.isChart = false;
         }
     }
 };
@@ -95,4 +91,6 @@ export const getters = {
     Soil_tempData: state => state.soil_tempArr,
     Soil_humidData: state => state.soil_humidArr,
     UvData: state => state.uvArr,
+    IsFarm: state => state.isFarm,
+    IsChart: state => state.isChart,
 };

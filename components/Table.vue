@@ -7,7 +7,7 @@ export default {
                 { text: '日期', value: 'time'},
                 { text: '溫度', value: 'temp' },
                 { text: '濕度', value: 'humidity' },
-                { text: 'ATP', value: 'atp', },
+                { text: '大氣壓力', value: 'atp', },
                 { text: '光照', value: 'luminance' },
                 { text: 'EC值', value: 'ec' },
                 { text: 'PH值', value: 'ph' },
@@ -127,15 +127,15 @@ export default {
                 end_time: this.end, 
                 time: this.selecttime
             });
-            if (this.farmdata.length == 0) {
-                this.typeheaders = [];
+            if (this.$store.getters.IsFarm){
+                this.typeheaders = ['time'];
+                this.typeheaders = this.typeheaders.concat(this.type);
+                this.showheaders = this.headerArray.filter(e => this.typeheaders.includes(e.value));
             }
             else {
-                this.typeheaders = ['time'];
+                this.typeheaders = [];
             }
             // console.log(this.typeheaders);
-            this.typeheaders = this.typeheaders.concat(this.type);
-            this.showheaders = this.headerArray.filter(e => this.typeheaders.includes(e.value));
             this.loading = false;
         },
         temp(){
@@ -507,10 +507,14 @@ export default {
                     top
                     color="#40b47f"
                 ></v-progress-linear>
+                <!-- <v-layout column style="height: 90vh">       
+                <v-flex md6 style="overflow: auto"> -->
                 <v-data-table
                     dark
                     :items="FarmData"
                     :headers="showheaders"
+                    height="530px"
+                    fixed-header
                     loading-text="正在載入資料..."
                     no-data-text="無資料"
                     sort-by="calories"
@@ -526,20 +530,20 @@ export default {
                         'items-per-page-text':'當前顯示筆數：',
                         'items-per-page-options':[10, 20, 30, 50]
                     }"
-                >
+                >   
                     <template v-slot:no-data>
                         <div>無資料</div>
                     </template>
                     <template v-slot:footer.page-text>
                         <v-row justify="center" align="center" no-gutters>
                             <v-col cols="2"><span class="text">第</span></v-col>
-                            <v-col cols="4">
+                            <v-col cols="6">
                                 <v-text-field
                                     :value="page"
                                     solo
                                     type="number"
                                     min="-1"
-                                    class="centered-input mt-5 px-3"
+                                    class="centered-input mt-5 px-1"
                                     @input="page = parseInt($event, 10)"
                                 ></v-text-field>
                             </v-col>
@@ -547,6 +551,8 @@ export default {
                         </v-row>
                     </template>
                 </v-data-table>
+                <!-- </v-flex>
+                </v-layout> -->
             </v-col>
         </v-row>
     </div>

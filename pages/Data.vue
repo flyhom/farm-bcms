@@ -131,9 +131,9 @@ export default {
             end_time: this.end, 
             time: this.selecttime
         });
-        // console.log(this.typeheaders);
-        this.loading = false;
+        console.log(this.$store.getters.IsChart);
         this.chartloading = true;
+        this.loading = false;
     },
     temp(){
         if (this.tempcolor === "dark"){
