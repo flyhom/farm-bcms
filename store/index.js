@@ -27,20 +27,20 @@ export const actions = {
         commit('type', arr);
     },
     async farmdata({ commit }, payload){
-        const { type, start_time, end_time, time } = payload;
+        const { type, advanced, start_time, end_time, time } = payload;
         // console.log(type, start_time, end_time, time);
         try {
-            const res = await apigetfarm({ type, start_time, end_time, time });
+            const res = await apigetfarm({ type, advanced, start_time, end_time, time });
             commit('getfarmdata',res);
         } catch (error) {
             console.log(error);
         }
     },
     async chartdata({ commit }, payload){
-        const { type, start_time, end_time, time } = payload;
+        const { type, advanced, start_time, end_time, time } = payload;
         // console.log(type, start_time, end_time, time);
         try {
-            const res = await apigetchart({ type, start_time, end_time, time });
+            const res = await apigetchart({ type, advanced, start_time, end_time, time });
             commit('getchartdata',res);
         } catch (error) {
             console.log(error);
@@ -115,7 +115,7 @@ export const mutations = {
         }
     },
     getfarmdata(state, res){
-        // console.log(res.data);
+        console.log(res.data);
         if (res.data.status == 200){
             this.$toast.success(res.data.msg, { icon: 'check_circle' });
             state.farmArr = res.data.datas;

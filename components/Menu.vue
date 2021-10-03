@@ -45,7 +45,6 @@ export default {
             </router-link>
             </v-list>
         </v-navigation-drawer>
-        </v-main>
     </div> 
 </template>
 

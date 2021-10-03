@@ -17,20 +17,11 @@ export default {
             ],
             page: 1,
             pageCount: 0,
-            search: '',
-            deletedialog: false,
-            showPwd: false,
-            pwdRules: [
-                v => !!v || '請輸入新密碼',
-                v => (v && v.length >= 8) || '密碼至少8位',
-                v => (v && /\d/.test(v)) || '至少要有一位數字',
-                v => (v && /[A-z]{1}/.test(v)) || '至少要有一位英文',
-                // v => (v && /[^A-Za-z0-9]/.test(v)) || 'At least one special character',
-            ],
-            deleteid: null,
-            deletename: "",
             //datePicker
             type: [],
+            type_ch: [],
+            advanced: [],
+            chip: [],
             selecttime:'day',
             activePicker: null,
             menustart: false,
@@ -53,13 +44,14 @@ export default {
             soil_tempcolor: "dark",
             soil_humidcolor: "dark",
             uvcolor: "dark",
+            dialogfunc: false,
             
             farmdata: [],
             typeheaders: [],
             showheaders: [],
-            
-            // scroll: false,
-            // oldScrollTop: 0,
+
+            idx: 0,
+            funcdone: false,
         }
     },
     // mounted(){
@@ -100,16 +92,56 @@ export default {
         },
     },
     methods:{
-        // scrolling(){
-        //     let scrollTop = window.pageYOffset || document.documentElement.scrollTop ||
-        //     document.body.scrollTop
-        //     if (scrollTop <= 100) {
-        //         this.scroll = false;
-        //     }
-        //     else {
-        //         this.scroll = true;
-        //     }
-        // },
+        advanced_plus(){
+            this.advanced.push(
+                {
+                    'idx': this.idx,
+                    'sensor': this.selecttype,
+                    'operation': this.selectoption,
+                    'value': this.value,
+                }
+            )
+            this.chip.push(
+                {
+                    'idx': this.idx,
+                    'sensor': this.selecttype,
+                    'operation': this.selectoption,
+                    'value': this.value,
+                }
+            )
+            this.idx += 1;
+        },
+        advanced_close(item){
+            this.advanced.splice(item.idx,1);
+            this.advanced.forEach(i => {
+                if (i.idx > item.idx) {
+                    i.idx = i.idx - 1;
+                }
+            })
+            this.chip.splice(item.idx,1);
+            this.chip.forEach(i => {
+                if (i.idx > item.idx) {
+                    i.idx = i.idx - 1;
+                }
+            })
+            this.idx -= 1;
+            // console.log(this.advanced);
+            if (this.advanced.length == 0) {
+                this.funcdone = false;
+            }
+        },
+        dialogfunc_finish(){
+            this.dialogfunc = false;
+            this.funcdone = true;
+        },
+        dialogfunc_close(){
+            this.dialogfunc = false;
+            this.advanced = [];
+            this.chip = [];
+        },
+        morefunc(){
+            this.dialogfunc = true;
+        },
         closestart(){
             this.menustart = false;
             this.startdate = '';
@@ -139,6 +171,7 @@ export default {
             this.loading = true;
             await this.$store.dispatch('farmdata', {
                 type: this.type, 
+                advanced: this.advanced,
                 start_time: this.start, 
                 end_time: this.end, 
                 time: this.selecttime
@@ -157,12 +190,14 @@ export default {
         temp(){
             if (this.tempcolor === "dark"){
                 this.tempcolor = "primary";   
-                this.type.push("temp");      
+                this.type.push("temp");
+                this.type_ch.push({ 'id':'temp', 'text':'溫度' });      
                 this.typeheaders.push("temp");      
             }
             else{
                 this.tempcolor = "dark"; 
-                this.type = this.type.filter(e => e !== "temp");        
+                this.type = this.type.filter(e => e !== "temp");
+                this.type_ch = this.type_ch.filter(e => e.id !== "temp");
                 this.typeheaders = this.typeheaders.filter(e => e !== "temp");        
             }
         },
@@ -170,6 +205,7 @@ export default {
             if (this.humiditycolor === "dark"){
                 this.humiditycolor = "primary";
                 this.type.push("humidity");
+                this.type_ch.push({ 'id':'humidity', 'text':'濕度' });
                 this.typeheaders.push("humidity");
             }
             else{
@@ -182,6 +218,7 @@ export default {
             if (this.atpcolor === "dark"){
                 this.atpcolor = "primary";
                 this.type.push("atp");
+                this.type_ch.push({ 'id':'atp', 'text':'大氣壓力' });
                 this.typeheaders.push("atp"); 
             }
             else{
@@ -194,6 +231,7 @@ export default {
             if (this.luminancecolor === "dark"){
                 this.luminancecolor = "primary";
                 this.type.push("luminance");
+                this.type_ch.push({ 'id':'luminance', 'text':'光照' });
                 this.typeheaders.push("luminance"); 
             }
             else{
@@ -206,6 +244,7 @@ export default {
             if (this.eccolor === "dark"){
                 this.eccolor = "primary";
                 this.type.push("ec");
+                this.type_ch.push({ 'id':'ec', 'text':'EC值' });
                 this.typeheaders.push("ec"); 
             }
             else{
@@ -218,6 +257,7 @@ export default {
             if (this.phcolor === "dark"){
                 this.phcolor = "primary";
                 this.type.push("ph");
+                this.type_ch.push({ 'id':'ph', 'text':'PH值' });
                 this.typeheaders.push("ph"); 
             }
             else{
@@ -230,6 +270,7 @@ export default {
             if (this.soil_tempcolor === "dark"){
                 this.soil_tempcolor = "primary";
                 this.type.push("soil_temp");
+                this.type_ch.push({ 'id':'soil_temp', 'text':'土壤溫度' });
                 this.typeheaders.push("soil_temp"); 
             }
             else{
@@ -242,6 +283,7 @@ export default {
             if (this.soil_humidcolor === "dark"){
                 this.soil_humidcolor = "primary";
                 this.type.push("soil_humid");
+                this.type_ch.push({ 'id':'soil_humid', 'text':'土壤濕度' });
                 this.typeheaders.push("soil_humid"); 
             }
             else{
@@ -254,6 +296,7 @@ export default {
             if (this.uvcolor === "dark"){
                 this.uvcolor = "primary";
                 this.type.push("uv"); 
+                this.type_ch.push({ 'id':'uv', 'text':'UV值' });
                 this.typeheaders.push("uv"); 
             }
             else{
@@ -262,6 +305,18 @@ export default {
                 this.typeheaders = this.typeheaders.filter(e => e !== "uv");
             } 
         },
+        advanced_selecttype(item){
+            this.advanced.splice(item.idx,1,item);
+            this.chip.splice(item.idx,1,item);
+        },
+        advanced_selectoption(item){
+            this.advanced.splice(item.idx,1,item);
+            this.chip.splice(item.idx,1,item);
+        },
+        advanced_value(item){
+            this.advanced.splice(item.idx,1,item);
+            this.chip.splice(item.idx,1,item);
+        },
     }
 }
 </script>
@@ -269,7 +324,72 @@ export default {
 <template>
     <div>
         <v-row>
-            <v-col> 
+            <v-col>
+                <v-dialog
+                    v-model="dialogfunc"
+                    width="600px"
+                >
+                    <v-card dark>
+                        <v-toolbar dark flat class="text-h5">
+                            <v-icon left>
+                                mdi-cog-outline
+                            </v-icon>
+                            篩選
+                            <v-spacer></v-spacer>
+                            <v-btn color="primary" fab dark small elevation="10" @click="advanced_plus"> 
+                                <v-icon dark>
+                                    mdi-plus
+                                </v-icon>
+                            </v-btn>
+                        </v-toolbar> 
+                        <v-card-text>
+                            <v-container>
+                                <v-row v-for="item in advanced" :key="item.idx">
+                                    <v-col cols="1" class="mr-2">
+                                        <v-btn color="red lighten-2" small text icon @click="advanced_close(item)" class="mt-5"> 
+                                            <v-icon>
+                                                mdi-close
+                                            </v-icon>
+                                        </v-btn>
+                                    </v-col>
+                                    <v-col>
+                                        <v-select
+                                            v-model="item.sensor"
+                                            :items="type_ch"
+                                            item-text="text"
+                                            item-value="id"
+                                            label="感測器"
+                                            hide-details
+                                            @input="advanced_selecttype(item)"
+                                        ></v-select>    
+                                    </v-col>
+                                    <v-col>
+                                        <v-select
+                                            v-model="item.operation"
+                                            :items="['>','>=','=','<=','<']"
+                                            label="判斷"
+                                            hide-details
+                                            @input="advanced_selectoption(item)"
+                                        ></v-select> 
+                                    </v-col>
+                                    <v-col>
+                                        <v-text-field 
+                                            v-model="item.value"
+                                            @input="advanced_value(item)"
+                                        >
+                                            {{item.value}}
+                                        </v-text-field>
+                                    </v-col>
+                                </v-row>
+                            </v-container>
+                        </v-card-text>
+                        <v-card-actions>
+                            <v-spacer></v-spacer>
+                            <v-btn @click="dialogfunc_close">取消</v-btn>
+                            <v-btn color="success" @click="dialogfunc_finish">完成</v-btn>
+                        </v-card-actions>
+                    </v-card>
+                </v-dialog> 
                 <v-card dark class="ma-1">
                     <v-app-bar
                         flat
@@ -347,7 +467,7 @@ export default {
                             </v-card>                        
                         </v-dialog>
                         <v-spacer></v-spacer>
-        <!-- 起始日 --> <v-dialog
+        <!-- 結束日 --> <v-dialog
                             ref="dialogend"
                             v-model="menuend"
                             :return-value.sync="enddate"
@@ -433,18 +553,48 @@ export default {
                             <v-icon left>
                                 mdi-magnify
                             </v-icon>
+                            
                             搜尋
                         </v-btn>
                         <v-btn
                             color="error"
+                            class="mr-5"
                             elevation="8"
                             @click="clear"
                         >
-                            全部清除
+                            <v-icon left>
+                                mdi-delete-circle
+                            </v-icon>
+                            清除
+                        </v-btn>
+                        <v-btn
+                            color="primary"
+                            elevation="8"
+                            @click="morefunc"
+                        >
+                            <v-icon left>
+                                mdi-cog-outline
+                            </v-icon>
+                            篩選
                         </v-btn>
                     </v-app-bar>
                     <v-card-text>
                         <v-container fluid>
+                            <v-row>
+                                <v-col v-if="funcdone">
+                                    <v-chip v-for="item in chip" :key="item.idx" close class="mr-2" @click:close="advanced_close(item)" color="primary">
+                                        <span v-if="item.sensor == 'temp'">溫度 {{item.operation}} {{item.value}}</span> 
+                                        <span v-if="item.sensor == 'humidity'">濕度 {{item.operation}} {{item.value}}</span> 
+                                        <span v-if="item.sensor == 'luminance'">光照 {{item.operation}} {{item.value}}</span> 
+                                        <span v-if="item.sensor == 'atp'">大氣壓力 {{item.operation}} {{item.value}}</span> 
+                                        <span v-if="item.sensor == 'ec'">EC值 {{item.operation}} {{item.value}}</span> 
+                                        <span v-if="item.sensor == 'ph'">PH值 {{item.operation}} {{item.value}}</span> 
+                                        <span v-if="item.sensor == 'soil_humid'">土壤濕度 {{item.operation}} {{item.value}}</span> 
+                                        <span v-if="item.sensor == 'soil_temp'">土壤溫度 {{item.operation}} {{item.value}}</span> 
+                                        <span v-if="item.sensor == 'uv'">UV值 {{item.operation}} {{item.value}}</span> 
+                                    </v-chip>
+                                </v-col>
+                            </v-row>
                             <v-row justify="center">
                                 <v-col class="text-center">
                                     <v-btn   
@@ -524,7 +674,7 @@ export default {
                                         :items="FarmData"
                                         :headers="showheaders"
                                         fixed-header
-                                        height="530px"
+                                        height="490px"
                                         loading-text="正在載入資料..."
                                         no-data-text="無資料"
                                         sort-by="calories"
