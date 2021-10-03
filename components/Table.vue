@@ -57,8 +57,14 @@ export default {
             farmdata: [],
             typeheaders: [],
             showheaders: [],
+            
+            // scroll: false,
+            // oldScrollTop: 0,
         }
     },
+    // mounted(){
+    //     window.addEventListener("scroll", this.scrolling)
+    // },
     computed:{
         FarmData(){
             this.farmdata = this.$store.getters.FarmData;
@@ -94,6 +100,16 @@ export default {
         },
     },
     methods:{
+        // scrolling(){
+        //     let scrollTop = window.pageYOffset || document.documentElement.scrollTop ||
+        //     document.body.scrollTop
+        //     if (scrollTop <= 100) {
+        //         this.scroll = false;
+        //     }
+        //     else {
+        //         this.scroll = true;
+        //     }
+        // },
         closestart(){
             this.menustart = false;
             this.startdate = '';
@@ -253,12 +269,11 @@ export default {
 <template>
     <div>
         <v-row>
-            <v-col>
-                <v-card dark>
-                    <v-toolbar
+            <v-col> 
+                <v-card dark class="ma-1">
+                    <v-app-bar
                         flat
                         height="80"
-                        bottom
                     >          
                         <v-toolbar-title>
                             <h3>感測器資料</h3>
@@ -402,8 +417,10 @@ export default {
                         <v-spacer></v-spacer>
                         <v-select
                             v-model="selecttime"
-                            :items="['day','hour','min']"
-                            label="狀態"
+                            :items="[{'id':'day', 'text':'天'},{'id':'hour','text':'時'},{'id':'min','text':'分'}]"
+                            item-text="text"
+                            item-value="id"
+                            label="時間"
                             hide-details
                         ></v-select>    
                         <v-spacer></v-spacer>
@@ -425,7 +442,7 @@ export default {
                         >
                             全部清除
                         </v-btn>
-                    </v-toolbar>
+                    </v-app-bar>
                     <v-card-text>
                         <v-container fluid>
                             <v-row justify="center">
@@ -473,6 +490,13 @@ export default {
                                 </v-col>
                                 <v-col class="text-center">
                                     <v-btn
+                                        :color="luminancecolor"
+                                        @click="luminance"
+                                        elevation="10"
+                                    >光照</v-btn>
+                                </v-col>
+                                <v-col class="text-center">
+                                    <v-btn
                                         :color="uvcolor"
                                         @click="uv"
                                         elevation="10"
@@ -485,74 +509,63 @@ export default {
                                         elevation="10"
                                     >大氣壓力</v-btn>
                                 </v-col>
-                                <v-col class="text-center">
-                                    <v-btn
-                                        :color="luminancecolor"
-                                        @click="luminance"
-                                        elevation="10"
-                                    >光照</v-btn>
+                            </v-row>
+                            <v-row>
+                                <v-col>
+                                    <v-progress-linear
+                                        :active="loading"
+                                        :indeterminate="loading"
+                                        absolute
+                                        top
+                                        color="#40b47f"
+                                    ></v-progress-linear>
+                                    <v-data-table
+                                        dark
+                                        :items="FarmData"
+                                        :headers="showheaders"
+                                        fixed-header
+                                        height="530px"
+                                        loading-text="正在載入資料..."
+                                        no-data-text="無資料"
+                                        sort-by="calories"
+                                        class="elevation-1 element"
+                                        :page.sync="page"
+                                        @page-count="pageCount = $event"
+                                        :footer-props="{
+                                            showFirstLastPage: true,
+                                            firstIcon: 'mdi-chevron-double-left',
+                                            lastIcon: 'mdi-chevron-double-right',
+                                            prevIcon: 'mdi-chevron-left',
+                                            nextIcon: 'mdi-chevron-right',
+                                            'items-per-page-text':'當前顯示筆數：',
+                                            'items-per-page-options':[10, 20, 30, 50]
+                                        }"
+                                    >   
+                                        <template v-slot:no-data>
+                                            <div>無資料</div>
+                                        </template>
+                                        <template v-slot:footer.page-text>
+                                            <v-row justify="center" align="center" no-gutters>
+                                                <v-col cols="2"><span class="text">第</span></v-col>
+                                                <v-col cols="6">
+                                                    <v-text-field
+                                                        :value="page"
+                                                        solo
+                                                        type="number"
+                                                        min="-1"
+                                                        class="centered-input mt-5 px-1"
+                                                        @input="page = parseInt($event, 10)"
+                                                    ></v-text-field>
+                                                </v-col>
+                                                <v-col cols="2"><span class="text">頁</span></v-col>
+                                            </v-row>
+                                        </template>
+                                    </v-data-table>
                                 </v-col>
                             </v-row>
                         </v-container>
                     </v-card-text>
                 </v-card>
-            </v-col>
-        </v-row>
-        <v-row>
-            <v-col>
-                <v-progress-linear
-                    :active="loading"
-                    :indeterminate="loading"
-                    absolute
-                    top
-                    color="#40b47f"
-                ></v-progress-linear>
-                <!-- <v-layout column style="height: 90vh">       
-                <v-flex md6 style="overflow: auto"> -->
-                <v-data-table
-                    dark
-                    :items="FarmData"
-                    :headers="showheaders"
-                    height="530px"
-                    fixed-header
-                    loading-text="正在載入資料..."
-                    no-data-text="無資料"
-                    sort-by="calories"
-                    class="elevation-1"
-                    :page.sync="page"
-                    @page-count="pageCount = $event"
-                    :footer-props="{
-                        showFirstLastPage: true,
-                        firstIcon: 'mdi-chevron-double-left',
-                        lastIcon: 'mdi-chevron-double-right',
-                        prevIcon: 'mdi-chevron-left',
-                        nextIcon: 'mdi-chevron-right',
-                        'items-per-page-text':'當前顯示筆數：',
-                        'items-per-page-options':[10, 20, 30, 50]
-                    }"
-                >   
-                    <template v-slot:no-data>
-                        <div>無資料</div>
-                    </template>
-                    <template v-slot:footer.page-text>
-                        <v-row justify="center" align="center" no-gutters>
-                            <v-col cols="2"><span class="text">第</span></v-col>
-                            <v-col cols="6">
-                                <v-text-field
-                                    :value="page"
-                                    solo
-                                    type="number"
-                                    min="-1"
-                                    class="centered-input mt-5 px-1"
-                                    @input="page = parseInt($event, 10)"
-                                ></v-text-field>
-                            </v-col>
-                            <v-col cols="2"><span class="text">頁</span></v-col>
-                        </v-row>
-                    </template>
-                </v-data-table>
-                <!-- </v-flex>
-                </v-layout> -->
             </v-col>
         </v-row>
     </div>
@@ -567,4 +580,9 @@ export default {
     -webkit-appearance: none;
     margin: 0;
     }
+    /* .v-data-table__wrapper::-webkit-scrollbar {
+        width: 24px;
+        height: 8px;
+        background-color: #508bce;
+    } */
 </style>

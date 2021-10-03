@@ -1,13 +1,16 @@
 <script>
 import Chart from '@/components/Chart.vue';
+import ChartTwoSer from '@/components/ChartTwoSer.vue';
 export default {
   components:{
     Chart,
+    ChartTwoSer,
   },
   data(){
     return {
       loading: false,
       chartloading: false,
+      charttwoloading: false,
       width: '100%',
       height: '600px',
       title: '感測器數值',
@@ -37,6 +40,18 @@ export default {
     }
   },
   computed:{
+    LeftData(){
+        return this.$store.getters.LeftData;
+    },
+    RightData(){
+        return this.$store.getters.RightData;
+    },
+    Type1(){
+        return this.$store.getters.Type1;
+    },
+    Type2(){
+        return this.$store.getters.Type2;
+    },
     TimeData(){
       return this.$store.getters.TimeData;
     },
@@ -125,14 +140,21 @@ export default {
     async searchdata(){
         this.loading = true;
         this.chartloading = false;
+        this.charttwoloading = false;
+        await this.$store.dispatch('handType', this.type);
         await this.$store.dispatch('chartdata', {
             type: this.type, 
             start_time: this.start, 
             end_time: this.end, 
             time: this.selecttime
         });
-        console.log(this.$store.getters.IsChart);
-        this.chartloading = true;
+        console.log(this.type.length);
+        if (this.type.length == 2) {
+            this.charttwoloading = true;
+        }
+        else {
+            this.chartloading = true;
+        }
         this.loading = false;
     },
     temp(){
@@ -383,8 +405,10 @@ export default {
                   <v-spacer></v-spacer>
                   <v-select
                       v-model="selecttime"
-                      :items="['day','hour','min']"
-                      label="狀態"
+                      :items="[{'id':'day', 'text':'天'},{'id':'hour','text':'時'},{'id':'min','text':'分'}]"
+                      item-text="text"
+                      item-value="id"
+                      label="時間"
                       hide-details
                   ></v-select>    
                   <v-spacer></v-spacer>
@@ -454,6 +478,13 @@ export default {
                         </v-col>
                         <v-col class="text-center">
                             <v-btn
+                                :color="luminancecolor"
+                                @click="luminance"
+                                elevation="10"
+                            >光照</v-btn>
+                        </v-col>
+                        <v-col class="text-center">
+                            <v-btn
                                 :color="uvcolor"
                                 @click="uv"
                                 elevation="10"
@@ -465,13 +496,6 @@ export default {
                                 @click="atp"
                                 elevation="10"
                             >大氣壓力</v-btn>
-                        </v-col>
-                        <v-col class="text-center">
-                            <v-btn
-                                :color="luminancecolor"
-                                @click="luminance"
-                                elevation="10"
-                            >光照</v-btn>
                         </v-col>
                     </v-row>
                 </v-container>
@@ -499,6 +523,13 @@ export default {
               :soil_tempData="Soil_tempData"
               :soil_humidData="Soil_humidData"
               :uvData="UvData"
+            />
+            <ChartTwoSer v-if="charttwoloading" :chartWidth="width" :chartHeight="height" :title="title"
+              :timeData="TimeData"
+              :leftdata="LeftData"
+              :rightdata="RightData"
+              :type1title="Type1"
+              :type2title="Type2"
             />
           </v-col>
         </v-row>

@@ -22,6 +22,8 @@ export default {
   </v-app>
 </template>
 
-<style>
-
+<style scoped>
+.v-main{
+  height: 0px;
+}
 </style>

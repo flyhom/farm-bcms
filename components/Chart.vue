@@ -85,8 +85,8 @@ export default {
                 {
                     type: "value",
                     name: this.title,
-                    min: 0,
-                }
+                    position: 'left',
+                },
             ],
             series: [
                 {
@@ -160,7 +160,7 @@ export default {
                     data: this.luminanceData,
                 },
                 {
-                    name: "ATP",
+                    name: "大氣壓力",
                     type: "line",
                     color: [
                         '#f57b95',
