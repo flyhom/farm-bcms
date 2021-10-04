@@ -188,8 +188,11 @@ export default {
         this.soil_humidcolor = "dark";
         this.uvcolor = "dark";
         this.type = [];
+        this.type_ch = [];
         this.advanced = [];
-        this.chipAdvanced = [];
+        this.chip = [];
+        this.funcdone = false;
+        this.idx = 0;
     },
     //search
     async searchdata(){
