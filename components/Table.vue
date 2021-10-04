@@ -136,8 +136,8 @@ export default {
         },
         dialogfunc_close(){
             this.dialogfunc = false;
-            this.advanced = [];
-            this.chip = [];
+            // this.advanced = [];
+            // this.chip = [];
         },
         morefunc(){
             this.dialogfunc = true;
@@ -165,6 +165,8 @@ export default {
             this.soil_humidcolor = "dark";
             this.uvcolor = "dark";
             this.type = [];
+            this.advanced = [];
+            this.chip = [];
         },
         //search
         async searchdata(){

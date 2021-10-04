@@ -12,7 +12,7 @@ export default {
       chartloading: false,
       charttwoloading: false,
       width: '100%',
-      height: '600px',
+      height: '700px',
       title: '感測器數值',
       //查詢工具列
       type: [],
@@ -162,8 +162,6 @@ export default {
     },
     dialogfunc_close(){
         this.dialogfunc = false;
-        this.advanced = [];
-        this.chipAdvanced = [];
     },
     morefunc(){
         this.dialogfunc = true;
@@ -190,6 +188,8 @@ export default {
         this.soil_humidcolor = "dark";
         this.uvcolor = "dark";
         this.type = [];
+        this.advanced = [];
+        this.chipAdvanced = [];
     },
     //search
     async searchdata(){
