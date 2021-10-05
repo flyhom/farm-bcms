@@ -190,7 +190,7 @@ export default {
         this.type = [];
         this.type_ch = [];
         this.advanced = [];
-        this.chip = [];
+        this.chipAdvanced = [];
         this.funcdone = false;
         this.idx = 0;
     },
