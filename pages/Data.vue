@@ -15,6 +15,7 @@ export default {
       height: '700px',
       title: '感測器數值',
       //查詢工具列
+      old_type: [],
       type: [],
       type_ch: [],
       advanced: [],
@@ -207,12 +208,23 @@ export default {
             end_time: this.end, 
             time: this.selecttime
         });
-        console.log(this.type.length);
-        if (this.type.length == 2) {
-            this.charttwoloading = true;
+        // console.log(this.type.length);
+        if (this.$store.getters.IsChart == true) {
+            this.old_type = this.type;
+            if (this.type.length == 2) {
+                this.charttwoloading = true;
+            }
+            else {
+                this.chartloading = true;
+            }
         }
         else {
-            this.chartloading = true;
+            if (this.old_type.length == 2) {
+                this.charttwoloading = true;
+            }
+            else {
+                this.chartloading = true;
+            }
         }
         this.loading = false;
     },

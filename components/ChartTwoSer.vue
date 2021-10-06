@@ -52,10 +52,10 @@ export default {
                     type: 'cross'
                 }
             },
-            legend: {
-                data: ["完成率"],
-                x: "left"
-            },
+            // legend: {
+            //     data: ["完成率"],
+            //     x: "left"
+            // },
             grid: {
                 left: "3%",
                 right: "4%",
@@ -112,11 +112,9 @@ export default {
                         '#91ca8c',
                         '#f49f42'
                     ],
-                    lineStyle: {
-                        normal: {
+                    lineStyle: {                       
                             color: '#40b47f',
                             width: 2,
-                        }
                     },
                     data: this.leftdata,
                 },
@@ -136,11 +134,9 @@ export default {
                         '#91ca8c',
                         '#f49f42'
                     ],
-                    lineStyle: {
-                        normal: {
+                    lineStyle: {                       
                             color: '#f49f42',
                             width: 2,
-                        }
                     },
                     data: this.rightdata,
                 },

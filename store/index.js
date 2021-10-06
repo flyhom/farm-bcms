@@ -1,6 +1,7 @@
 import { apigetfarm, apigetchart } from "../api";
 export const state = () => ({
     farmArr: [],
+    old_type: [],
     type1: "",
     type2: "",
     timeArr:[],
@@ -52,7 +53,6 @@ export const mutations = {
         state.farmArr = [];
     },
     type(state, arr){
-        // console.log(arr);
         if (arr.length == 2) {
             state.type1 = arr[0];
             state.type2 = arr[1];
@@ -115,7 +115,7 @@ export const mutations = {
         }
     },
     getfarmdata(state, res){
-        console.log(res.data);
+        // console.log(res.data);
         if (res.data.status == 200){
             this.$toast.success(res.data.msg, { icon: 'check_circle' });
             state.farmArr = res.data.datas;
@@ -222,4 +222,5 @@ export const getters = {
     IsChart: state => state.isChart,
     Type1: state => state.type1,
     Type2: state => state.type2,
+    Old_type: state => state.old_type,
 };

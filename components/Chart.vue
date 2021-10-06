@@ -67,10 +67,10 @@ export default {
                     type: "shadow"
                 }
             },
-            legend: {
-                data: ["完成率"],
-                x: "left"
-            },
+            // legend: {
+            //     data: ["溫度"],
+            //     x: "left"
+            // },
             grid: {
                 left: "3%",
                 right: "4%",
@@ -106,10 +106,8 @@ export default {
                         '#f49f42'
                     ],
                     lineStyle: {
-                        normal: {
                             color: '#40b47f',
                             width: 2,
-                        }
                     },
                     data: this.tempData,
                 },
@@ -129,10 +127,8 @@ export default {
                         '#f49f42'
                     ],
                     lineStyle: {
-                        normal: {
                             color: '#73b9bc',
                             width: 2,
-                        }
                     },
                     data: this.humidityData,
                 },
@@ -152,10 +148,8 @@ export default {
                         '#f49f42'
                     ],
                     lineStyle: {
-                        normal: {
                             color: '#f49f42',
                             width: 2,
-                        }
                     },
                     data: this.luminanceData,
                 },
@@ -175,10 +169,8 @@ export default {
                         '#f49f42'
                     ],
                     lineStyle: {
-                        normal: {
                             color: '#f57b95',
                             width: 2,
-                        }
                     },
                     data: this.atpData,
                 },
@@ -198,10 +190,8 @@ export default {
                         '#f49f42'
                     ],
                     lineStyle: {
-                        normal: {
                             color: '#eedd78',
                             width: 2,
-                        }
                     },
                     data: this.ecData,
                 },
@@ -221,10 +211,8 @@ export default {
                         '#f49f42'
                     ],
                     lineStyle: {
-                        normal: {
                             color: '#e69d87',
                             width: 2,
-                        }
                     },
                     data: this.phData,
                 },
@@ -244,10 +232,8 @@ export default {
                         '#f49f42'
                     ],
                     lineStyle: {
-                        normal: {
                             color: '#73a373',
                             width: 2,
-                        }
                     },
                     data: this.soil_tempData,
                 },
@@ -267,10 +253,8 @@ export default {
                         '#f49f42'
                     ],
                     lineStyle: {
-                        normal: {
                             color: '#7289ab',
                             width: 2,
-                        }
                     },
                     data: this.soil_humidData,
                 },
@@ -290,10 +274,8 @@ export default {
                         '#f49f42'
                     ],
                     lineStyle: {
-                        normal: {
                             color: '#ea7e53',
                             width: 2,
-                        }
                     },
                     data: this.uvData,
                 },
