@@ -46,6 +46,9 @@ export default {
       funcdone: false,
     }
   },
+  mounted(){
+      this.$store.dispatch('handClearchart');
+  },
   computed:{
     LeftData(){
         return this.$store.getters.LeftData;

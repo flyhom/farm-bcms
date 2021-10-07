@@ -24,6 +24,9 @@ export const actions = {
     handClearfarm({commit}){
         commit('clearfarm');
     },
+    handClearchart({commit}){
+        commit('clearchart');
+    },
     handType({commit}, arr){
         commit('type', arr);
     },
@@ -51,6 +54,21 @@ export const actions = {
 export const mutations = {
     clearfarm(state){
         state.farmArr = [];
+    },
+    clearchart(state){
+        state.timeArr = [];
+        state.tempArr = [];
+        state.humidityArr = [];
+        state.luminanceArr = [];
+        state.atpArr = [];
+        state.ecArr = [];
+        state.phArr = [];
+        state.soil_tempArr = [];
+        state.soil_humidArr = [];
+        state.uvArr = [];
+        state.leftArr = [];
+        state.rightArr = [];
+        state.isChart = false;
     },
     type(state, arr){
         if (arr.length == 2) {
