@@ -38,7 +38,7 @@ export default {
             <router-link to="/list">
                 <v-list-item link>
                     <v-list-item-icon>
-                    <v-icon>mdi-text-box-search</v-icon>
+                    <v-icon>mdi-text-search</v-icon>
                     </v-list-item-icon>
                     <v-list-item-title>感測器資料</v-list-item-title>
                 </v-list-item>
@@ -49,6 +49,22 @@ export default {
                     <v-icon>mdi-chart-bell-curve</v-icon>
                     </v-list-item-icon>
                     <v-list-item-title>折線圖</v-list-item-title>
+                </v-list-item>
+            </router-link>
+            <router-link to="/sensorlike">
+                <v-list-item link>
+                    <v-list-item-icon>
+                    <v-icon>mdi-text-box-search</v-icon>
+                    </v-list-item-icon>
+                    <v-list-item-title>感測器相似度</v-list-item-title>
+                </v-list-item>
+            </router-link>
+             <router-link to="/chartlike">
+                <v-list-item link>
+                    <v-list-item-icon>
+                    <v-icon>mdi-chart-scatter-plot</v-icon>
+                    </v-list-item-icon>
+                    <v-list-item-title>數據分析圖</v-list-item-title>
                 </v-list-item>
             </router-link>
             </v-list>

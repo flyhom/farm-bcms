@@ -8,3 +8,5 @@ const authRequest = axios.create({
 export const getfarm = data => authRequest.post("/data", data);
 
 export const getchart = data => authRequest.post("/chart", data);
+
+export const getanalytics = data => authRequest.post("/analytics/correlation", data);

@@ -1,4 +1,4 @@
-import { apigetfarm, apigetchart } from "../api";
+import { apigetfarm, apigetchart, apigetanalytics } from "../api";
 export const state = () => ({
     farmArr: [],
     old_type: [],
@@ -19,6 +19,8 @@ export const state = () => ({
 
     isFarm: false,
     isChart: false,
+
+    analyticsArr: [],
 });
 export const actions = {
     handClearfarm({commit}){
@@ -46,6 +48,16 @@ export const actions = {
         try {
             const res = await apigetchart({ type, advanced, start_time, end_time, time });
             commit('getchartdata',res);
+        } catch (error) {
+            console.log(error);
+        }
+    },
+    async analyticsdata({ commit }, payload){
+        const { start_time, end_time, time } = payload;
+        // console.log(type, start_time, end_time, time);
+        try {
+            const res = await apigetanalytics({ start_time, end_time, time });
+            commit('getanalyticsdata',res);
         } catch (error) {
             console.log(error);
         }
@@ -220,6 +232,74 @@ export const mutations = {
             this.$toast.error(res.data.msg, { icon: 'error' });
             state.isChart = false;
         }
+    },
+    getanalyticsdata(state, res){
+        // console.log(res.data.datas);
+        if (res.data.status == 200){
+            this.$toast.success(res.data.msg, { icon: 'check_circle' });
+            state.analyticsArr = res.data.datas;
+            for (let i = 0; i < state.analyticsArr.length; i++) {
+                if (state.analyticsArr[i].header == "temp") {
+                    state.analyticsArr[i].header = "溫度";
+                } 
+                else if (state.analyticsArr[i].header == "humidity") {
+                    state.analyticsArr[i].header = "濕度";
+                }
+                else if (state.analyticsArr[i].header == "luminance") {
+                    state.analyticsArr[i].header = "光照";
+                }
+                else if (state.analyticsArr[i].header == "atp") {
+                    state.analyticsArr[i].header = "大氣壓力";
+                }
+                else if (state.analyticsArr[i].header == "ec") {
+                    state.analyticsArr[i].header = "EC值";
+                }
+                else if (state.analyticsArr[i].header == "ph") {
+                    state.analyticsArr[i].header = "PH值";
+                }
+                else if (state.analyticsArr[i].header == "soil_temp") {
+                    state.analyticsArr[i].header = "土壤溫度";
+                }
+                else if (state.analyticsArr[i].header == "soil_humid") {
+                    state.analyticsArr[i].header = "土壤濕度";
+                }
+                else if (state.analyticsArr[i].header == "uv") {
+                    state.analyticsArr[i].header = "UV值";
+                }
+
+                // if (state.analyticsArr[i].temp == 2) {
+                //     state.analyticsArr[i].temp = "";
+                // } 
+                // else if (state.analyticsArr[i].humidity == 2) {
+                //     state.analyticsArr[i].humidity = "";
+                // }
+                // else if (state.analyticsArr[i].luminance == 2) {
+                //     state.analyticsArr[i].luminance = "";
+                // }
+                // else if (state.analyticsArr[i].atp == 2) {
+                //     state.analyticsArr[i].atp = "";
+                // }
+                // else if (state.analyticsArr[i].ec == 2) {
+                //     state.analyticsArr[i].ec = "";
+                // }
+                // else if (state.analyticsArr[i].ph == 2) {
+                //     state.analyticsArr[i].ph = "";
+                // }
+                // else if (state.analyticsArr[i].soil_temp == 2) {
+                //     state.analyticsArr[i].soil_temp = "";
+                // }
+                // else if (state.analyticsArr[i].soil_humid == 2) {
+                //     state.analyticsArr[i].soil_humid = "";
+                // }
+                // else if (state.analyticsArr[i].uv == 2) {
+                //     state.analyticsArr[i].uv = "";
+                // }
+            }
+            
+        }
+        else {
+            this.$toast.error(res.data.msg, { icon: 'error' });
+        }
     }
 };
 export const getters = {
@@ -241,4 +321,5 @@ export const getters = {
     Type1: state => state.type1,
     Type2: state => state.type2,
     Old_type: state => state.old_type,
+    AnalyticsData: state => state.analyticsArr,
 };

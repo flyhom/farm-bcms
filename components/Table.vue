@@ -56,6 +56,9 @@ export default {
 
             idx: 0,
             funcdone: false,
+
+            startDate: '2021-04-01 00:00',
+            endDate: '2021-05-01 00:00',
         }
     },
     // mounted(){
@@ -65,22 +68,6 @@ export default {
         FarmData(){
             this.farmdata = this.$store.getters.FarmData;
             return this.$store.getters.FarmData;
-        },
-        startDate(){
-            if (this.starttime == '' || this.startdate == '') {
-                this.start = '';
-                return '';
-            }
-            this.start = this.startdate + " " + this.starttime + ":00";
-            return this.startdate + " " + this.starttime
-        },
-        endDate(){
-            if (this.endtime == '' || this.enddate == '') {
-                this.end = '';
-                return '';
-            }
-            this.end = this.enddate + " " + this.endtime + ":00";
-            return this.enddate + " " + this.endtime
         },
         startcheck(){
             if (this.starttime == '' || this.startdate == '') {
@@ -154,13 +141,9 @@ export default {
         },
         closestart(){
             this.menustart = false;
-            this.startdate = '2021-04-01';
-            this.starttime = '00:00';
         },
         closeend(){
             this.menuend = false;
-            this.enddate = '2021-05-01';
-            this.endtime = '00:00';
         },
         clear(){
             this.$store.dispatch("handClearfarm");
@@ -338,6 +321,30 @@ export default {
             this.timehour = "dark";
             this.timemin = "success";
         },
+        starttextset(){
+            this.start = this.startDate + ':00';
+            const x = this.startDate.split(" ");
+            this.startdate = x[0];
+            this.starttime = x[1];
+            console.log(this.startdate);
+        },
+        startdatetime(){
+            this.startDate = this.startdate + " " + this.starttime;
+            this.start = this.startdate + " " + this.starttime + ":00";
+            this.menustart = false;
+        },
+        endtextset(){
+            this.end = this.endDate + ':00';
+            const a = this.endDate.split(" ");
+            this.enddate = a[0];
+            this.endtime = a[1];
+        },
+        enddatetime(){
+            this.endDate = this.enddate + " " + this.endtime;
+            this.end = this.enddate + " " + this.endtime + ":00";
+            // console.log(this.endDate);
+            this.menuend = false;
+        },
         advanced_selecttype(item){
             this.advanced.splice(item.idx,1,item);
             this.chip.splice(item.idx,1,item);
@@ -439,11 +446,10 @@ export default {
                             prepend-icon="mdi-calendar"
                             @click:prepend="openstart"
                             class="shrink"
+                            @change="starttextset"
                         ></v-text-field>
                         <v-dialog
-                            ref="dialogstart"
                             v-model="menustart"
-                            :return-value.sync="startdate"
                             persistent
                             width="600px"
                         >
@@ -488,7 +494,7 @@ export default {
                                 </v-btn>
                                 <v-btn
                                     color="success"
-                                    @click="$refs.dialogstart.save(startdate)"
+                                    @click="startdatetime()"
                                     :disabled="startcheck"
                                 >
                                     確定
@@ -503,12 +509,11 @@ export default {
                             prepend-icon="mdi-calendar"
                             @click:prepend="openend"
                             hide-details
+                            @change="endtextset"
                             class="shrink"
                         ></v-text-field>
         <!-- 結束日 --> <v-dialog
-                            ref="dialogend"
                             v-model="menuend"
-                            :return-value.sync="enddate"
                             persistent
                             width="600px"
                         >
@@ -554,7 +559,7 @@ export default {
                                     </v-btn>
                                     <v-btn
                                         color="success"
-                                        @click="$refs.dialogend.save(enddate)"
+                                        @click="enddatetime()"
                                         :disabled="endcheck"
                                     >
                                         確認

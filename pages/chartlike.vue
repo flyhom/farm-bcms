@@ -1,10 +1,8 @@
 <script>
-import Chart from '@/components/Chart.vue';
-import ChartTwoSer from '@/components/ChartTwoSer.vue';
+import Chartpot from '@/components/Chartpot.vue';
 export default {
   components:{
-    Chart,
-    ChartTwoSer,
+    Chartpot,
   },
   data(){
     return {
@@ -70,33 +68,6 @@ export default {
     },
     TimeData(){
       return this.$store.getters.TimeData;
-    },
-    TempData(){
-      return this.$store.getters.TempData;
-    },
-    HumidityData(){
-      return this.$store.getters.HumidityData;
-    },
-    LuminanceData(){
-      return this.$store.getters.LuminanceData;
-    },
-    AtpData(){
-      return this.$store.getters.AtpData;
-    },
-    EcData(){
-      return this.$store.getters.EcData;
-    },
-    PhData(){
-      return this.$store.getters.PhData;
-    },
-    Soil_tempData(){
-      return this.$store.getters.Soil_tempData;
-    },
-    Soil_humidData(){
-      return this.$store.getters.Soil_humidData;
-    },
-    UvData(){
-      return this.$store.getters.UvData;
     },
     Title(){
         for (let i = 0; i < this.type_ch.length; i++) {
@@ -490,7 +461,7 @@ export default {
                   bottom
               >          
                   <v-toolbar-title>
-                      <h3>折線圖</h3>
+                      <h3>數據分析圖</h3>
                   </v-toolbar-title>                       
                   <v-spacer></v-spacer>
                   <v-text-field
@@ -755,19 +726,7 @@ export default {
                 top
                 color="#40b47f"
             ></v-progress-linear>
-            <Chart v-if="chartloading" :chartWidth="width" :chartHeight="height" :title="Title" :charttitle="Charttitle"
-              :timeData="TimeData"
-              :tempData="TempData" 
-              :humidityData="HumidityData"
-              :luminanceData="LuminanceData"
-              :atpData="AtpData"
-              :ecData="EcData"
-              :phData="PhData"
-              :soil_tempData="Soil_tempData"
-              :soil_humidData="Soil_humidData"
-              :uvData="UvData"
-            />
-            <ChartTwoSer v-if="charttwoloading" :chartWidth="width" :chartHeight="height" :title="Title" :charttitle="Charttitle"
+            <Chartpot v-if="charttwoloading" :chartWidth="width" :chartHeight="height" :title="Title" :charttitle="Charttitle"
               :timeData="TimeData"
               :leftdata="LeftData"
               :rightdata="RightData"
