@@ -181,7 +181,7 @@ export default {
         this.endtime = '';
     },
     clear(){
-        this.$store.dispatch("handClearfarm");
+        this.$store.dispatch("handClearchart");
         this.tempcolor = "dark"; 
         this.humiditycolor = "dark";
         this.atpcolor = "dark";
@@ -197,6 +197,9 @@ export default {
         this.chipAdvanced = [];
         this.funcdone = false;
         this.idx = 0;
+        this.chartloading = false;
+        this.charttwoloading = false;
+        this.old_type = [];
     },
     //search
     async searchdata(){
