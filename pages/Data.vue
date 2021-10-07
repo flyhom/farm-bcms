@@ -11,7 +11,7 @@ export default {
       loading: false,
       chartloading: false,
       charttwoloading: false,
-      width: '100%',
+      width: '98%',
       height: '700px',
       title: [],
       charttitle: [],
