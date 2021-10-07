@@ -188,15 +188,21 @@ export default {
     morefunc(){
         this.dialogfunc = true;
     },
+    openstart(){
+        this.menustart = true;
+    },
+    openend(){
+        this.menuend = true;
+    },
     closestart(){
         this.menustart = false;
-        this.startdate = '';
-        this.starttime = '';
+        this.startdate = '2021-04-01';
+        this.starttime = '00:00';
     },
     closeend(){
         this.menuend = false;
-        this.enddate = '';
-        this.endtime = '';
+        this.enddate = '2021-05-01';
+        this.endtime = '00:00';
     },
     clear(){
         this.$store.dispatch("handClearchart");
@@ -483,6 +489,16 @@ export default {
                       <h3>折線圖</h3>
                   </v-toolbar-title>                       
                   <v-spacer></v-spacer>
+                  <v-text-field
+                        v-model="startDate"
+                        label="開始日"
+                        hide-details
+                        prepend-icon="mdi-calendar"
+                        @click:prepend="openstart"
+                        v-bind="attrs"
+                        v-on="on"
+                        class="shrink"
+                    ></v-text-field>
   <!-- 起始日 --> <v-dialog
                       ref="dialogstart"
                       v-model="menustart"
@@ -490,17 +506,6 @@ export default {
                       persistent
                       width="600px"
                   >
-                      <template v-slot:activator="{ on, attrs }">
-                          <v-text-field
-                              v-model="startDate"
-                              label="開始日"
-                              readonly
-                              hide-details
-                              prepend-icon="mdi-calendar"
-                              v-bind="attrs"
-                              v-on="on"
-                          ></v-text-field>
-                      </template>
                       <v-card dark>
                           <v-card-title>
                               <h3>開始日</h3>
@@ -551,6 +556,16 @@ export default {
                       </v-card>                        
                   </v-dialog>
                   <v-spacer></v-spacer>
+                  <v-text-field
+                        v-model="endDate"
+                        label="結束日"
+                        prepend-icon="mdi-calendar"
+                        @click:prepend="openend"
+                        hide-details
+                        v-bind="attrs"
+                        v-on="on"
+                        class="shrink"
+                    ></v-text-field>
   <!-- 起始日 --> <v-dialog
                       ref="dialogend"
                       v-model="menuend"
@@ -558,16 +573,6 @@ export default {
                       persistent
                       width="600px"
                   >
-                  <template v-slot:activator="{ on, attrs }">
-                      <v-text-field
-                          v-model="endDate"
-                          label="結束日"
-                          prepend-icon="mdi-calendar"
-                          hide-details
-                          v-bind="attrs"
-                          v-on="on"
-                      ></v-text-field>
-                  </template>
                   <v-card dark>
                       <v-card-title>
                           <h3>結束日</h3>
@@ -779,8 +784,8 @@ export default {
 </template>
 
 <style scoped>
-    /deep/ .v-text-field{
-        width: 0px;
+    .shrink{
+        width: 160px;
     }
 </style>
 
