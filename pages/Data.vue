@@ -281,6 +281,7 @@ export default {
         else{
             this.humiditycolor = "dark";
             this.type = this.type.filter(e => e !== "humidity");
+            this.type_ch = this.type_ch.filter(e => e.id !== "humidity");
         }
     },
     atp(){
@@ -292,6 +293,7 @@ export default {
         else{
             this.atpcolor = "dark";
             this.type = this.type.filter(e => e !== "atp");
+            this.type_ch = this.type_ch.filter(e => e.id !== "atp");
         }  
     },
     luminance(){
@@ -303,6 +305,7 @@ export default {
         else{
             this.luminancecolor = "dark";
             this.type = this.type.filter(e => e !== "luminance");
+            this.type_ch = this.type_ch.filter(e => e.id !== "luminance");
         }  
     },
     ec(){
@@ -314,6 +317,7 @@ export default {
         else{
             this.eccolor = "dark";
             this.type = this.type.filter(e => e !== "ec");
+            this.type_ch = this.type_ch.filter(e => e.id !== "ec");
         }  
     },
     ph(){
@@ -325,6 +329,7 @@ export default {
         else{
             this.phcolor = "dark";
             this.type = this.type.filter(e => e !== "ph");
+            this.type_ch = this.type_ch.filter(e => e.id !== "ph");
         }  
     },
     soil_temp(){
@@ -336,6 +341,7 @@ export default {
         else{
             this.soil_tempcolor = "dark";
             this.type = this.type.filter(e => e !== "soil_temp");
+            this.type_ch = this.type_ch.filter(e => e.id !== "soil_temp");
         }  
     },
     soil_humid(){
@@ -347,6 +353,7 @@ export default {
         else{
             this.soil_humidcolor = "dark";
             this.type = this.type.filter(e => e !== "soil_humid");
+            this.type_ch = this.type_ch.filter(e => e.id !== "soil_humid");
         }  
     },
     uv(){
@@ -358,6 +365,7 @@ export default {
         else{
             this.uvcolor = "dark";
             this.type = this.type.filter(e => e !== "uv");
+            this.type_ch = this.type_ch.filter(e => e.id !== "uv");
         } 
     },
     setday(){

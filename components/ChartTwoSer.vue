@@ -44,7 +44,7 @@ export default {
                 left: "left",
                 textStyle: {
                     fontWeight: "normal",
-                    color: "#FFC107",
+                    color: "#E53935",
                     fontSize: 16
                 }
             },
