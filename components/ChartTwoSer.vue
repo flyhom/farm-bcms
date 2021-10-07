@@ -17,7 +17,7 @@ export default {
             type: String
         },
         title: {
-            type: String
+            type: Array
         },
         type1title: {
             type: String
@@ -25,7 +25,9 @@ export default {
         type2title: {
             type: String
         },
-        
+        charttitle: {
+            type: String
+        }
     },
     data() {
         return {};
@@ -38,8 +40,8 @@ export default {
         ComprehensiveChart.setOption({
             title: {
                 show: true,
-                text: this.title,
-                left: "center",
+                text: this.charttitle,
+                left: "left",
                 textStyle: {
                     fontWeight: "normal",
                     color: "#fff",
@@ -50,12 +52,21 @@ export default {
                 trigger: "axis",
                 axisPointer: {
                     type: 'cross'
+                },
+            },
+            toolbox: {
+                feature: {
+                    saveAsImage: {}
                 }
             },
-            // legend: {
-            //     data: ["完成率"],
-            //     x: "left"
-            // },
+            legend: {
+                data: this.title,
+                textStyle: {
+                    color: '#ccc'
+                },
+                top: 'start',
+                right: '50'
+            },
             grid: {
                 left: "3%",
                 right: "4%",

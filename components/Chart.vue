@@ -38,9 +38,11 @@ export default {
             type: String
         },
         title: {
-            type: String
+            type: Array
         },
-        
+        charttitle: {
+            type: String
+        }
     },
     data() {
         return {};
@@ -53,8 +55,8 @@ export default {
         ComprehensiveChart.setOption({
             title: {
                 show: true,
-                text: this.title,
-                left: "center",
+                text: this.charttitle,
+                left: "left",
                 textStyle: {
                     fontWeight: "normal",
                     color: "#fff",
@@ -67,10 +69,23 @@ export default {
                     type: "shadow"
                 }
             },
+            toolbox: {
+                feature: {
+                    saveAsImage: {}
+                },
+            },
             // legend: {
             //     data: ["溫度"],
             //     x: "left"
             // },
+            legend: {
+                data: this.title,
+                textStyle: {
+                    color: '#ccc'
+                },
+                top: 'start',
+                right: '50'
+            },
             grid: {
                 left: "3%",
                 right: "4%",
@@ -84,7 +99,6 @@ export default {
             yAxis: [
                 {
                     type: "value",
-                    name: this.title,
                     position: 'left',
                 },
             ],
@@ -291,7 +305,7 @@ export default {
 
 <template>
     <v-card dark>
-        <v-row>
+        <v-row justify="center">
             <v-col>
                 <div 
                 ref="ComprehensiveChart"

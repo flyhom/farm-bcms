@@ -13,7 +13,8 @@ export default {
       charttwoloading: false,
       width: '100%',
       height: '700px',
-      title: '感測器數值',
+      title: [],
+      charttitle: [],
       //查詢工具列
       old_type: [],
       type: [],
@@ -44,6 +45,9 @@ export default {
       dialogfunc: false,
       idx: 0,
       funcdone: false,
+      timeday: "success",
+      timehour: "dark",
+      timemin: "dark",
     }
   },
   mounted(){
@@ -91,6 +95,21 @@ export default {
     },
     UvData(){
       return this.$store.getters.UvData;
+    },
+    Title(){
+        for (let i = 0; i < this.type_ch.length; i++) {
+            const element = this.type_ch[i].text;
+            this.title.push(element);
+        }
+        return this.title;
+    },
+    Charttitle(){
+        for (let i = 0; i < this.type_ch.length; i++) {
+            const element = this.type_ch[i].text;
+            this.charttitle.push(element);
+        }
+        let b = this.charttitle.toString();
+        return `${this.charttitle} & ${this.start} - ${this.end}`;
     },
     //日期選擇
     startDate(){
@@ -200,12 +219,14 @@ export default {
         this.chartloading = false;
         this.charttwoloading = false;
         this.old_type = [];
+        this.title = [];
     },
     //search
     async searchdata(){
         this.loading = true;
         this.chartloading = false;
         this.charttwoloading = false;
+        this.title = [];
         await this.$store.dispatch('handType', this.type);
         await this.$store.dispatch('chartdata', {
             type: this.type, 
@@ -337,6 +358,24 @@ export default {
             this.uvcolor = "dark";
             this.type = this.type.filter(e => e !== "uv");
         } 
+    },
+    setday(){
+        this.selecttime = "day";
+        this.timeday = "success";
+        this.timehour = "dark";
+        this.timemin = "dark";
+    },
+    sethour(){
+        this.selecttime = "hour"; 
+        this.timeday = "dark";
+        this.timehour = "success";
+        this.timemin = "dark";
+    },
+    setmin(){
+        this.selecttime = "min";
+        this.timeday = "dark";
+        this.timehour = "dark";
+        this.timemin = "success";
     },
     advanced_selecttype(item){
         this.advanced.splice(item.idx,1,item);
@@ -571,14 +610,9 @@ export default {
                       </v-card>                        
                   </v-dialog>
                   <v-spacer></v-spacer>
-                  <v-select
-                      v-model="selecttime"
-                      :items="[{'id':'day', 'text':'天'},{'id':'hour','text':'時'},{'id':'min','text':'分'}]"
-                      item-text="text"
-                      item-value="id"
-                      label="時間"
-                      hide-details
-                  ></v-select>    
+                  <v-btn :color="timeday" fab small elevation="3" @click="setday">天</v-btn>    
+                  <v-btn :color="timehour" fab small elevation="3" @click="sethour" class="mx-3">時</v-btn>    
+                  <v-btn :color="timemin" fab small elevation="3" @click="setmin">分</v-btn> 
                   <v-spacer></v-spacer>
                   <v-btn
                       color="#40b47f"
@@ -709,7 +743,7 @@ export default {
                 top
                 color="#40b47f"
             ></v-progress-linear>
-            <Chart v-if="chartloading" :chartWidth="width" :chartHeight="height" :title="title" 
+            <Chart v-if="chartloading" :chartWidth="width" :chartHeight="height" :title="Title" :charttitle="Charttitle"
               :timeData="TimeData"
               :tempData="TempData" 
               :humidityData="HumidityData"
@@ -721,7 +755,7 @@ export default {
               :soil_humidData="Soil_humidData"
               :uvData="UvData"
             />
-            <ChartTwoSer v-if="charttwoloading" :chartWidth="width" :chartHeight="height" :title="title"
+            <ChartTwoSer v-if="charttwoloading" :chartWidth="width" :chartHeight="height" :title="Title" :charttitle="Charttitle"
               :timeData="TimeData"
               :leftdata="LeftData"
               :rightdata="RightData"
@@ -734,5 +768,11 @@ export default {
     </v-main>
   </v-app>
 </template>
+
+<style scoped>
+    /deep/ .v-text-field{
+        width: 0px;
+    }
+</style>
 
 

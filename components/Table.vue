@@ -45,6 +45,10 @@ export default {
             soil_humidcolor: "dark",
             uvcolor: "dark",
             dialogfunc: false,
+            //timebtn
+            timeday: "success",
+            timehour: "dark",
+            timemin: "dark",
             
             farmdata: [],
             typeheaders: [],
@@ -310,6 +314,24 @@ export default {
                 this.typeheaders = this.typeheaders.filter(e => e !== "uv");
             } 
         },
+        setday(){
+            this.selecttime = "day";
+            this.timeday = "success";
+            this.timehour = "dark";
+            this.timemin = "dark";
+        },
+        sethour(){
+            this.selecttime = "hour"; 
+            this.timeday = "dark";
+            this.timehour = "success";
+            this.timemin = "dark";
+        },
+        setmin(){
+            this.selecttime = "min";
+            this.timeday = "dark";
+            this.timehour = "dark";
+            this.timemin = "success";
+        },
         advanced_selecttype(item){
             this.advanced.splice(item.idx,1,item);
             this.chip.splice(item.idx,1,item);
@@ -540,14 +562,9 @@ export default {
                             </v-card>                        
                         </v-dialog>
                         <v-spacer></v-spacer>
-                        <v-select
-                            v-model="selecttime"
-                            :items="[{'id':'day', 'text':'天'},{'id':'hour','text':'時'},{'id':'min','text':'分'}]"
-                            item-text="text"
-                            item-value="id"
-                            label="時間"
-                            hide-details
-                        ></v-select>    
+                            <v-btn :color="timeday" fab small elevation="3" @click="setday">天</v-btn>    
+                            <v-btn :color="timehour" fab small elevation="3" @click="sethour" class="mx-3">時</v-btn>    
+                            <v-btn :color="timemin" fab small elevation="3" @click="setmin">分</v-btn>    
                         <v-spacer></v-spacer>
                         <v-btn
                             color="#40b47f"
@@ -740,4 +757,7 @@ export default {
         height: 8px;
         background-color: #508bce;
     } */
+    /deep/ .v-text-field{
+        width: 0px;
+    }
 </style>
