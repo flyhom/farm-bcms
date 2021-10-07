@@ -3,6 +3,7 @@ export default {
     data(){
         return{
             loading: false,
+            showtable: false,
             headerArray: [
                 { text: '欄位名稱/相似度', value: 'header', width: '100', align: 'center', divider: true, sortable: false },
                 { text: '大氣壓力', value: 'atp', width: '100', align: 'center', divider: true, sortable: false },
@@ -84,6 +85,7 @@ export default {
                 time: this.selecttime
             });
             // console.log(this.typeheaders);
+            this.showtable = true;
             this.loading = false;
         },
         setday(){
@@ -303,6 +305,7 @@ export default {
                                     ></v-progress-linear>
                                     
                                     <v-data-table
+                                        v-if="showtable"
                                         dark
                                         :items="AnalyticsData"
                                         :headers="headerArray"
