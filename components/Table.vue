@@ -438,8 +438,6 @@ export default {
                             hide-details
                             prepend-icon="mdi-calendar"
                             @click:prepend="openstart"
-                            v-bind="attrs"
-                            v-on="on"
                             class="shrink"
                         ></v-text-field>
                         <v-dialog
@@ -505,8 +503,6 @@ export default {
                             prepend-icon="mdi-calendar"
                             @click:prepend="openend"
                             hide-details
-                            v-bind="attrs"
-                            v-on="on"
                             class="shrink"
                         ></v-text-field>
         <!-- 結束日 --> <v-dialog
