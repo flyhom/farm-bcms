@@ -57,6 +57,10 @@ export default {
             toolbox: {
                 feature: {
                     saveAsImage: {}
+                },
+                iconStyle:{
+                    color:'#000',//設定顏色
+                    borderColor: '#fff'
                 }
             },
             legend: {
