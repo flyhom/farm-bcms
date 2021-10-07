@@ -220,6 +220,7 @@ export default {
         this.charttwoloading = false;
         this.old_type = [];
         this.title = [];
+        this.charttitle = [];
     },
     //search
     async searchdata(){
@@ -227,6 +228,7 @@ export default {
         this.chartloading = false;
         this.charttwoloading = false;
         this.title = [];
+        this.charttitle = [];
         await this.$store.dispatch('handType', this.type);
         await this.$store.dispatch('chartdata', {
             type: this.type, 
