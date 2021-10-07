@@ -222,7 +222,11 @@ export default {
             if (this.old_type.length == 2) {
                 this.charttwoloading = true;
             }
-            else {
+            else if (this.old_type.length == 0){
+                this.chartloading = false;
+                this.charttwoloading = false;
+            }
+            else{
                 this.chartloading = true;
             }
         }
