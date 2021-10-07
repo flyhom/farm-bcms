@@ -30,12 +30,20 @@ export default {
             <router-link to="/">
                 <v-list-item link>
                     <v-list-item-icon>
+                    <v-icon>mdi-home</v-icon>
+                    </v-list-item-icon>
+                    <v-list-item-title>首頁</v-list-item-title>
+                </v-list-item>
+            </router-link>
+            <router-link to="/list">
+                <v-list-item link>
+                    <v-list-item-icon>
                     <v-icon>mdi-text-box-search</v-icon>
                     </v-list-item-icon>
                     <v-list-item-title>感測器資料</v-list-item-title>
                 </v-list-item>
             </router-link>
-            <router-link to="/Data">
+            <router-link to="/chart">
                 <v-list-item link>
                     <v-list-item-icon>
                     <v-icon>mdi-chart-bell-curve</v-icon>

@@ -196,13 +196,9 @@ export default {
     },
     closestart(){
         this.menustart = false;
-        this.startdate = '2021-04-01';
-        this.starttime = '00:00';
     },
     closeend(){
         this.menuend = false;
-        this.enddate = '2021-05-01';
-        this.endtime = '00:00';
     },
     clear(){
         this.$store.dispatch("handClearchart");
