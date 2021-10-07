@@ -763,6 +763,6 @@ export default {
         background-color: #508bce;
     } */
     .shrink{
-        width: 160px;
+        width: auto;
     }
 </style>

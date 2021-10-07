@@ -781,7 +781,7 @@ export default {
 
 <style scoped>
     .shrink{
-        width: 160px;
+       width: auto;
     }
 </style>
 
