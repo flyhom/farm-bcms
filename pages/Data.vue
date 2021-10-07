@@ -108,7 +108,6 @@ export default {
             const element = this.type_ch[i].text;
             this.charttitle.push(element);
         }
-        let b = this.charttitle.toString();
         return `${this.charttitle} & ${this.start} - ${this.end}`;
     },
     //日期選擇
