@@ -55,9 +55,11 @@ export default {
             }
         }
     },
-    // mounted(){
-    //     window.addEventListener("scroll", this.scrolling)
-    // },
+    mounted(){
+        if (this.$store.getters.AnalyticsData.length !== 0 ) {
+            this.showtable = true;
+        }
+    },
     computed:{
         AnalyticsData(){
             this.analyticsdata = this.$store.getters.AnalyticsData;
