@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "nuxt --port 2500",
-    "build": "nuxt build --port 2500",
+    "dev": "nuxt --port 2500 --spa",
+    "build": "nuxt build --port 2500 --spa",
     "start": "nuxt start --port 2500",
     "generate": "nuxt generate"
   },
