@@ -40,6 +40,19 @@ export default {
             analyticsdata: [],
             startDate: '2021-04-01 00:00',
             endDate: '2021-05-01 00:00',
+
+            csvheader:{
+                header: '欄位名稱/相似度',
+                atp: '大氣壓力',
+                ec: 'EC值',
+                humidity: '濕度',
+                luminance: '光照',
+                ph: 'PH值',
+                soil_humid: '土壤濕度',
+                soil_temp: '土壤溫度',
+                temp: '溫度',
+                uv: 'UV值',
+            }
         }
     },
     // mounted(){
@@ -62,6 +75,14 @@ export default {
             }
             return false;
         },
+        downloadbtn(){
+            if (this.analyticsdata.length == 0) {
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
     },
     methods:{
         openstart(){
@@ -291,6 +312,18 @@ export default {
                             
                             搜尋
                         </v-btn>
+                        <downloadCsv :data="AnalyticsData" name="感測器相似度.csv" :labels="csvheader">
+                            <v-btn
+                                color="primary"
+                                elevation="8"
+                                fab
+                                small
+                                dark
+                                :disabled="downloadbtn"
+                            >
+                                <v-icon dark>mdi-download</v-icon>
+                            </v-btn>
+                        </downloadCsv>
                     </v-app-bar>
                     <v-card-text>
                         <v-container fluid>
