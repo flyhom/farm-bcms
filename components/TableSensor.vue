@@ -166,7 +166,7 @@ export default {
                         height="80"
                     >          
                         <v-toolbar-title>
-                            <h3>感測器相似度</h3>
+                            <h3>相關係數</h3>
                         </v-toolbar-title>                       
                         <v-spacer></v-spacer>
     <!-- 起始日 -->      <v-text-field

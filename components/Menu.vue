@@ -1,6 +1,13 @@
 <script>
 export default {
-    
+    methods:{
+        routertablelike(){
+            this.$router.push('sensorlike');
+        },
+        routerchartlike(){
+            this.$router.push('chartlike');
+        },
+    }
 }
 </script>
 
@@ -51,22 +58,47 @@ export default {
                     <v-list-item-title>折線圖</v-list-item-title>
                 </v-list-item>
             </router-link>
-            <router-link to="/sensorlike">
+            <v-list-group
+                prepend-icon="mdi-poll"
+                no-action
+                color="#fff"
+            >
+                <template v-slot:activator>
+                <v-list-item-content>
+                    <v-list-item-title>分析</v-list-item-title>
+                </v-list-item-content>
+                </template>
+
+                <v-list-item link @click="routertablelike">
+                    <v-list-item-title>相關係數</v-list-item-title>
+                    <v-list-item-icon>
+                        <v-icon>mdi-text-box-search</v-icon>
+                    </v-list-item-icon>
+                </v-list-item>
+                <v-list-item link @click="routerchartlike">
+                    <v-list-item-title>數據分析</v-list-item-title>
+                    <v-list-item-icon>
+                        <v-icon>mdi-chart-scatter-plot</v-icon>
+                    </v-list-item-icon>
+                </v-list-item>
+            </v-list-group>
+
+            <!-- <router-link to="/sensorlike">
                 <v-list-item link>
                     <v-list-item-icon>
-                    <v-icon>mdi-text-box-search</v-icon>
+                    <v-icon></v-icon>
                     </v-list-item-icon>
-                    <v-list-item-title>感測器相似度</v-list-item-title>
+                    <v-list-item-title></v-list-item-title>
                 </v-list-item>
-            </router-link>
-             <router-link to="/chartlike">
+            </router-link> -->
+            <!-- <router-link to="/chartlike">
                 <v-list-item link>
                     <v-list-item-icon>
-                    <v-icon>mdi-chart-scatter-plot</v-icon>
+                    <v-icon></v-icon>
                     </v-list-item-icon>
-                    <v-list-item-title>數據分析圖</v-list-item-title>
+                    <v-list-item-title></v-list-item-title>
                 </v-list-item>
-            </router-link>
+            </router-link> -->
             </v-list>
         </v-navigation-drawer>
     </div> 

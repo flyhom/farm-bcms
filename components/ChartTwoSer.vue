@@ -56,7 +56,8 @@ export default {
             },
             toolbox: {
                 feature: {
-                    saveAsImage: {}
+                    saveAsImage: {
+                    },
                 },
                 iconStyle:{
                     color:'#000',//設定顏色
