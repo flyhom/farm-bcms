@@ -9,7 +9,7 @@ export default {
                 { text: '濕度', value: 'humidity' },
                 { text: '大氣壓力', value: 'atp', },
                 { text: '光照', value: 'luminance' },
-                { text: 'EC值', value: 'ec' },
+                { text: '導電度', value: 'ec' },
                 { text: 'PH值', value: 'ph' },
                 { text: '土壤溫度', value: 'soil_temp' },
                 { text: '土壤濕度', value: 'soil_humid' },
@@ -242,7 +242,7 @@ export default {
             if (this.eccolor === "dark"){
                 this.eccolor = "primary";
                 this.type.push("ec");
-                this.type_ch.push({ 'id':'ec', 'text':'EC值' });
+                this.type_ch.push({ 'id':'ec', 'text':'導電度' });
                 this.typeheaders.push("ec"); 
             }
             else{
@@ -436,7 +436,7 @@ export default {
                         height="80"
                     >          
                         <v-toolbar-title>
-                            <h3>感測器資料</h3>
+                            <h3>原始資料</h3>
                         </v-toolbar-title>                       
                         <v-spacer></v-spacer>
     <!-- 起始日 -->      <v-text-field
@@ -615,7 +615,7 @@ export default {
                                         <span v-if="item.sensor == 'humidity'">濕度 {{item.operation}} {{item.value}}</span> 
                                         <span v-if="item.sensor == 'luminance'">光照 {{item.operation}} {{item.value}}</span> 
                                         <span v-if="item.sensor == 'atp'">大氣壓力 {{item.operation}} {{item.value}}</span> 
-                                        <span v-if="item.sensor == 'ec'">EC值 {{item.operation}} {{item.value}}</span> 
+                                        <span v-if="item.sensor == 'ec'">導電度 {{item.operation}} {{item.value}}</span> 
                                         <span v-if="item.sensor == 'ph'">PH值 {{item.operation}} {{item.value}}</span> 
                                         <span v-if="item.sensor == 'soil_humid'">土壤濕度 {{item.operation}} {{item.value}}</span> 
                                         <span v-if="item.sensor == 'soil_temp'">土壤溫度 {{item.operation}} {{item.value}}</span> 
@@ -664,7 +664,7 @@ export default {
                                         :color="eccolor"
                                         @click="ec"
                                         elevation="10"
-                                    >EC值</v-btn>
+                                    >導電度</v-btn>
                                 </v-col>
                                 <v-col class="text-center">
                                     <v-btn

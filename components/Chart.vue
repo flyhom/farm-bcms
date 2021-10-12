@@ -66,7 +66,7 @@ export default {
             tooltip: {
                 trigger: "axis",
                 axisPointer: {
-                    type: "shadow"
+                    type: "cross"
                 }
             },
             toolbox: {
@@ -194,7 +194,7 @@ export default {
                     data: this.atpData,
                 },
                 {
-                    name: "EC值",
+                    name: "導電度",
                     type: "line",
                     color: [
                         '#eedd78',
@@ -251,7 +251,7 @@ export default {
                         '#f49f42'
                     ],
                     lineStyle: {
-                            color: '#73a373',
+                            color: '#ea7e53',
                             width: 2,
                     },
                     data: this.soil_tempData,

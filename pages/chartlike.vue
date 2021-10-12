@@ -218,11 +218,45 @@ export default {
         }
         this.loading = false;
     },
+    filtersensorcolor(sensor){
+        if (sensor == "temp") {
+            this.tempcolor = "dark";
+        }
+        else if (sensor == "humidity"){
+            this.humiditycolor = "dark";
+        }
+        else if (sensor == "atp"){
+            this.atpcolor = "dark";
+        }
+        else if (sensor == "luminance"){
+            this.luminancecolor = "dark";
+        }
+        else if (sensor == "ph"){
+            this.phcolor = "dark";
+        }
+        else if (sensor == "ec"){
+            this.eccolor = "dark";
+        }
+        else if (sensor == "soil_humid"){
+            this.soil_humidcolor = "dark";
+        }
+        else if (sensor == "soil_temp"){
+            this.soil_tempcolor = "dark";
+        }
+        else if (sensor == "uv"){
+            this.uvcolor = "dark";
+        }
+    },
     temp(){
         if (this.tempcolor === "dark"){
             this.tempcolor = "primary";   
             this.type.push("temp");
-            this.type_ch.push({ 'id':'temp', 'text':'溫度' });            
+            this.type_ch.push({ 'id':'temp', 'text':'溫度' }); 
+            if (this.type.length > 2) {
+                const a = this.type.shift();
+                this.type_ch.shift();
+                this.filtersensorcolor(a);
+            }           
         }
         else{
             this.tempcolor = "dark"; 
@@ -235,6 +269,11 @@ export default {
             this.humiditycolor = "primary";
             this.type.push("humidity");
             this.type_ch.push({ 'id':'humidity', 'text':'濕度' });
+            if (this.type.length > 2) {
+                const a = this.type.shift();
+                this.type_ch.shift();
+                this.filtersensorcolor(a);
+            }
         }
         else{
             this.humiditycolor = "dark";
@@ -247,6 +286,11 @@ export default {
             this.atpcolor = "primary";
             this.type.push("atp");
             this.type_ch.push({ 'id':'atp', 'text':'大氣壓力' });
+            if (this.type.length > 2) {
+                const a = this.type.shift();
+                this.type_ch.shift();
+                this.filtersensorcolor(a);
+            }
         }
         else{
             this.atpcolor = "dark";
@@ -258,7 +302,12 @@ export default {
         if (this.luminancecolor === "dark"){
             this.luminancecolor = "primary";
             this.type.push("luminance");
-            this.type_ch.push({ 'id':'luminance', 'text':'光照' }); 
+            this.type_ch.push({ 'id':'luminance', 'text':'光照' });
+            if (this.type.length > 2) {
+                const a = this.type.shift();
+                this.type_ch.shift();
+                this.filtersensorcolor(a);
+            }
         }
         else{
             this.luminancecolor = "dark";
@@ -270,7 +319,12 @@ export default {
         if (this.eccolor === "dark"){
             this.eccolor = "primary";
             this.type.push("ec");
-            this.type_ch.push({ 'id':'ec', 'text':'EC值' });
+            this.type_ch.push({ 'id':'ec', 'text':'導電度' });
+            if (this.type.length > 2) {
+                const a = this.type.shift();
+                this.type_ch.shift();
+                this.filtersensorcolor(a);
+            }
         }
         else{
             this.eccolor = "dark";
@@ -283,6 +337,11 @@ export default {
             this.phcolor = "primary";
             this.type.push("ph");
             this.type_ch.push({ 'id':'ph', 'text':'PH值' });
+            if (this.type.length > 2) {
+                const a = this.type.shift();
+                this.type_ch.shift();
+                this.filtersensorcolor(a);
+            }
         }
         else{
             this.phcolor = "dark";
@@ -295,6 +354,11 @@ export default {
             this.soil_tempcolor = "primary";
             this.type.push("soil_temp");
             this.type_ch.push({ 'id':'soil_temp', 'text':'土壤溫度' });
+            if (this.type.length > 2) {
+                const a = this.type.shift();
+                this.type_ch.shift();
+                this.filtersensorcolor(a);
+            }
         }
         else{
             this.soil_tempcolor = "dark";
@@ -307,6 +371,11 @@ export default {
             this.soil_humidcolor = "primary";
             this.type.push("soil_humid");
             this.type_ch.push({ 'id':'soil_humid', 'text':'土壤濕度' });
+            if (this.type.length > 2) {
+                const a = this.type.shift();
+                this.type_ch.shift();
+                this.filtersensorcolor(a);
+            }
         }
         else{
             this.soil_humidcolor = "dark";
@@ -319,6 +388,11 @@ export default {
             this.uvcolor = "primary";
             this.type.push("uv"); 
             this.type_ch.push({ 'id':'uv', 'text':'UV值' });
+            if (this.type.length > 2) {
+                const a = this.type.shift();
+                this.type_ch.shift();
+                this.filtersensorcolor(a);
+            }
         }
         else{
             this.uvcolor = "dark";
@@ -639,7 +713,7 @@ export default {
                                 <span v-if="item.sensor == 'humidity'">濕度 {{item.operation}} {{item.value}}</span> 
                                 <span v-if="item.sensor == 'luminance'">光照 {{item.operation}} {{item.value}}</span> 
                                 <span v-if="item.sensor == 'atp'">大氣壓力 {{item.operation}} {{item.value}}</span> 
-                                <span v-if="item.sensor == 'ec'">EC值 {{item.operation}} {{item.value}}</span> 
+                                <span v-if="item.sensor == 'ec'">導電度 {{item.operation}} {{item.value}}</span> 
                                 <span v-if="item.sensor == 'ph'">PH值 {{item.operation}} {{item.value}}</span> 
                                 <span v-if="item.sensor == 'soil_humid'">土壤濕度 {{item.operation}} {{item.value}}</span> 
                                 <span v-if="item.sensor == 'soil_temp'">土壤溫度 {{item.operation}} {{item.value}}</span> 
@@ -688,7 +762,7 @@ export default {
                                 :color="eccolor"
                                 @click="ec"
                                 elevation="10"
-                            >EC值</v-btn>
+                            >導電度</v-btn>
                         </v-col>
                         <v-col class="text-center">
                             <v-btn

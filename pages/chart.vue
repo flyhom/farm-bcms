@@ -50,6 +50,8 @@ export default {
       timemin: "dark",
       startDate: '2021-04-01 00:00',
       endDate: '2021-05-01 00:00',
+      chartnormal: 'primary',
+      chartsmall: 'dark',
     }
   },
   mounted(){
@@ -299,7 +301,7 @@ export default {
         if (this.eccolor === "dark"){
             this.eccolor = "primary";
             this.type.push("ec");
-            this.type_ch.push({ 'id':'ec', 'text':'EC值' });
+            this.type_ch.push({ 'id':'ec', 'text':'導電度' });
         }
         else{
             this.eccolor = "dark";
@@ -372,6 +374,20 @@ export default {
         this.timeday = "dark";
         this.timehour = "dark";
         this.timemin = "success";
+    },
+    setchartnormal(){
+        this.chartloading = false;
+        this.charttwoloading = false;
+        this.width = '98%';
+        this.chartnormal = 'primary';
+        this.chartsmall = 'dark';
+    },
+    async setchartsmall(){
+        this.chartloading = false;
+        this.charttwoloading = false;
+        this.width = '1185px';
+        this.chartnormal = 'dark';
+        this.chartsmall = 'primary';
     },
     starttextset(){
         this.start = this.startDate + ':00';
@@ -626,6 +642,9 @@ export default {
                   <v-btn :color="timehour" fab small elevation="3" @click="sethour" class="mx-3">時</v-btn>    
                   <v-btn :color="timemin" fab small elevation="3" @click="setmin">分</v-btn> 
                   <v-spacer></v-spacer>
+                  <v-btn :color="chartnormal" fab small elevation="3" @click="setchartnormal">原圖</v-btn>    
+                  <v-btn :color="chartsmall" fab small elevation="3" @click="setchartsmall" class="mx-3">小圖</v-btn>     
+                  <v-spacer></v-spacer>
                   <v-btn
                       color="#40b47f"
                       elevation="8"
@@ -668,7 +687,7 @@ export default {
                                 <span v-if="item.sensor == 'humidity'">濕度 {{item.operation}} {{item.value}}</span> 
                                 <span v-if="item.sensor == 'luminance'">光照 {{item.operation}} {{item.value}}</span> 
                                 <span v-if="item.sensor == 'atp'">大氣壓力 {{item.operation}} {{item.value}}</span> 
-                                <span v-if="item.sensor == 'ec'">EC值 {{item.operation}} {{item.value}}</span> 
+                                <span v-if="item.sensor == 'ec'">導電度 {{item.operation}} {{item.value}}</span> 
                                 <span v-if="item.sensor == 'ph'">PH值 {{item.operation}} {{item.value}}</span> 
                                 <span v-if="item.sensor == 'soil_humid'">土壤濕度 {{item.operation}} {{item.value}}</span> 
                                 <span v-if="item.sensor == 'soil_temp'">土壤溫度 {{item.operation}} {{item.value}}</span> 
@@ -717,7 +736,7 @@ export default {
                                 :color="eccolor"
                                 @click="ec"
                                 elevation="10"
-                            >EC值</v-btn>
+                            >導電度</v-btn>
                         </v-col>
                         <v-col class="text-center">
                             <v-btn

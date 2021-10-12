@@ -7,7 +7,7 @@ export default {
             headerArray: [
                 { text: '欄位名稱/相似度', value: 'header', width: '100', align: 'center', divider: true, sortable: false },
                 { text: '大氣壓力', value: 'atp', width: '100', align: 'center', divider: true, sortable: false },
-                { text: 'EC值', value: 'ec', width: '100', align: 'center', divider: true, sortable: false },
+                { text: '導電度', value: 'ec', width: '100', align: 'center', divider: true, sortable: false },
                 { text: '濕度', value: 'humidity', width: '100', align: 'center', divider: true, sortable: false },
                 { text: '光照', value: 'luminance', width: '100', align: 'center', divider: true, sortable: false },
                 { text: 'PH值', value: 'ph', width: '100', align: 'center', divider: true, sortable: false },
@@ -44,7 +44,7 @@ export default {
             csvheader:{
                 header: '欄位名稱/相似度',
                 atp: '大氣壓力',
-                ec: 'EC值',
+                ec: '導電度',
                 humidity: '濕度',
                 luminance: '光照',
                 ph: 'PH值',
