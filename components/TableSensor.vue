@@ -6,14 +6,14 @@ export default {
             showtable: false,
             headerArray: [
                 { text: '欄位名稱/相似度', value: 'header', width: '100', align: 'center', divider: true, sortable: false },
-                { text: '大氣壓力', value: 'atp', width: '100', align: 'center', divider: true, sortable: false },
-                { text: '導電度', value: 'ec', width: '100', align: 'center', divider: true, sortable: false },
-                { text: '濕度', value: 'humidity', width: '100', align: 'center', divider: true, sortable: false },
                 { text: '光照', value: 'luminance', width: '100', align: 'center', divider: true, sortable: false },
-                { text: 'PH值', value: 'ph', width: '100', align: 'center', divider: true, sortable: false },
-                { text: '土壤濕度', value: 'soil_humid', width: '100', align: 'center', divider: true, sortable: false },
-                { text: '土壤溫度', value: 'soil_temp', width: '100', align: 'center', divider: true, sortable: false },
                 { text: '溫度', value: 'temp', width: '100', align: 'center', divider: true, sortable: false },
+                { text: '濕度', value: 'humidity', width: '100', align: 'center', divider: true, sortable: false },
+                { text: '土壤溫度', value: 'soil_temp', width: '100', align: 'center', divider: true, sortable: false },
+                { text: '土壤濕度', value: 'soil_humid', width: '100', align: 'center', divider: true, sortable: false },
+                { text: '導電度', value: 'ec', width: '100', align: 'center', divider: true, sortable: false },
+                { text: 'PH值', value: 'ph', width: '100', align: 'center', divider: true, sortable: false },
+                { text: '大氣壓力', value: 'atp', width: '100', align: 'center', divider: true, sortable: false },
                 { text: 'UV值', value: 'uv', width: '100', align: 'center', divider: true, sortable: false },
             ],
             page: 1,
@@ -351,6 +351,9 @@ export default {
                                         class="elevation-1 element"
                                         hide-default-footer
                                     >   
+                                        <tempplate v-slot:item.header="{ item }">
+                                            
+                                        </tempplate>
                                         <template v-slot:no-data>
                                             <div>無資料</div>
                                         </template>

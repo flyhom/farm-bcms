@@ -234,7 +234,7 @@ export const mutations = {
         }
     },
     getanalyticsdata(state, res){
-        // console.log(res.data.datas);
+        // console.log(res.data);
         if (res.data.status == 200){
             this.$toast.success(res.data.msg, { icon: 'check_circle' });
             state.analyticsArr = res.data.datas;
