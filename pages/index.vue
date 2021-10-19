@@ -1,9 +1,5 @@
 <script>
-import Table from '@/components/Table';
 export default {
-  components:{
-    Table,
-  },
   methods:{
     tolist(){
       this.$router.push('/list');

@@ -1,8 +1,8 @@
 <script>
-import TableSensor from '@/components/TableSensor';
+import AlzTableSensor from '@/components/AlzTableSensor';
 export default {
   components:{
-    TableSensor,
+    AlzTableSensor,
   }
 
 }
@@ -14,7 +14,7 @@ export default {
       <v-container fluid>
         <v-row justify="center">
           <v-col lg="12" md="12" sm="12" cols="12">
-            <TableSensor />
+            <AlzTableSensor />
           </v-col>
         </v-row>
       </v-container>

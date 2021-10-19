@@ -5,8 +5,10 @@ const authRequest = axios.create({
     headers: { 'Content-Type': 'application/json' },
 })
 
-export const getfarm = data => authRequest.post("/data", data);
+export const postfarm = data => authRequest.post("/data", data);
 
-export const getchart = data => authRequest.post("/chart", data);
+export const postchart = data => authRequest.post("/chart", data);
 
-export const getanalytics = data => authRequest.post("/analytics/correlation", data);
+export const postanalytics = data => authRequest.post("/analytics/correlation", data);
+
+export const postupdate = data => authRequest.post("/update", data);

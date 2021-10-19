@@ -1,4 +1,4 @@
-import { apigetfarm, apigetchart, apigetanalytics } from "../api";
+import { apipostfarm, apipostchart, apipostanalytics, apipostupdate } from "../api";
 export const state = () => ({
     farmArr: [],
     old_type: [],
@@ -36,8 +36,8 @@ export const actions = {
         const { type, advanced, start_time, end_time, time } = payload;
         // console.log(type, start_time, end_time, time);
         try {
-            const res = await apigetfarm({ type, advanced, start_time, end_time, time });
-            commit('getfarmdata',res);
+            const res = await apipostfarm({ type, advanced, start_time, end_time, time });
+            commit('postfarmdata',res);
         } catch (error) {
             console.log(error);
         }
@@ -46,8 +46,8 @@ export const actions = {
         const { type, advanced, start_time, end_time, time } = payload;
         // console.log(type, start_time, end_time, time);
         try {
-            const res = await apigetchart({ type, advanced, start_time, end_time, time });
-            commit('getchartdata',res);
+            const res = await apipostchart({ type, advanced, start_time, end_time, time });
+            commit('postchartdata',res);
         } catch (error) {
             console.log(error);
         }
@@ -56,12 +56,22 @@ export const actions = {
         const { start_time, end_time, time } = payload;
         // console.log(type, start_time, end_time, time);
         try {
-            const res = await apigetanalytics({ start_time, end_time, time });
-            commit('getanalyticsdata',res);
+            const res = await apipostanalytics({ start_time, end_time, time });
+            commit('postanalyticsdata',res);
         } catch (error) {
             console.log(error);
         }
     },
+    async update({ commit }, payload){
+        // const { FormFile } = payload;
+        // console.log(payload);
+        try {
+            const res = await apipostupdate(payload);
+            commit('postupdate',res);
+        } catch (error) {
+            console.log(error);
+        }
+    }
 };
 export const mutations = {
     clearfarm(state){
@@ -144,7 +154,7 @@ export const mutations = {
             }
         }
     },
-    getfarmdata(state, res){
+    postfarmdata(state, res){
         // console.log(res.data);
         if (res.data.status == 200){
             this.$toast.success(res.data.msg, { icon: 'check_circle' });
@@ -156,7 +166,7 @@ export const mutations = {
             state.isFarm = false;
         }
     },
-    getchartdata(state, res){
+    postchartdata(state, res){
         // console.log(res.data.datas);
         if (res.data.status == 200){
             this.$toast.success(res.data.msg, { icon: 'check_circle' });
@@ -233,7 +243,7 @@ export const mutations = {
             state.isChart = false;
         }
     },
-    getanalyticsdata(state, res){
+    postanalyticsdata(state, res){
         // console.log(res.data);
         if (res.data.status == 200){
             this.$toast.success(res.data.msg, { icon: 'check_circle' });
@@ -296,6 +306,15 @@ export const mutations = {
                 // }
             }
             
+        }
+        else {
+            this.$toast.error(res.data.msg, { icon: 'error' });
+        }
+    },
+    postupdate(state,res){
+        console.log(res.data);
+        if (res.data.status == 200){
+            this.$toast.success(res.data.msg, { icon: 'check_circle' });
         }
         else {
             this.$toast.error(res.data.msg, { icon: 'error' });

@@ -7,6 +7,15 @@ export default {
         routerchartlike(){
             this.$router.push('chartlike');
         },
+        routersensor(){
+            this.$router.push('list');
+        },
+        routerchart(){
+            this.$router.push('chart');
+        },
+        routerupdate(){
+            this.$router.push('update');
+        }
     }
 }
 </script>
@@ -42,7 +51,7 @@ export default {
                     <v-list-item-title>首頁</v-list-item-title>
                 </v-list-item>
             </router-link>
-            <router-link to="/list">
+            <!-- <router-link to="/list">
                 <v-list-item link>
                     <v-list-item-icon>
                     <v-icon>mdi-text-search</v-icon>
@@ -57,7 +66,37 @@ export default {
                     </v-list-item-icon>
                     <v-list-item-title>折線圖</v-list-item-title>
                 </v-list-item>
-            </router-link>
+            </router-link> -->
+            <v-list-group
+                prepend-icon="mdi-file-document-multiple-outline"
+                no-action
+                color="#fff"
+            >
+                <template v-slot:activator>
+                <v-list-item-content>
+                    <v-list-item-title>原始資料</v-list-item-title>
+                </v-list-item-content>
+                </template>
+
+                <v-list-item link @click="routersensor">
+                    <v-list-item-title>感測器</v-list-item-title>
+                    <v-list-item-icon>
+                        <v-icon>mdi-text-search</v-icon>
+                    </v-list-item-icon>
+                </v-list-item>
+                <v-list-item link @click="routerchart">
+                    <v-list-item-title>折線圖</v-list-item-title>
+                    <v-list-item-icon>
+                        <v-icon>mdi-chart-bell-curve</v-icon>
+                    </v-list-item-icon>
+                </v-list-item>
+                <v-list-item link @click="routerupdate">
+                    <v-list-item-title>感應器更新</v-list-item-title>
+                    <v-list-item-icon>
+                        <v-icon>mdi-update</v-icon>
+                    </v-list-item-icon>
+                </v-list-item>
+            </v-list-group>
             <v-list-group
                 prepend-icon="mdi-poll"
                 no-action

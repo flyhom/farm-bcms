@@ -1,10 +1,10 @@
 <script>
-import Chart from '@/components/Chart.vue';
-import ChartTwoSer from '@/components/ChartTwoSer.vue';
+import OriDataChart from '@/components/OriDataChart.vue';
+import OriDataChartTwoSer from '~/components/OriDataChartTwoSer.vue';
 export default {
   components:{
-    Chart,
-    ChartTwoSer,
+    OriDataChart,
+    OriDataChartTwoSer,
   },
   data(){
     return {
@@ -774,7 +774,7 @@ export default {
                 top
                 color="#40b47f"
             ></v-progress-linear>
-            <Chart v-if="chartloading" :chartWidth="width" :chartHeight="height" :title="Title" :charttitle="Charttitle"
+            <OriDataChart v-if="chartloading" :chartWidth="width" :chartHeight="height" :title="Title" :charttitle="Charttitle"
               :timeData="TimeData"
               :tempData="TempData" 
               :humidityData="HumidityData"
@@ -786,7 +786,7 @@ export default {
               :soil_humidData="Soil_humidData"
               :uvData="UvData"
             />
-            <ChartTwoSer v-if="charttwoloading" :chartWidth="width" :chartHeight="height" :title="Title" :charttitle="Charttitle"
+            <OriDataChartTwoSer v-if="charttwoloading" :chartWidth="width" :chartHeight="height" :title="Title" :charttitle="Charttitle"
               :timeData="TimeData"
               :leftdata="LeftData"
               :rightdata="RightData"

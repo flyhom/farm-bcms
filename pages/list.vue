@@ -1,8 +1,8 @@
 <script>
-import Table from '@/components/Table';
+import OriDataTable from '@/components/OriDataTable';
 export default {
   components:{
-    Table,
+    OriDataTable,
   }
 
 }
@@ -14,7 +14,7 @@ export default {
       <v-container fluid>
         <v-row justify="center">
           <v-col lg="12" md="12" sm="12" cols="12">
-            <Table />
+            <OriDataTable />
           </v-col>
         </v-row>
       </v-container>

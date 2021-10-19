@@ -1,8 +1,8 @@
 <script>
-import Chartpot from '@/components/Chartpot.vue';
+import AlzChartpot from '~/components/AlzChartpot.vue';
 export default {
   components:{
-    Chartpot,
+    AlzChartpot,
   },
   data(){
     return {
