@@ -317,7 +317,16 @@ export const mutations = {
             this.$toast.success(res.data.msg, { icon: 'check_circle' });
         }
         else {
-            this.$toast.error(res.data.msg, { icon: 'error' });
+            this.$toast.error(res.data.msg, { 
+                icon: 'error' ,
+                duration: null,
+                action : {
+                    text : '關閉',
+                    onClick : (e, toastObject) => {
+                        toastObject.goAway(0);
+                    }
+                },
+            });
         }
     }
 };
