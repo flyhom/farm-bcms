@@ -69,14 +69,10 @@ export default {
         return this.$store.getters.Type2;
     },
     TimeData(){
-      return this.$store.getters.TimeData;
+        return this.$store.getters.TimeData;
     },
     Title(){
-        for (let i = 0; i < this.type_ch.length; i++) {
-            const element = this.type_ch[i].text;
-            this.title.push(element);
-        }
-        return this.title;
+        return this.$store.getters.Type_ch;
     },
     Charttitle(){
         for (let i = 0; i < this.type_ch.length; i++) {
@@ -190,6 +186,7 @@ export default {
         this.title = [];
         this.charttitle = [];
         await this.$store.dispatch('handType', this.type);
+        await this.$store.dispatch('handTypeCh', this.type_ch);
         await this.$store.dispatch('chartdata', {
             type: this.type, 
             advanced: this.advanced,
@@ -831,7 +828,7 @@ export default {
                 top
                 color="#40b47f"
             ></v-progress-linear>
-            <Chartpot v-if="charttwoloading" :chartWidth="width" :chartHeight="height" :title="Title" :charttitle="Charttitle"
+            <AlzChartpot v-if="charttwoloading" :chartWidth="width" :chartHeight="height" :title="Title" :charttitle="Charttitle"
               :timeData="TimeData"
               :leftdata="LeftData"
               :rightdata="RightData"
