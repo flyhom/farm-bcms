@@ -88,7 +88,7 @@ export default {
             yAxis: [
                 {
                     type: "value",
-                    name: this.type1title,
+                    name: this.type1title ,
                     nameTextStyle:{
                         color:'#40b47f',
                         fontSize: 12,

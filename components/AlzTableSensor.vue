@@ -5,7 +5,7 @@ export default {
             loading: false,
             showtable: false,
             headerArray: [
-                { text: '欄位名稱/相似度', value: 'header', width: '100', align: 'center', divider: true, sortable: false },
+                { text: '欄位名稱/相關係數', value: 'header', width: '100', align: 'center', divider: true, sortable: false },
                 { text: '光照', value: 'luminance', width: '100', align: 'center', divider: true, sortable: false },
                 { text: '溫度', value: 'temp', width: '100', align: 'center', divider: true, sortable: false },
                 { text: '濕度', value: 'humidity', width: '100', align: 'center', divider: true, sortable: false },

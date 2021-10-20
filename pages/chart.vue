@@ -106,11 +106,7 @@ export default {
       return this.$store.getters.RainfallData;
     },
     Title(){
-        for (let i = 0; i < this.type_ch.length; i++) {
-            const element = this.type_ch[i].text;
-            this.title.push(element);
-        }
-        return this.title;
+        return this.$store.getters.Type_ch;
     },
     Charttitle(){
         for (let i = 0; i < this.type_ch.length; i++) {
@@ -223,7 +219,12 @@ export default {
         this.charttwoloading = false;
         this.title = [];
         this.charttitle = [];
-        await this.$store.dispatch('handType', this.type);
+        if (this.type.length == 2) {
+            await this.$store.dispatch('handType', this.type);
+        }
+        else if (this.type.length > 2) {
+            await this.$store.dispatch('handTypeCh', this.type_ch);
+        }
         await this.$store.dispatch('chartdata', {
             type: this.type, 
             advanced: this.advanced,

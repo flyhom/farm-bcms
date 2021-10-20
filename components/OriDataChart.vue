@@ -112,7 +112,7 @@ export default {
             ],
             series: [
                 {
-                    name: "溫度",
+                    name: "溫度(°C)",
                     type: "line",
                     color: [
                         '#40b47f',
@@ -134,7 +134,7 @@ export default {
                     data: this.tempData,
                 },
                 {
-                    name: "濕度",
+                    name: "濕度(%)",
                     type: "line",
                     color: [
                         '#73b9bc',
@@ -155,7 +155,7 @@ export default {
                     data: this.humidityData,
                 },
                 {
-                    name: "光照",
+                    name: "光照(Lux)",
                     type: "line",
                     color: [
                         '#f49f42',
@@ -176,7 +176,7 @@ export default {
                     data: this.luminanceData,
                 },
                 {
-                    name: "大氣壓力",
+                    name: "大氣壓力(hPa)",
                     type: "line",
                     color: [
                         '#f57b95',
@@ -197,7 +197,7 @@ export default {
                     data: this.atpData,
                 },
                 {
-                    name: "導電度",
+                    name: "導電度(uS/cm)",
                     type: "line",
                     color: [
                         '#eedd78',
@@ -218,7 +218,7 @@ export default {
                     data: this.ecData,
                 },
                 {
-                    name: "PH值",
+                    name: "PH值(ph)",
                     type: "line",
                     color: [
                         '#e69d87',
@@ -239,7 +239,7 @@ export default {
                     data: this.phData,
                 },
                 {
-                    name: "土壤溫度",
+                    name: "土壤溫度(°C)",
                     type: "line",
                     color: [
                         '#73a373',
@@ -260,7 +260,7 @@ export default {
                     data: this.soil_tempData,
                 },
                 {
-                    name: "土壤濕度",
+                    name: "土壤濕度(%)",
                     type: "line",
                     color: [
                         '#7289ab',
@@ -281,7 +281,7 @@ export default {
                     data: this.soil_humidData,
                 },
                 {
-                    name: "UV值",
+                    name: "UV值(mw/cm²)",
                     type: "line",
                     color: [
                         '#ea7e53',
@@ -302,7 +302,7 @@ export default {
                     data: this.uvData,
                 },
                 {
-                    name: "雨量",
+                    name: "雨量(mm)",
                     type: "line",
                     color: [
                         '#64B5F6',

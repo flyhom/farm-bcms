@@ -2,6 +2,7 @@ import { apipostfarm, apipostchart, apipostanalytics, apipostupdate } from "../a
 export const state = () => ({
     farmArr: [],
     old_type: [],
+    type_ch: [],
     type1: "",
     type2: "",
     timeArr:[],
@@ -32,6 +33,9 @@ export const actions = {
     },
     handType({commit}, arr){
         commit('type', arr);
+    },
+    handTypeCh({commit}, arr){
+        commit('type_ch', arr);
     },
     async farmdata({ commit }, payload){
         const { type, advanced, start_time, end_time, time } = payload;
@@ -135,70 +139,103 @@ export const mutations = {
         state.isChart = false;
     },
     type(state, arr){
-        if (arr.length == 2) {
-            state.type1 = arr[0];
-            state.type2 = arr[1];
-            //type1
-            if (state.type1 == "temp") {
-                state.type1 = "溫度";
+        state.type1 = arr[0];
+        state.type2 = arr[1];
+        //type1
+        if (state.type1 == "temp") {
+            state.type1 = "溫度(°C)";
+        } 
+        else if (state.type1 == "humidity") {
+            state.type1 = "濕度(%)";
+        }
+        else if (state.type1 == "luminance") {
+            state.type1 = "光照(Lux)";
+        }
+        else if (state.type1 == "atp") {
+            state.type1 = "大氣壓力(hPa)";
+        }
+        else if (state.type1 == "ec") {
+            state.type1 = "EC值(uS/cm)";
+        }
+        else if (state.type1 == "ph") {
+            state.type1 = "PH值(ph)";
+        }
+        else if (state.type1 == "soil_temp") {
+            state.type1 = "土壤溫度(°C)";
+        }
+        else if (state.type1 == "soil_humid") {
+            state.type1 = "土壤濕度(%)";
+        }
+        else if (state.type1 == "uv") {
+            state.type1 = "UV值(mw/cm²)";
+        }
+        else if (state.type1 == "rainfall") {
+            state.type1 = "雨量(mm)";
+        }
+        //type2
+        if (state.type2 == "temp") {
+            state.type2 = "溫度(°C)";
+        } 
+        else if (state.type2 == "humidity") {
+            state.type2 = "濕度(%)";
+        }
+        else if (state.type2 == "luminance") {
+            state.type2 = "光照(Lux)";
+        }
+        else if (state.type2 == "atp") {
+            state.type2 = "大氣壓力(hPa)";
+        }
+        else if (state.type2 == "ec") {
+            state.type2 = "EC值(uS/cm)";
+        }
+        else if (state.type2 == "ph") {
+            state.type2 = "PH值(ph)";
+        }
+        else if (state.type2 == "soil_temp") {
+            state.type2 = "土壤溫度(°C)";
+        }
+        else if (state.type2 == "soil_humid") {
+            state.type2 = "土壤濕度(%)";
+        }
+        else if (state.type2 == "uv") {
+            state.type2 = "UV值(mw/cm²)";
+        }
+        else if (state.type2 == "rainfall") {
+            state.type2 = "雨量(mm)";
+        }
+    },
+    type_ch(state, arr){
+        state.type_ch = [];
+        for (let i = 0; i < arr.length; i++) {
+            if (arr[i].text == '溫度') {
+                state.type_ch.push("溫度(°C)");
             } 
-            else if (state.type1 == "humidity") {
-                state.type1 = "濕度";
+            else if (arr[i].text == '濕度') {
+                state.type_ch.push("濕度(%)");
             }
-            else if (state.type1 == "luminance") {
-                state.type1 = "光照";
+            else if (arr[i].id == "光照") {
+                state.type_ch.push("光照(Lux)");
             }
-            else if (state.type1 == "atp") {
-                state.type1 = "大氣壓力";
+            else if (arr[i].text == "大氣壓力") {
+                state.type_ch.push("大氣壓力(hPa)");
             }
-            else if (state.type1 == "ec") {
-                state.type1 = "EC值";
+            else if (arr[i].text == "導電度") {
+                state.type_ch.push("導電度(uS/cm)");
             }
-            else if (state.type1 == "ph") {
-                state.type1 = "PH值";
+            else if (arr[i].text == "PH值") {
+                state.type_ch.push("PH值(ph)");
             }
-            else if (state.type1 == "soil_temp") {
-                state.type1 = "土壤溫度";
+            else if (arr[i].text == "土壤溫度") {
+                state.type_ch.push("土壤溫度(°C)");
             }
-            else if (state.type1 == "soil_humid") {
-                state.type1 = "土壤濕度";
+            else if (arr[i].text == "土壤濕度") {
+                state.type_ch.push("土壤濕度(%)");
             }
-            else if (state.type1 == "uv") {
-                state.type1 = "UV值";
+            else if (arr[i].text == "UV值") {
+                state.type_ch.push("UV值(mw/cm²)");
             }
-            else if (state.type1 == "rainfall") {
-                state.type1 = "雨量";
-            }
-            //type2
-            if (state.type2 == "temp") {
-                state.type2 = "溫度";
-            } 
-            else if (state.type2 == "humidity") {
-                state.type2 = "濕度";
-            }
-            else if (state.type2 == "luminance") {
-                state.type2 = "光照";
-            }
-            else if (state.type2 == "atp") {
-                state.type2 = "大氣壓力";
-            }
-            else if (state.type2 == "ec") {
-                state.type2 = "EC值";
-            }
-            else if (state.type2 == "ph") {
-                state.type2 = "PH值";
-            }
-            else if (state.type2 == "soil_temp") {
-                state.type2 = "土壤溫度";
-            }
-            else if (state.type2 == "soil_humid") {
-                state.type2 = "土壤濕度";
-            }
-            else if (state.type2 == "uv") {
-                state.type2 = "UV值";
-            }
-            else if (state.type2 == "rainfall") {
-                state.type2 = "雨量";
+            else if (arr[i].text == "雨量") {
+                state.type_ch.push("雨量(mm)");
             }
         }
     },
@@ -230,65 +267,65 @@ export const mutations = {
             state.uvArr = res.data.datas[0].uv;
             state.rainfallArr = res.data.datas[0].rainfall;
             //type1
-            if (state.type1 == "溫度") {
+            if (state.type1 == "溫度(°C)") {
                 state.leftArr = state.tempArr;
             } 
-            else if (state.type1 == "濕度") {
+            else if (state.type1 == "濕度(%)") {
                 state.leftArr = state.humidityArr;
             }
-            else if (state.type1 == "光照") {
+            else if (state.type1 == "光照(Lux)") {
                 state.leftArr = state.luminanceArr;
             }
-            else if (state.type1 == "大氣壓力") {
+            else if (state.type1 == "大氣壓力(hPa)") {
                 state.leftArr = state.atpArr;
             }
-            else if (state.type1 == "EC值") {
+            else if (state.type1 == "EC值(uS/cm)") {
                 state.leftArr = state.ecArr;
             }
-            else if (state.type1 == "PH值") {
+            else if (state.type1 == "PH值(ph)") {
                 state.leftArr = state.phArr;
             }
-            else if (state.type1 == "土壤溫度") {
+            else if (state.type1 == "土壤溫度(°C)") {
                 state.leftArr = state.soil_tempArr;
             }
-            else if (state.type1 == "土壤濕度") {
+            else if (state.type1 == "土壤濕度(%)") {
                 state.leftArr = state.soil_humidArr;
             }
-            else if (state.type1 == "UV值") {
+            else if (state.type1 == "UV值(mw/cm²)") {
                 state.leftArr = state.uvArr;
             }
-            else if (state.type1 == "雨量") {
+            else if (state.type1 == "雨量(mm)") {
                 state.leftArr = state.rainfallArr;
             }
             //type2
-            if (state.type2 == "溫度") {
+            if (state.type2 == "溫度(°C)") {
                 state.rightArr = state.tempArr;
             } 
-            else if (state.type2 == "濕度") {
+            else if (state.type2 == "濕度(%)") {
                 state.rightArr = state.humidityArr;
             }
-            else if (state.type2 == "光照") {
+            else if (state.type2 == "光照(Lux)") {
                 state.rightArr = state.luminanceArr;
             }
-            else if (state.type2 == "大氣壓力") {
+            else if (state.type2 == "大氣壓力(hPa)") {
                 state.rightArr = state.atpArr;
             }
-            else if (state.type2 == "EC值") {
+            else if (state.type2 == "EC值(uS/cm)") {
                 state.rightArr = state.ecArr;
             }
-            else if (state.type2 == "PH值") {
+            else if (state.type2 == "PH值(ph)") {
                 state.rightArr = state.phArr;
             }
-            else if (state.type2 == "土壤溫度") {
+            else if (state.type2 == "土壤溫度(°C)") {
                 state.rightArr = state.soil_tempArr;
             }
-            else if (state.type2 == "土壤濕度") {
+            else if (state.type2 == "土壤濕度(%)") {
                 state.rightArr = state.soil_humidArr;
             }
-            else if (state.type2 == "UV值") {
+            else if (state.type2 == "UV值(mw/cm²)") {
                 state.rightArr = state.uvArr;
             }
-            else if (state.type2 == "雨量") {
+            else if (state.type2 == "雨量(mm)") {
                 state.rightArr = state.rainfallArr;
             }
             state.isChart = true;
@@ -378,4 +415,5 @@ export const getters = {
     Type2: state => state.type2,
     Old_type: state => state.old_type,
     AnalyticsData: state => state.analyticsArr,
+    Type_ch: state => state.type_ch,
 };
