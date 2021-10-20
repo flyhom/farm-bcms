@@ -31,6 +31,9 @@ export default {
         uvData:{
             type: Array
         },
+        rainfallData:{
+            type: Array
+        },
         chartHeight: {
             type: String
         },
@@ -297,6 +300,27 @@ export default {
                             width: 2,
                     },
                     data: this.uvData,
+                },
+                {
+                    name: "雨量",
+                    type: "line",
+                    color: [
+                        '#64B5F6',
+                        '#e69d87',
+                        '#8dc1a9',
+                        '#ea7e53',
+                        '#eedd78',
+                        '#73a373',
+                        '#73b9bc',
+                        '#7289ab',
+                        '#91ca8c',
+                        '#f49f42'
+                    ],
+                    lineStyle: {
+                            color: '#64B5F6',
+                            width: 2,
+                    },
+                    data: this.rainfallData,
                 },
             ]
         });

@@ -14,6 +14,7 @@ export default {
                 { text: '土壤溫度', value: 'soil_temp' },
                 { text: '土壤濕度', value: 'soil_humid' },
                 { text: 'UV值', value: 'uv' },
+                { text: '雨量', value: 'rainfall' },
             ],
             page: 1,
             pageCount: 0,
@@ -44,6 +45,7 @@ export default {
             soil_tempcolor: "dark",
             soil_humidcolor: "dark",
             uvcolor: "dark",
+            rainfallcolor:"dark",
             dialogfunc: false,
             //timebtn
             timeday: "success",
@@ -157,6 +159,7 @@ export default {
             this.soil_tempcolor = "dark";
             this.soil_humidcolor = "dark";
             this.uvcolor = "dark";
+            this.rainfallcolor = "dark";
             this.type = [];
             this.type_ch = [];
             this.advanced = [];
@@ -301,6 +304,19 @@ export default {
                 this.uvcolor = "dark";
                 this.type = this.type.filter(e => e !== "uv");
                 this.typeheaders = this.typeheaders.filter(e => e !== "uv");
+            } 
+        },
+        rainfall(){
+            if (this.rainfallcolor === "dark"){
+                this.rainfallcolor = "primary";
+                this.type.push("rainfall"); 
+                this.type_ch.push({ 'id':'rainfall', 'text':'雨量' });
+                this.typeheaders.push("rainfall"); 
+            }
+            else{
+                this.rainfallcolor = "dark";
+                this.type = this.type.filter(e => e !== "rainfall");
+                this.typeheaders = this.typeheaders.filter(e => e !== "rainfall");
             } 
         },
         setday(){
@@ -620,6 +636,7 @@ export default {
                                         <span v-if="item.sensor == 'soil_humid'">土壤濕度 {{item.operation}} {{item.value}}</span> 
                                         <span v-if="item.sensor == 'soil_temp'">土壤溫度 {{item.operation}} {{item.value}}</span> 
                                         <span v-if="item.sensor == 'uv'">UV值 {{item.operation}} {{item.value}}</span> 
+                                        <span v-if="item.sensor == 'rainfall'">雨量 {{item.operation}} {{item.value}}</span> 
                                     </v-chip>
                                 </v-col>
                             </v-row>
@@ -686,6 +703,13 @@ export default {
                                         @click="atp"
                                         elevation="10"
                                     >大氣壓力</v-btn>
+                                </v-col>
+                                <v-col class="text-center">
+                                    <v-btn
+                                        :color="rainfallcolor"
+                                        @click="rainfall"
+                                        elevation="10"
+                                    >雨量</v-btn>
                                 </v-col>
                             </v-row>
                             <v-row>

@@ -14,6 +14,7 @@ export const state = () => ({
     soil_tempArr:[],
     soil_humidArr:[],
     uvArr:[],
+    rainfallArr:[],
     leftArr:[],
     rightArr:[],
 
@@ -88,6 +89,7 @@ export const mutations = {
         state.soil_tempArr = [];
         state.soil_humidArr = [];
         state.uvArr = [];
+        state.rainfallArr = [];
         state.leftArr = [];
         state.rightArr = [];
         state.isChart = false;
@@ -124,6 +126,9 @@ export const mutations = {
             else if (state.type1 == "uv") {
                 state.type1 = "UV值";
             }
+            else if (state.type1 == "rainfall") {
+                state.type1 = "雨量";
+            }
             //type2
             if (state.type2 == "temp") {
                 state.type2 = "溫度";
@@ -151,6 +156,9 @@ export const mutations = {
             }
             else if (state.type2 == "uv") {
                 state.type2 = "UV值";
+            }
+            else if (state.type2 == "rainfall") {
+                state.type2 = "雨量";
             }
         }
     },
@@ -180,6 +188,7 @@ export const mutations = {
             state.soil_tempArr = res.data.datas[0].soil_temp;
             state.soil_humidArr = res.data.datas[0].soil_humid;
             state.uvArr = res.data.datas[0].uv;
+            state.rainfallArr = res.data.datas[0].rainfall;
             //type1
             if (state.type1 == "溫度") {
                 state.leftArr = state.tempArr;
@@ -208,6 +217,9 @@ export const mutations = {
             else if (state.type1 == "UV值") {
                 state.leftArr = state.uvArr;
             }
+            else if (state.type1 == "雨量") {
+                state.leftArr = state.rainfallArr;
+            }
             //type2
             if (state.type2 == "溫度") {
                 state.rightArr = state.tempArr;
@@ -235,6 +247,9 @@ export const mutations = {
             }
             else if (state.type2 == "UV值") {
                 state.rightArr = state.uvArr;
+            }
+            else if (state.type2 == "雨量") {
+                state.rightArr = state.rainfallArr;
             }
             state.isChart = true;
         }
@@ -276,34 +291,6 @@ export const mutations = {
                 else if (state.analyticsArr[i].header == "uv") {
                     state.analyticsArr[i].header = "UV值";
                 }
-
-                // if (state.analyticsArr[i].temp == 2) {
-                //     state.analyticsArr[i].temp = "";
-                // } 
-                // else if (state.analyticsArr[i].humidity == 2) {
-                //     state.analyticsArr[i].humidity = "";
-                // }
-                // else if (state.analyticsArr[i].luminance == 2) {
-                //     state.analyticsArr[i].luminance = "";
-                // }
-                // else if (state.analyticsArr[i].atp == 2) {
-                //     state.analyticsArr[i].atp = "";
-                // }
-                // else if (state.analyticsArr[i].ec == 2) {
-                //     state.analyticsArr[i].ec = "";
-                // }
-                // else if (state.analyticsArr[i].ph == 2) {
-                //     state.analyticsArr[i].ph = "";
-                // }
-                // else if (state.analyticsArr[i].soil_temp == 2) {
-                //     state.analyticsArr[i].soil_temp = "";
-                // }
-                // else if (state.analyticsArr[i].soil_humid == 2) {
-                //     state.analyticsArr[i].soil_humid = "";
-                // }
-                // else if (state.analyticsArr[i].uv == 2) {
-                //     state.analyticsArr[i].uv = "";
-                // }
             }
             
         }
@@ -311,7 +298,7 @@ export const mutations = {
             this.$toast.error(res.data.msg, { icon: 'error' });
         }
     },
-    postupdate(state,res){
+    postupdate(res){
         console.log(res.data);
         if (res.data.status == 200){
             this.$toast.success(res.data.msg, { icon: 'check_circle' });
@@ -342,6 +329,7 @@ export const getters = {
     Soil_tempData: state => state.soil_tempArr,
     Soil_humidData: state => state.soil_humidArr,
     UvData: state => state.uvArr,
+    RainfallData: state => state.rainfallArr,
     LeftData: state => state.leftArr,
     RightData: state => state.rightArr,
     IsFarm: state => state.isFarm,

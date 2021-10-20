@@ -42,6 +42,7 @@ export default {
       soil_tempcolor: "dark",
       soil_humidcolor: "dark",
       uvcolor: "dark",
+      rainfallcolor:"dark",
       dialogfunc: false,
       idx: 0,
       funcdone: false,
@@ -99,6 +100,9 @@ export default {
     },
     UvData(){
       return this.$store.getters.UvData;
+    },
+    RainfallData(){
+      return this.$store.getters.RainfallData;
     },
     Title(){
         for (let i = 0; i < this.type_ch.length; i++) {
@@ -198,6 +202,7 @@ export default {
         this.soil_tempcolor = "dark";
         this.soil_humidcolor = "dark";
         this.uvcolor = "dark";
+        this.rainfallcolor = "dark";
         this.type = [];
         this.type_ch = [];
         this.advanced = [];
@@ -355,6 +360,19 @@ export default {
             this.uvcolor = "dark";
             this.type = this.type.filter(e => e !== "uv");
             this.type_ch = this.type_ch.filter(e => e.id !== "uv");
+        } 
+    },
+    rainfall(){
+        if (this.rainfallcolor === "dark"){
+            this.rainfallcolor = "primary";
+            this.type.push("rainfall"); 
+            this.type_ch.push({ 'id':'rainfall', 'text':'雨量' });
+            this.typeheaders.push("rainfall"); 
+        }
+        else{
+            this.rainfallcolor = "dark";
+            this.type = this.type.filter(e => e !== "rainfall");
+            this.typeheaders = this.typeheaders.filter(e => e !== "rainfall");
         } 
     },
     setday(){
@@ -692,6 +710,7 @@ export default {
                                 <span v-if="item.sensor == 'soil_humid'">土壤濕度 {{item.operation}} {{item.value}}</span> 
                                 <span v-if="item.sensor == 'soil_temp'">土壤溫度 {{item.operation}} {{item.value}}</span> 
                                 <span v-if="item.sensor == 'uv'">UV值 {{item.operation}} {{item.value}}</span> 
+                                <span v-if="item.sensor == 'rainfall'">雨量 {{item.operation}} {{item.value}}</span> 
                             </v-chip>
                         </v-col>
                     </v-row>
@@ -759,6 +778,13 @@ export default {
                                 elevation="10"
                             >大氣壓力</v-btn>
                         </v-col>
+                        <v-col class="text-center">
+                            <v-btn
+                                :color="rainfallcolor"
+                                @click="rainfall"
+                                elevation="10"
+                            >雨量</v-btn>
+                        </v-col>
                     </v-row>
                 </v-container>
               </v-card-text>
@@ -785,6 +811,7 @@ export default {
               :soil_tempData="Soil_tempData"
               :soil_humidData="Soil_humidData"
               :uvData="UvData"
+              :rainfallData="RainfallData"
             />
             <OriDataChartTwoSer v-if="charttwoloading" :chartWidth="width" :chartHeight="height" :title="Title" :charttitle="Charttitle"
               :timeData="TimeData"
