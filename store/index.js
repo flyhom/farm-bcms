@@ -206,35 +206,103 @@ export const mutations = {
     },
     type_ch(state, arr){
         state.type_ch = [];
-        for (let i = 0; i < arr.length; i++) {
-            if (arr[i].text == '溫度') {
+        if (arr.length > 2) {
+            for (let i = 0; i < arr.length; i++) {
+                if (arr[i].text == '溫度') {
+                    state.type_ch.push("溫度(°C)");
+                } 
+                else if (arr[i].text == '濕度') {
+                    state.type_ch.push("濕度(%)");
+                }
+                else if (arr[i].text == "光照") {
+                    state.type_ch.push("光照(Lux)");
+                }
+                else if (arr[i].text == "大氣壓力") {
+                    state.type_ch.push("大氣壓力(hPa)");
+                }
+                else if (arr[i].text == "導電度") {
+                    state.type_ch.push("導電度(uS/cm)");
+                }
+                else if (arr[i].text == "PH值") {
+                    state.type_ch.push("PH值(ph)");
+                }
+                else if (arr[i].text == "土壤溫度") {
+                    state.type_ch.push("土壤溫度(°C)");
+                }
+                else if (arr[i].text == "土壤濕度") {
+                    state.type_ch.push("土壤濕度(%)");
+                }
+                else if (arr[i].text == "UV值") {
+                    state.type_ch.push("UV值(mw/cm²)");
+                }
+                else if (arr[i].text == "雨量") {
+                    state.type_ch.push("雨量(mm)");
+                }
+            }
+        } 
+        else if (arr.length == 2) {
+            for (let i = 0; i < arr.length; i++) {
+                if (arr[i].text == '溫度') {
+                    state.type_ch.push("溫度(°C)");
+                } 
+                else if (arr[i].text == '濕度') {
+                    state.type_ch.push("濕度(%)");
+                }
+                else if (arr[i].text == "光照") {
+                    state.type_ch.push("光照(Lux)");
+                }
+                else if (arr[i].text == "大氣壓力") {
+                    state.type_ch.push("大氣壓力(hPa)");
+                }
+                else if (arr[i].text == "導電度") {
+                    state.type_ch.push("導電度(uS/cm)");
+                }
+                else if (arr[i].text == "PH值") {
+                    state.type_ch.push("PH值(ph)");
+                }
+                else if (arr[i].text == "土壤溫度") {
+                    state.type_ch.push("土壤溫度(°C)");
+                }
+                else if (arr[i].text == "土壤濕度") {
+                    state.type_ch.push("土壤濕度(%)");
+                }
+                else if (arr[i].text == "UV值") {
+                    state.type_ch.push("UV值(mw/cm²)");
+                }
+                else if (arr[i].text == "雨量") {
+                    state.type_ch.push("雨量(mm)");
+                }
+            }
+        }        
+        else {
+            if (arr[0].text == '溫度') {
                 state.type_ch.push("溫度(°C)");
             } 
-            else if (arr[i].text == '濕度') {
+            else if (arr[0].text == '濕度') {
                 state.type_ch.push("濕度(%)");
             }
-            else if (arr[i].id == "光照") {
+            else if (arr[0].text == "光照") {
                 state.type_ch.push("光照(Lux)");
             }
-            else if (arr[i].text == "大氣壓力") {
+            else if (arr[0].text == "大氣壓力") {
                 state.type_ch.push("大氣壓力(hPa)");
             }
-            else if (arr[i].text == "導電度") {
+            else if (arr[0].text == "導電度") {
                 state.type_ch.push("導電度(uS/cm)");
             }
-            else if (arr[i].text == "PH值") {
+            else if (arr[0].text == "PH值") {
                 state.type_ch.push("PH值(ph)");
             }
-            else if (arr[i].text == "土壤溫度") {
+            else if (arr[0].text == "土壤溫度") {
                 state.type_ch.push("土壤溫度(°C)");
             }
-            else if (arr[i].text == "土壤濕度") {
+            else if (arr[0].text == "土壤濕度") {
                 state.type_ch.push("土壤濕度(%)");
             }
-            else if (arr[i].text == "UV值") {
+            else if (arr[0].text == "UV值") {
                 state.type_ch.push("UV值(mw/cm²)");
             }
-            else if (arr[i].text == "雨量") {
+            else if (arr[0].text == "雨量") {
                 state.type_ch.push("雨量(mm)");
             }
         }
