@@ -394,7 +394,7 @@ export default {
         this.rainbtn = true;
         this.rainfallcolor = "dark";
         this.type = this.type.filter(e => e !== "rainfall");
-        this.typeheaders = this.typeheaders.filter(e => e !== "rainfall");
+        this.type_ch = this.type_ch.filter(e => e.id !== "rainfall");
     },
     setchartnormal(){
         this.chartloading = false;
