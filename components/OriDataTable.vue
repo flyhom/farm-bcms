@@ -46,6 +46,7 @@ export default {
             soil_humidcolor: "dark",
             uvcolor: "dark",
             rainfallcolor:"dark",
+            rainbtn: false,
             dialogfunc: false,
             //timebtn
             timeday: "success",
@@ -324,18 +325,21 @@ export default {
             this.timeday = "success";
             this.timehour = "dark";
             this.timemin = "dark";
+            this.rainbtn = false;
         },
         sethour(){
             this.selecttime = "hour"; 
             this.timeday = "dark";
             this.timehour = "success";
             this.timemin = "dark";
+            this.rainbtn = false;
         },
         setmin(){
             this.selecttime = "min";
             this.timeday = "dark";
             this.timehour = "dark";
             this.timemin = "success";
+            this.rainbtn = true;
         },
         starttextset(){
             this.start = this.startDate + ':00';
@@ -709,6 +713,7 @@ export default {
                                         :color="rainfallcolor"
                                         @click="rainfall"
                                         elevation="10"
+                                        :disabled="rainbtn"
                                     >雨量</v-btn>
                                 </v-col>
                             </v-row>

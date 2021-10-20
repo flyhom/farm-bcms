@@ -43,6 +43,7 @@ export default {
       soil_humidcolor: "dark",
       uvcolor: "dark",
       rainfallcolor:"dark",
+      rainbtn: false,
       dialogfunc: false,
       idx: 0,
       funcdone: false,
@@ -367,12 +368,11 @@ export default {
             this.rainfallcolor = "primary";
             this.type.push("rainfall"); 
             this.type_ch.push({ 'id':'rainfall', 'text':'雨量' });
-            this.typeheaders.push("rainfall"); 
         }
         else{
             this.rainfallcolor = "dark";
             this.type = this.type.filter(e => e !== "rainfall");
-            this.typeheaders = this.typeheaders.filter(e => e !== "rainfall");
+            this.type_ch = this.type_ch.filter(e => e.id !== "rainfall");
         } 
     },
     setday(){
@@ -380,18 +380,21 @@ export default {
         this.timeday = "success";
         this.timehour = "dark";
         this.timemin = "dark";
+        this.rainbtn = false;
     },
     sethour(){
         this.selecttime = "hour"; 
         this.timeday = "dark";
         this.timehour = "success";
         this.timemin = "dark";
+        this.rainbtn = false;
     },
     setmin(){
         this.selecttime = "min";
         this.timeday = "dark";
         this.timehour = "dark";
         this.timemin = "success";
+        this.rainbtn = true;
     },
     setchartnormal(){
         this.chartloading = false;
@@ -783,6 +786,7 @@ export default {
                                 :color="rainfallcolor"
                                 @click="rainfall"
                                 elevation="10"
+                                :disabled="rainbtn"
                             >雨量</v-btn>
                         </v-col>
                     </v-row>

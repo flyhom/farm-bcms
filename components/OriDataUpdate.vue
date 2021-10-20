@@ -35,6 +35,11 @@ export default {
             this.modeignore = "dark";
             this.modereplace = "primary";
         },
+        filesclose(index){
+            console.log(index);
+            console.log(this.file);
+            this.file.splice(index,1);
+        }
     },
 }
 </script>
@@ -54,22 +59,45 @@ export default {
                         <v-spacer></v-spacer>  
                         <v-file-input
                             v-model="file"
+                            color="primary"
                             chips
+                            
+                            counter
                             show-size
                             hide-details
                             label="選擇檔案"
-                            truncate-length="42"
                             :disabled="loading"
-                        ></v-file-input>                     
+                        >
+                            <!-- <template v-slot:selection="{ index, text }">
+                                <v-chip
+                                    v-if="index < 3"
+                                    color="primary"
+                                    dark
+                                    small
+                                    close
+                                    @click:close="filesclose(index)"
+                                >
+                                    {{ text }}
+                                </v-chip>
+
+                                <span
+                                    v-else-if="index === 3"
+                                    class="text-overline white--text text--darken-3 mx-2"
+                                >
+                                    + 另外 {{ file.length - 3 }} 個檔案
+                                </span>
+                            </template> -->
+                        </v-file-input>                     
                         <v-spacer></v-spacer>
-                            <v-btn :color="modeignore" fab small elevation="3" @click="setmodeignore">忽略</v-btn>    
-                            <v-btn :color="modereplace" fab small elevation="3" @click="setmodereplace" class="mx-3">覆蓋</v-btn>    
+                            <v-btn :color="modeignore" fab small elevation="3" @click="setmodeignore" :disabled="loading">忽略</v-btn>    
+                            <v-btn :color="modereplace" fab small elevation="3" @click="setmodereplace" class="mx-3" :disabled="loading">覆蓋</v-btn>    
                         <v-spacer></v-spacer>
                         <v-btn
                             color="#40b47f"
                             class="mr-5"
                             elevation="8"
                             @click="update"
+                            :disabled="loading"
                         >
                             <v-icon left>
                                 mdi-upload

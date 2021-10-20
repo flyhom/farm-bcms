@@ -35,12 +35,22 @@ export const actions = {
     },
     async farmdata({ commit }, payload){
         const { type, advanced, start_time, end_time, time } = payload;
-        // console.log(type, start_time, end_time, time);
+        console.log(type, start_time, end_time, time);
         try {
             const res = await apipostfarm({ type, advanced, start_time, end_time, time });
             commit('postfarmdata',res);
         } catch (error) {
             console.log(error);
+            this.$toast.error("連線超時，請縮短查詢區間", { 
+                icon: 'error' ,
+                duration: null,
+                action : {
+                    text : '關閉',
+                    onClick : (e, toastObject) => {
+                        toastObject.goAway(0);
+                    }
+                },
+            });
         }
     },
     async chartdata({ commit }, payload){
@@ -51,6 +61,16 @@ export const actions = {
             commit('postchartdata',res);
         } catch (error) {
             console.log(error);
+            this.$toast.error("連線超時，請縮短查詢區間", { 
+                icon: 'error' ,
+                duration: null,
+                action : {
+                    text : '關閉',
+                    onClick : (e, toastObject) => {
+                        toastObject.goAway(0);
+                    }
+                },
+            });
         }
     },
     async analyticsdata({ commit }, payload){
@@ -61,6 +81,16 @@ export const actions = {
             commit('postanalyticsdata',res);
         } catch (error) {
             console.log(error);
+            this.$toast.error("連線超時，請縮短查詢區間", { 
+                icon: 'error' ,
+                duration: null,
+                action : {
+                    text : '關閉',
+                    onClick : (e, toastObject) => {
+                        toastObject.goAway(0);
+                    }
+                },
+            });
         }
     },
     async update({ commit }, payload){
@@ -68,9 +98,19 @@ export const actions = {
         // console.log(payload);
         try {
             const res = await apipostupdate(payload);
-            commit('postupdate',res);
+            commit('postupdate', res);
         } catch (error) {
             console.log(error);
+            this.$toast.error("連線超時，請等待更新完畢", { 
+                icon: 'error' ,
+                duration: null,
+                action : {
+                    text : '關閉',
+                    onClick : (e, toastObject) => {
+                        toastObject.goAway(0);
+                    }
+                },
+            });
         }
     }
 };
@@ -163,7 +203,7 @@ export const mutations = {
         }
     },
     postfarmdata(state, res){
-        // console.log(res.data);
+        console.log(res.data);
         if (res.data.status == 200){
             this.$toast.success(res.data.msg, { icon: 'check_circle' });
             state.farmArr = res.data.datas;
@@ -175,7 +215,7 @@ export const mutations = {
         }
     },
     postchartdata(state, res){
-        // console.log(res.data.datas);
+        console.log(res.data.datas);
         if (res.data.status == 200){
             this.$toast.success(res.data.msg, { icon: 'check_circle' });
             state.timeArr = res.data.datas[0].time;
@@ -298,8 +338,8 @@ export const mutations = {
             this.$toast.error(res.data.msg, { icon: 'error' });
         }
     },
-    postupdate(res){
-        console.log(res.data);
+    postupdate(state, res){
+        console.log(res);
         if (res.data.status == 200){
             this.$toast.success(res.data.msg, { icon: 'check_circle' });
         }
