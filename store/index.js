@@ -35,7 +35,7 @@ export const actions = {
     },
     async farmdata({ commit }, payload){
         const { type, advanced, start_time, end_time, time } = payload;
-        console.log(type, start_time, end_time, time);
+        // console.log(type, start_time, end_time, time);
         try {
             const res = await apipostfarm({ type, advanced, start_time, end_time, time });
             commit('postfarmdata',res);
@@ -203,7 +203,7 @@ export const mutations = {
         }
     },
     postfarmdata(state, res){
-        console.log(res.data);
+        // console.log(res.data);
         if (res.data.status == 200){
             this.$toast.success(res.data.msg, { icon: 'check_circle' });
             state.farmArr = res.data.datas;
@@ -215,7 +215,7 @@ export const mutations = {
         }
     },
     postchartdata(state, res){
-        console.log(res.data.datas);
+        // console.log(res.data.datas);
         if (res.data.status == 200){
             this.$toast.success(res.data.msg, { icon: 'check_circle' });
             state.timeArr = res.data.datas[0].time;
@@ -339,7 +339,7 @@ export const mutations = {
         }
     },
     postupdate(state, res){
-        console.log(res);
+        // console.log(res);
         if (res.data.status == 200){
             this.$toast.success(res.data.msg, { icon: 'check_circle' });
         }

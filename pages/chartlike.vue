@@ -436,6 +436,9 @@ export default {
         this.timehour = "dark";
         this.timemin = "success";
         this.rainbtn = true;
+        this.rainfallcolor = "dark";
+        this.type = this.type.filter(e => e !== "rainfall");
+        this.typeheaders = this.typeheaders.filter(e => e !== "rainfall");
     },
     starttextset(){
         this.start = this.startDate + ':00';
