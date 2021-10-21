@@ -22,7 +22,7 @@ export default {
 
 <template>
     <div>
-        <v-app-bar
+        <!-- <v-app-bar
             color="#161616"
             dark
             app
@@ -31,10 +31,10 @@ export default {
             <v-toolbar-title>茶農管理系統</v-toolbar-title>
 
             <v-spacer></v-spacer>
-        </v-app-bar>
+        </v-app-bar> -->
         <v-navigation-drawer
             permanent
-            color="#40b47f"
+            color="primary"
             expand-on-hover
             dark
             app
@@ -46,9 +46,9 @@ export default {
             <router-link to="/">
                 <v-list-item link>
                     <v-list-item-icon>
-                    <v-icon>mdi-home</v-icon>
+                    <v-icon>mdi-leaf</v-icon>
                     </v-list-item-icon>
-                    <v-list-item-title>首頁</v-list-item-title>
+                    <v-list-item-title>茶農管理系統</v-list-item-title>
                 </v-list-item>
             </router-link>
             <!-- <router-link to="/list">
@@ -91,7 +91,7 @@ export default {
                     </v-list-item-icon>
                 </v-list-item>
                 <v-list-item link @click="routerupdate">
-                    <v-list-item-title>感應器更新</v-list-item-title>
+                    <v-list-item-title>感測器更新</v-list-item-title>
                     <v-list-item-icon>
                         <v-icon>mdi-update</v-icon>
                     </v-list-item-icon>

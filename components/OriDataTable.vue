@@ -28,9 +28,9 @@ export default {
             menustart: false,
             menuend: false,
             starttime: '00:00',
-            startdate: '2021-04-01',
+            startdate: '2021-03-01',
             start: '',
-            enddate: '2021-05-01',
+            enddate: '2021-04-01',
             endtime: '00:00',
             end: '',
             date: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
@@ -60,8 +60,8 @@ export default {
             idx: 0,
             funcdone: false,
 
-            startDate: '2021-04-01 00:00',
-            endDate: '2021-05-01 00:00',
+            startDate: '2021-03-01 00:00',
+            endDate: '2021-04-01 00:00',
         }
     },
     // mounted(){
@@ -734,11 +734,11 @@ export default {
                                         :items="FarmData"
                                         :headers="showheaders"
                                         fixed-header
-                                        height="490px"
+                                        height="530px"
                                         loading-text="正在載入資料..."
                                         no-data-text="無資料"
                                         sort-by="calories"
-                                        class="elevation-1 element"
+                                        class="elevation-1"
                                         :page.sync="page"
                                         @page-count="pageCount = $event"
                                         :footer-props="{

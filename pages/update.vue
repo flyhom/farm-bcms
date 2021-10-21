@@ -22,7 +22,4 @@ export default {
 </template>
 
 <style scoped>
-    .v-main{
-        height: 0px;
-    }
 </style>
