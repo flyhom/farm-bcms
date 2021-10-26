@@ -341,7 +341,7 @@ export const mutations = {
         }
     },
     postchartdata(state, res){
-        // console.log(res.data.datas);
+        console.log(res.data.datas);
         if (res.data.status == 200){
             this.$toast.success(res.data.msg, { icon: 'check_circle' });
             state.timeArr = res.data.datas[0].time;

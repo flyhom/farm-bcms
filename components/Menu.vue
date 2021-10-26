@@ -18,6 +18,9 @@ export default {
         },
         routerupdate(){
             this.$router.push('update');
+        },
+        routerchartmulti(){
+            this.$router.push('chartmulti');
         }
     }
 }
@@ -49,6 +52,12 @@ export default {
             <router-link to="/">
                 <v-list-item link>
                     <v-list-item-icon>
+                    <!-- <v-avatar
+                        size="26"
+                        tile
+                    >
+                        <v-img :src="require('~/assets/tea.svg')"></v-img>
+                    </v-avatar> -->
                     <v-icon>mdi-leaf</v-icon>
                     </v-list-item-icon>
                     <v-list-item-title>茶農管理系統</v-list-item-title>
@@ -127,6 +136,12 @@ export default {
                     <v-list-item-title>數據分析</v-list-item-title>
                     <v-list-item-icon>
                         <v-icon>mdi-chart-scatter-plot</v-icon>
+                    </v-list-item-icon>
+                </v-list-item>
+                <v-list-item link @click="routerchartmulti">
+                    <v-list-item-title>多圖分析</v-list-item-title>
+                    <v-list-item-icon>
+                        <v-icon>mdi-chart-multiple</v-icon>
                     </v-list-item-icon>
                 </v-list-item>
             </v-list-group>

@@ -11,6 +11,7 @@ export default {
       chartitems:[
         { name: '相關係數', color: '#FFC107', src: require('~/assets/text-box-search.png'), link: this.tosensorlike},
         { name: '數據分析', color: '#FF5722', src: require('~/assets/chart-scatter-plot.png'), link: this.tochartlike},
+        { name: '多圖分析', color: '#E53935', src: require('~/assets/chart-multiple.png'), link: this.tocharmulti},
       ],
     }
   },
@@ -33,6 +34,9 @@ export default {
     tochartlike(){
       this.$router.push('/chartlike');
     },
+    tocharmulti(){
+      this.$router.push('/chartmulti');
+    },
   }
 }
 </script>
@@ -42,7 +46,7 @@ export default {
     <v-main>
       <v-container fluid>
         <v-row>
-          <v-col v-for="item in sensoritems" :key="item.name" lg="3" md="4" sm="6" cols="12">
+          <v-col v-for="item in sensoritems" :key="item.name" lg="3" md="6" sm="6" cols="12">
             <v-hover v-slot="{ hover }">
               <v-card dark @click="item.link" height="300" :color="item.color" width="auto" class="ma-lg-3 ma-md-3 ml-sm-1 ml-1 pt-9" :elevation="hover ? 2 : 12" :class="{ 'on-hover': hover }">
                 <v-card-title class="justify-center">
@@ -62,7 +66,7 @@ export default {
           </v-col>
         </v-row>
         <v-row>
-          <v-col v-for="item in chartitems" :key="item.name" lg="3" md="4" sm="6" cols="12">
+          <v-col v-for="item in chartitems" :key="item.name" lg="3" md="6" sm="6" cols="12">
             <v-hover v-slot="{ hover }">
               <v-card dark @click="item.link" height="300" :color="item.color" width="auto" class="ma-lg-3 ma-md-3 ml-sm-1 ml-1 pt-9" :elevation="hover ? 2 : 12" :class="{ 'on-hover': hover }">
                 <v-card-title class="justify-center">
