@@ -1,8 +1,8 @@
 <script>
-import AlzChartpot from '~/components/AlzChartpot.vue';
+import OriDataChartBar from '@/components/OriDataChartBar.vue';
 export default {
   components:{
-    AlzChartpot,
+    OriDataChartBar,
   },
   data(){
     return {
@@ -13,6 +13,7 @@ export default {
       height: '700px',
       title: [],
       charttitle: [],
+      Barwidth: 20,
       //查詢工具列
       old_type: [],
       type: [],
@@ -24,11 +25,11 @@ export default {
       menustart: false,
       menuend: false,
       starttime: '00:00',
-      startdate: '2021-04-01',
-      start: '2021-04-01 00:00:00',
-      enddate: '2021-05-01',
+      startdate: '2021-03-01',
+      start: '2021-03-01 00:00:00',
+      enddate: '2021-04-01',
       endtime: '00:00',
-      end: '2021-05-01 00:00:00',
+      end: '2021-04-01 00:00:00',
       date: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
       datetime: null,
       tempcolor: "dark", 
@@ -48,28 +49,21 @@ export default {
       timeday: "success",
       timehour: "dark",
       timemin: "dark",
-      startDate: '2021-04-01 00:00',
-      endDate: '2021-05-01 00:00',
+      startDate: '2021-03-01 00:00',
+      endDate: '2021-04-01 00:00',
+      chartnormal: 'primary',
+      chartsmall: 'dark',
     }
   },
   mounted(){
       this.$store.dispatch('handClearchart');
   },
   computed:{
-    LeftData(){
-        return this.$store.getters.LeftData;
-    },
-    RightData(){
-        return this.$store.getters.RightData;
-    },
-    Type1(){
-        return this.$store.getters.Type1;
-    },
-    Type2(){
-        return this.$store.getters.Type2;
-    },
     TimeData(){
-        return this.$store.getters.TimeData;
+      return this.$store.getters.TimeData;
+    },
+    BarData(){
+        return this.$store.getters.BarData;
     },
     Title(){
         return this.$store.getters.Type_ch;
@@ -187,7 +181,7 @@ export default {
         this.charttitle = [];
         await this.$store.dispatch('handType', this.type);
         await this.$store.dispatch('handTypeCh', this.type_ch);
-        await this.$store.dispatch('chartdata', {
+        await this.$store.dispatch('chartbardata', {
             type: this.type, 
             advanced: this.advanced,
             start_time: this.start, 
@@ -251,12 +245,12 @@ export default {
         if (this.tempcolor === "dark"){
             this.tempcolor = "primary";   
             this.type.push("temp");
-            this.type_ch.push({ 'id':'temp', 'text':'溫度' }); 
-            if (this.type.length > 2) {
+            this.type_ch.push({ 'id':'temp', 'text':'溫度' });
+            if (this.type.length > 1) {
                 const a = this.type.shift();
                 this.type_ch.shift();
                 this.filtersensorcolor(a);
-            }           
+            }             
         }
         else{
             this.tempcolor = "dark"; 
@@ -269,7 +263,7 @@ export default {
             this.humiditycolor = "primary";
             this.type.push("humidity");
             this.type_ch.push({ 'id':'humidity', 'text':'濕度' });
-            if (this.type.length > 2) {
+            if (this.type.length > 1) {
                 const a = this.type.shift();
                 this.type_ch.shift();
                 this.filtersensorcolor(a);
@@ -286,7 +280,7 @@ export default {
             this.atpcolor = "primary";
             this.type.push("atp");
             this.type_ch.push({ 'id':'atp', 'text':'大氣壓力' });
-            if (this.type.length > 2) {
+            if (this.type.length > 1) {
                 const a = this.type.shift();
                 this.type_ch.shift();
                 this.filtersensorcolor(a);
@@ -303,11 +297,11 @@ export default {
             this.luminancecolor = "primary";
             this.type.push("luminance");
             this.type_ch.push({ 'id':'luminance', 'text':'光照' });
-            if (this.type.length > 2) {
+            if (this.type.length > 1) {
                 const a = this.type.shift();
                 this.type_ch.shift();
                 this.filtersensorcolor(a);
-            }
+            } 
         }
         else{
             this.luminancecolor = "dark";
@@ -320,7 +314,7 @@ export default {
             this.eccolor = "primary";
             this.type.push("ec");
             this.type_ch.push({ 'id':'ec', 'text':'導電度' });
-            if (this.type.length > 2) {
+            if (this.type.length > 1) {
                 const a = this.type.shift();
                 this.type_ch.shift();
                 this.filtersensorcolor(a);
@@ -337,7 +331,7 @@ export default {
             this.phcolor = "primary";
             this.type.push("ph");
             this.type_ch.push({ 'id':'ph', 'text':'PH值' });
-            if (this.type.length > 2) {
+            if (this.type.length > 1) {
                 const a = this.type.shift();
                 this.type_ch.shift();
                 this.filtersensorcolor(a);
@@ -354,7 +348,7 @@ export default {
             this.soil_tempcolor = "primary";
             this.type.push("soil_temp");
             this.type_ch.push({ 'id':'soil_temp', 'text':'土壤溫度' });
-            if (this.type.length > 2) {
+            if (this.type.length > 1) {
                 const a = this.type.shift();
                 this.type_ch.shift();
                 this.filtersensorcolor(a);
@@ -371,7 +365,7 @@ export default {
             this.soil_humidcolor = "primary";
             this.type.push("soil_humid");
             this.type_ch.push({ 'id':'soil_humid', 'text':'土壤濕度' });
-            if (this.type.length > 2) {
+            if (this.type.length > 1) {
                 const a = this.type.shift();
                 this.type_ch.shift();
                 this.filtersensorcolor(a);
@@ -388,7 +382,7 @@ export default {
             this.uvcolor = "primary";
             this.type.push("uv"); 
             this.type_ch.push({ 'id':'uv', 'text':'UV值' });
-            if (this.type.length > 2) {
+            if (this.type.length > 1) {
                 const a = this.type.shift();
                 this.type_ch.shift();
                 this.filtersensorcolor(a);
@@ -405,17 +399,16 @@ export default {
             this.rainfallcolor = "primary";
             this.type.push("rainfall"); 
             this.type_ch.push({ 'id':'rainfall', 'text':'雨量' });
-            this.typeheaders.push("rainfall");
-            if (this.type.length > 2) {
+            if (this.type.length > 1) {
                 const a = this.type.shift();
                 this.type_ch.shift();
                 this.filtersensorcolor(a);
-            } 
+            }
         }
         else{
             this.rainfallcolor = "dark";
             this.type = this.type.filter(e => e !== "rainfall");
-            this.typeheaders = this.typeheaders.filter(e => e !== "rainfall");
+            this.type_ch = this.type_ch.filter(e => e.id !== "rainfall");
         } 
     },
     setday(){
@@ -424,6 +417,7 @@ export default {
         this.timehour = "dark";
         this.timemin = "dark";
         this.rainbtn = false;
+        this.Barwidth = 25;
     },
     sethour(){
         this.selecttime = "hour"; 
@@ -431,6 +425,7 @@ export default {
         this.timehour = "success";
         this.timemin = "dark";
         this.rainbtn = false;
+        this.Barwidth = null;
     },
     setmin(){
         this.selecttime = "min";
@@ -440,7 +435,22 @@ export default {
         this.rainbtn = true;
         this.rainfallcolor = "dark";
         this.type = this.type.filter(e => e !== "rainfall");
-        this.typeheaders = this.typeheaders.filter(e => e !== "rainfall");
+        this.type_ch = this.type_ch.filter(e => e.id !== "rainfall");
+        this.Barwidth = null;
+    },
+    setchartnormal(){
+        this.chartloading = false;
+        this.charttwoloading = false;
+        this.width = '98%';
+        this.chartnormal = 'primary';
+        this.chartsmall = 'dark';
+    },
+    async setchartsmall(){
+        this.chartloading = false;
+        this.charttwoloading = false;
+        this.width = '1185px';
+        this.chartnormal = 'dark';
+        this.chartsmall = 'primary';
     },
     starttextset(){
         this.start = this.startDate + ':00';
@@ -559,7 +569,7 @@ export default {
                   bottom
               >          
                   <v-toolbar-title>
-                      <h3>數據分析圖</h3>
+                      <h3>長條圖</h3>
                   </v-toolbar-title>                       
                   <v-spacer></v-spacer>
                   <v-text-field
@@ -694,6 +704,9 @@ export default {
                   <v-btn :color="timeday" fab small elevation="3" @click="setday">天</v-btn>    
                   <v-btn :color="timehour" fab small elevation="3" @click="sethour" class="mx-3">時</v-btn>    
                   <v-btn :color="timemin" fab small elevation="3" @click="setmin">分</v-btn> 
+                  <v-spacer></v-spacer>
+                  <v-btn :color="chartnormal" fab small elevation="3" @click="setchartnormal">原圖</v-btn>    
+                  <v-btn :color="chartsmall" fab small elevation="3" @click="setchartsmall" class="mx-3">小圖</v-btn>     
                   <v-spacer></v-spacer>
                   <v-btn
                       color="#40b47f"
@@ -833,12 +846,9 @@ export default {
                 top
                 color="#40b47f"
             ></v-progress-linear>
-            <AlzChartpot v-if="charttwoloading" :chartWidth="width" :chartHeight="height" :title="Title" :charttitle="Charttitle"
+            <OriDataChartBar v-if="chartloading" :chartWidth="width" :chartHeight="height" :title="Title" :charttitle="Charttitle" :barwidth="Barwidth"
               :timeData="TimeData"
-              :leftdata="LeftData"
-              :rightdata="RightData"
-              :type1title="Type1"
-              :type2title="Type2"
+              :barData="BarData"
             />
           </v-col>
         </v-row>

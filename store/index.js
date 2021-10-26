@@ -1,7 +1,6 @@
 import { apipostfarm, apipostchart, apipostanalytics, apipostupdate } from "../api";
 export const state = () => ({
     farmArr: [],
-    old_type: [],
     type_ch: [],
     type1: "",
     type2: "",
@@ -18,6 +17,8 @@ export const state = () => ({
     rainfallArr:[],
     leftArr:[],
     rightArr:[],
+    barArr: [],
+    type: [],
 
     isFarm: false,
     isChart: false,
@@ -42,7 +43,7 @@ export const actions = {
         // console.log(type, start_time, end_time, time);
         try {
             const res = await apipostfarm({ type, advanced, start_time, end_time, time });
-            commit('postfarmdata',res);
+            commit('postfarmdata', res);
         } catch (error) {
             console.log(error);
             this.$toast.error("連線超時，請縮短查詢區間", { 
@@ -63,6 +64,26 @@ export const actions = {
         try {
             const res = await apipostchart({ type, advanced, start_time, end_time, time });
             commit('postchartdata',res);
+        } catch (error) {
+            console.log(error);
+            this.$toast.error("連線超時，請縮短查詢區間", { 
+                icon: 'error' ,
+                duration: null,
+                action : {
+                    text : '關閉',
+                    onClick : (e, toastObject) => {
+                        toastObject.goAway(0);
+                    }
+                },
+            });
+        }
+    },
+    async chartbardata({ commit }, payload){
+        const { type, advanced, start_time, end_time, time } = payload;
+        // console.log(type, start_time, end_time, time);
+        try {
+            const res = await apipostchart({ type, advanced, start_time, end_time, time });
+            commit('postchartbardata', res);
         } catch (error) {
             console.log(error);
             this.$toast.error("連線超時，請縮短查詢區間", { 
@@ -403,6 +424,48 @@ export const mutations = {
             state.isChart = false;
         }
     },
+    postchartbardata(state, res){
+        // console.log(res.data.datas);
+        if (res.data.status == 200){
+            this.$toast.success(res.data.msg, { icon: 'check_circle' });
+            state.timeArr = res.data.datas[0].time;
+            if (state.type1 == "溫度(°C)") {
+                state.barArr = res.data.datas[0].temp;
+            } 
+            else if (state.type1 == "濕度(%)") {
+                state.barArr = res.data.datas[0].humidity;
+            }
+            else if (state.type1 == "光照(Lux)") {
+                state.barArr = res.data.datas[0].luminance;
+            }
+            else if (state.type1 == "大氣壓力(hPa)") {
+                state.barArr = res.data.datas[0].atp;
+            }
+            else if (state.type1 == "EC值(uS/cm)") {
+                state.barArr = res.data.datas[0].ec;
+            }
+            else if (state.type1 == "PH值(ph)") {
+                state.barArr = res.data.datas[0].ph;
+            }
+            else if (state.type1 == "土壤溫度(°C)") {
+                state.barArr = res.data.datas[0].soil_temp;
+            }
+            else if (state.type1 == "土壤濕度(%)") {
+                state.barArr = res.data.datas[0].soil_humid;
+            }
+            else if (state.type1 == "UV值(mw/cm²)") {
+                state.barArr = res.data.datas[0].uv;
+            }
+            else if (state.type1 == "雨量(mm)") {
+                state.barArr = res.data.datas[0].rainfall;
+            }
+            state.isChart = true;
+        }
+        else {
+            this.$toast.error(res.data.msg, { icon: 'error' });
+            state.isChart = false;
+        }
+    },
     postanalyticsdata(state, res){
         // console.log(res.data);
         if (res.data.status == 200){
@@ -477,6 +540,7 @@ export const getters = {
     RainfallData: state => state.rainfallArr,
     LeftData: state => state.leftArr,
     RightData: state => state.rightArr,
+    BarData: state => state.barArr,
     IsFarm: state => state.isFarm,
     IsChart: state => state.isChart,
     Type1: state => state.type1,

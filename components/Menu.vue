@@ -13,6 +13,9 @@ export default {
         routerchart(){
             this.$router.push('chart');
         },
+        routerchartbar(){
+            this.$router.push('chartbar');
+        },
         routerupdate(){
             this.$router.push('update');
         }
@@ -88,6 +91,12 @@ export default {
                     <v-list-item-title>折線圖</v-list-item-title>
                     <v-list-item-icon>
                         <v-icon>mdi-chart-bell-curve</v-icon>
+                    </v-list-item-icon>
+                </v-list-item>
+                <v-list-item link @click="routerchartbar">
+                    <v-list-item-title>長條圖</v-list-item-title>
+                    <v-list-item-icon>
+                        <v-icon>mdi-chart-bar</v-icon>
                     </v-list-item-icon>
                 </v-list-item>
                 <v-list-item link @click="routerupdate">
