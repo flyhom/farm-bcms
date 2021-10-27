@@ -9,10 +9,19 @@ export default {
     data(){
         return {
             loading: false,
-            chartloading: false,
-            charttwoloading: false,
+            chartloading: [
+                false,false,false,false,
+            ],
+            charttwoloading: [
+                false,false,false,false,
+            ],
             width: '98%',
-            height: '700px',
+            widthall: '98%',
+            height: '350px',
+            height1: '700px',
+            height2: '700px',
+            height3: '700px',
+            height4: '700px',
             title: [],
             charttitle: [],
             //查詢工具列
@@ -67,67 +76,250 @@ export default {
             charttype: 'line',
             chartLineColor: 'amber darken-3',
             chartBarColor: 'dark',
+            taball: false,
+            tabone: false,
+            tabtwo: false,
+            tabthree: false,
+            tabfour: false,
         }
     },
     mounted(){
-        this.$store.dispatch('handClearchart');
+        this.$store.dispatch('handClearchartmulti');
     },
     computed:{
-        LeftData(){
-            return this.$store.getters.LeftData;
+        //chartmulti1
+        LeftData1(){
+            return this.$store.getters.LeftData1;
         },
-        RightData(){
-            return this.$store.getters.RightData;
+        RightData1(){
+            return this.$store.getters.RightData1;
         },
-        Type1(){
-            return this.$store.getters.Type1;
+        Typeleft1(){
+            return this.$store.getters.Typeleft1;
         },
-        Type2(){
-            return this.$store.getters.Type2;
+        Typeright1(){
+            return this.$store.getters.Typeright1;
         },
-        TimeData(){
-            return this.$store.getters.TimeData;
+        TimeData1(){
+            return this.$store.getters.TimeData1;
         },
-        TempData(){
-            return this.$store.getters.TempData;
+        TempData1(){
+            return this.$store.getters.TempData1;
         },
-        HumidityData(){
-            return this.$store.getters.HumidityData;
+        HumidityData1(){
+            return this.$store.getters.HumidityData1;
         },
-        LuminanceData(){
-            return this.$store.getters.LuminanceData;
+        LuminanceData1(){
+            return this.$store.getters.LuminanceData1;
         },
-        AtpData(){
-            return this.$store.getters.AtpData;
+        AtpData1(){
+            return this.$store.getters.AtpData1;
         },
-        EcData(){
-            return this.$store.getters.EcData;
+        EcData1(){
+            return this.$store.getters.EcData1;
         },
-        PhData(){
-            return this.$store.getters.PhData;
+        PhData1(){
+            return this.$store.getters.PhData1;
         },
-        Soil_tempData(){
-            return this.$store.getters.Soil_tempData;
+        Soil_tempData1(){
+            return this.$store.getters.Soil_tempData1;
         },
-        Soil_humidData(){
-            return this.$store.getters.Soil_humidData;
+        Soil_humidData1(){
+            return this.$store.getters.Soil_humidData1;
         },
-        UvData(){
-            return this.$store.getters.UvData;
+        UvData1(){
+            return this.$store.getters.UvData1;
         },
-        RainfallData(){
-            return this.$store.getters.RainfallData;
+        RainfallData1(){
+            return this.$store.getters.RainfallData1;
         },
-        Title(){
-            return this.$store.getters.Type_ch;
+        Title1(){
+            return this.$store.getters.Type_ch1;
         },
-        Charttitle(){
-            for (let i = 0; i < this.type_ch.length; i++) {
-                const element = this.type_ch[i].text;
-                this.charttitle.push(element);
-            }
-            return `${this.charttitle} & ${this.start} - ${this.end}`;
+        TitleTab1(){
+            return `${this.$store.getters.Type_ch1}`;
         },
+        Charttitle1(){
+            return `${this.$store.getters.Type_ch1} & ${this.start} - ${this.end}`;
+        },
+        ChartType1(){
+            return this.$store.getters.ChartType1;
+        },
+        //chartmulti2
+        LeftData2(){
+            return this.$store.getters.LeftData2;
+        },
+        RightData2(){
+            return this.$store.getters.RightData2;
+        },
+        Typeleft2(){
+            return this.$store.getters.Typeleft2;
+        },
+        Typeright2(){
+            return this.$store.getters.Typeright2;
+        },
+        TimeData2(){
+            return this.$store.getters.TimeData2;
+        },
+        TempData2(){
+            return this.$store.getters.TempData2;
+        },
+        HumidityData2(){
+            return this.$store.getters.HumidityData2;
+        },
+        LuminanceData2(){
+            return this.$store.getters.LuminanceData2;
+        },
+        AtpData2(){
+            return this.$store.getters.AtpData2;
+        },
+        EcData2(){
+            return this.$store.getters.EcData2;
+        },
+        PhData2(){
+            return this.$store.getters.PhData2;
+        },
+        Soil_tempData2(){
+            return this.$store.getters.Soil_tempData2;
+        },
+        Soil_humidData2(){
+            return this.$store.getters.Soil_humidData2;
+        },
+        UvData2(){
+            return this.$store.getters.UvData2;
+        },
+        RainfallData2(){
+            return this.$store.getters.RainfallData2;
+        },
+        Title2(){
+            return this.$store.getters.Type_ch2;
+        },
+        TitleTab2(){
+            return `${this.$store.getters.Type_ch2}`;
+        },
+        Charttitle2(){
+            return `${this.$store.getters.Type_ch2} & ${this.start} - ${this.end}`;
+        },
+        ChartType2(){
+            return this.$store.getters.ChartType2;
+        },
+        //chartmulti3
+        LeftData3(){
+            return this.$store.getters.LeftData3;
+        },
+        RightData3(){
+            return this.$store.getters.RightData3;
+        },
+        Typeleft3(){
+            return this.$store.getters.Typeleft3;
+        },
+        Typeright3(){
+            return this.$store.getters.Typeright3;
+        },
+        TimeData3(){
+            return this.$store.getters.TimeData3;
+        },
+        TempData3(){
+            return this.$store.getters.TempData3;
+        },
+        HumidityData3(){
+            return this.$store.getters.HumidityData3;
+        },
+        LuminanceData3(){
+            return this.$store.getters.LuminanceData3;
+        },
+        AtpData3(){
+            return this.$store.getters.AtpData3;
+        },
+        EcData3(){
+            return this.$store.getters.EcData3;
+        },
+        PhData3(){
+            return this.$store.getters.PhData3;
+        },
+        Soil_tempData3(){
+            return this.$store.getters.Soil_tempData3;
+        },
+        Soil_humidData3(){
+            return this.$store.getters.Soil_humidData3;
+        },
+        UvData3(){
+            return this.$store.getters.UvData3;
+        },
+        RainfallData3(){
+            return this.$store.getters.RainfallData3;
+        },
+        Title3(){
+            return this.$store.getters.Type_ch3;
+        },
+        TitleTab3(){
+            return `${this.$store.getters.Type_ch3}`;
+        },
+        Charttitle3(){
+            return `${this.$store.getters.Type_ch3} & ${this.start} - ${this.end}`;
+        },
+        ChartType3(){
+            return this.$store.getters.ChartType3;
+        },
+        //chartmulti4
+        LeftData4(){
+            return this.$store.getters.LeftData4;
+        },
+        RightData4(){
+            return this.$store.getters.RightData4;
+        },
+        Typeleft4(){
+            return this.$store.getters.Typeleft4;
+        },
+        Typeright4(){
+            return this.$store.getters.Typeright4;
+        },
+        TimeData4(){
+            return this.$store.getters.TimeData4;
+        },
+        TempData4(){
+            return this.$store.getters.TempData4;
+        },
+        HumidityData4(){
+            return this.$store.getters.HumidityData4;
+        },
+        LuminanceData4(){
+            return this.$store.getters.LuminanceData4;
+        },
+        AtpData4(){
+            return this.$store.getters.AtpData4;
+        },
+        EcData4(){
+            return this.$store.getters.EcData4;
+        },
+        PhData4(){
+            return this.$store.getters.PhData4;
+        },
+        Soil_tempData4(){
+            return this.$store.getters.Soil_tempData4;
+        },
+        Soil_humidData4(){
+            return this.$store.getters.Soil_humidData4;
+        },
+        UvData4(){
+            return this.$store.getters.UvData4;
+        },
+        RainfallData4(){
+            return this.$store.getters.RainfallData4;
+        },
+        Title4(){
+            return this.$store.getters.Type_ch4;
+        },
+        TitleTab4(){
+            return `${this.$store.getters.Type_ch4}`;
+        },
+        Charttitle4(){
+            return `${this.$store.getters.Type_ch4} & ${this.start} - ${this.end}`;
+        },
+        ChartType4(){
+            return this.$store.getters.ChartType4;
+        },
+        //
         startcheck(){
             if (this.starttime == '' || this.startdate == '') {
                 return true;
@@ -140,7 +332,7 @@ export default {
             }
             return false;
         },
-        //chartbar
+
         PlusEditbtn(){
             if (this.chartItem.length == 4) {
                 return true;
@@ -219,7 +411,7 @@ export default {
             this.menuend = false;
         },
         clear(){
-            this.$store.dispatch("handClearchart");
+            this.$store.dispatch("handClearchartmulti");
             this.tempcolor = "dark"; 
             this.humiditycolor = "dark";
             this.atpcolor = "dark";
@@ -236,57 +428,89 @@ export default {
             this.chipAdvanced = [];
             this.funcdone = false;
             this.idx = 0;
-            this.chartloading = false;
-            this.charttwoloading = false;
+            this.chartloading = [
+                false,false,false,false,
+            ];
+            this.charttwoloading = [
+                false,false,false,false,
+            ];
             this.old_type = [];
-            this.title = [];
             this.charttitle = [];
             this.chartItem = [];
             this.editidx = 0;
+            this.taball = false;
+            this.tabone = false;
+            this.tabtwo = false;
+            this.tabthree = false;
+            this.tabfour = false;
         },
         //search
         async searchdata(){
-            console.log(this.chartItem);
-            // this.loading = true;
-            // this.editdialog = false;
-            // this.chartloading = false;
-            // this.charttwoloading = false;
-            // this.title = [];
-            // this.charttitle = [];
-            // for (let i = 0; i < this.chartItem.length; i++) {
-            //     await this.$store.dispatch('handType', this.chartItem[i].type);
-            //     await this.$store.dispatch('handTypeCh', this.chartItem[i].type_ch);
-            //     await this.$store.dispatch('chartdata', {
-            //         type: this.chartItem[i].type, 
-            //         advanced: this.chartItem[i].advanced,
-            //         start_time: this.start, 
-            //         end_time: this.end, 
-            //         time: this.chartItem[i].time
-            //     });                   
-            // }
-            // // console.log(this.type.length);
-            // if (this.$store.getters.IsChart == true) {
-            //     this.old_type = this.type;
-            //     if (this.type.length == 2) {
-            //         this.charttwoloading = true;
-            //     }
-            //     else {
-            //         this.chartloading = true;
-            //     }
-            // }
-            // else {
-            //     if (this.old_type.length == 2) {
-            //         this.charttwoloading = true;
-            //     }
-            //     else if (this.old_type.length == 0){
-            //         this.chartloading = false;
-            //         this.charttwoloading = false;
-            //     }
-            //     else{
-            //         this.chartloading = true;
-            //     }
-            // }
-            // this.loading = false;
+            // console.log(this.chartItem);
+            this.loading = true;
+            await this.$store.dispatch("handClearchartmulti");
+            this.editdialog = false;
+            this.chartloading = [
+                false,false,false,false,
+            ];
+            this.charttwoloading = [
+                false,false,false,false,
+            ];
+            this.charttitle = [];
+            this.tab = 'tab-1';
+            this.taball = false;
+            this.tabone = false;
+            this.tabtwo = false;
+            this.tabthree = false;
+            this.tabfour = false;
+            for (let i = 0; i < this.chartItem.length; i++) {
+                await this.$store.dispatch('handchartitemlength', this.chartItem.length);
+                await this.$store.dispatch('handTypemulti', { arr: this.chartItem[i].type, id: i});
+                await this.$store.dispatch('handTypeChmulti', { arr: this.chartItem[i].type_ch, id: i});
+                await this.$store.dispatch('chartmultidata', {
+                    type: this.chartItem[i].type, 
+                    advanced: this.chartItem[i].advanced,
+                    start_time: this.start, 
+                    end_time: this.end, 
+                    time: this.chartItem[i].time,
+                    id: i,
+                    charttype: this.chartItem[i].charttype,
+                });
+                if (this.chartItem[i].type.length == 2) {
+                    this.charttwoloading[i] = true;
+                }
+                else {
+                    this.chartloading[i] = true;
+                } 
+                // console.log(`${this.$store.getters.IsChart1}`);
+                // if (`${this.$store.getters.IsChart1}` == true) {
+                //     this.old_type = this.chartItem[i].type;
+                //     if (this.chartItem[i].type.length == 2) {
+                //         this.charttwoloading = true;
+                //     }
+                //     else {
+                //         this.chartloading = true;
+                //     }
+                // }
+                // else {
+                //     if (this.old_type.length == 2) {
+                //         this.charttwoloading = true;
+                //     }
+                //     else if (this.old_type.length == 0){
+                //         this.chartloading = false;
+                //         this.charttwoloading = false;
+                //     }
+                //     else{
+                //         this.chartloading = true;
+                //     }
+                // }                  
+            }
+            this.taball = true;
+            this.tabone = true;
+            this.tabtwo = true;
+            this.tabthree = true;
+            this.tabfour = true;
+            this.loading = false;
         },
         temp(item){
             if (item.color.tempcolor === "dark"){
@@ -433,15 +657,15 @@ export default {
             item.type_ch = item.type_ch.filter(e => e.id !== "rainfall");
         },
         setchartnormal(){
-            this.chartloading = false;
-            this.charttwoloading = false;
+            // this.chartloading = false;
+            // this.charttwoloading = false;
             this.width = '98%';
             this.chartnormal = 'primary';
             this.chartsmall = 'dark';
         },
-        async setchartsmall(){
-            this.chartloading = false;
-            this.charttwoloading = false;
+        setchartsmall(){
+            // this.chartloading = false;
+            // this.charttwoloading = false;
             this.width = '1185px';
             this.chartnormal = 'dark';
             this.chartsmall = 'primary';
@@ -911,70 +1135,229 @@ export default {
                             </v-toolbar>
                             <v-tabs background-color="transparent" color="cyan accent-3" slider-color="cyan accent-3" v-model="tab">
                                 <v-tab href="#tab-1">全部</v-tab>
-                                <v-tab href="#tab-2">圖1</v-tab>
-                                <v-tab href="#tab-3">圖2</v-tab>
-                                <v-tab href="#tab-4">圖3</v-tab>
-                                <v-tab href="#tab-5">圖4</v-tab>
+                                <v-tab href="#tab-2" v-show="TimeData1.length != 0">{{TitleTab1}}</v-tab>
+                                <v-tab href="#tab-3" v-show="TimeData2.length != 0">{{TitleTab2}}</v-tab>
+                                <v-tab href="#tab-4" v-show="TimeData3.length != 0">{{TitleTab3}}</v-tab>
+                                <v-tab href="#tab-5" v-show="TimeData4.length != 0">{{TitleTab4}}</v-tab>
                             </v-tabs>
+                            <v-progress-linear
+                                :active="loading"
+                                :indeterminate="loading"
+                                absolute
+                                top
+                                color="#40b47f"
+                            ></v-progress-linear>
                             <v-tabs-items v-model="tab">
-                                <v-tab-item value="tab-1">
+                                <v-tab-item value="tab-1" v-if="taball">
+                                    <v-card dark height="800px" tile>
+                                        <v-row justify="center">
+                                            <v-col cols="6">
+                                                <OriDataChart v-if="chartloading[0]" :chartWidth="widthall" :chartHeight="height" :title="Title1" :charttitle="Charttitle1" :charttype="ChartType1"
+                                                :timeData="TimeData1"
+                                                :tempData="TempData1" 
+                                                :humidityData="HumidityData1"
+                                                :luminanceData="LuminanceData1"
+                                                :atpData="AtpData1"
+                                                :ecData="EcData1"
+                                                :phData="PhData1"
+                                                :soil_tempData="Soil_tempData1"
+                                                :soil_humidData="Soil_humidData1"
+                                                :uvData="UvData1"
+                                                :rainfallData="RainfallData1"
+                                                />
+                                                <OriDataChartTwoSer v-if="charttwoloading[0]" :chartWidth="widthall" :chartHeight="height" :title="Title1" :charttitle="Charttitle1"  :charttype="ChartType1"
+                                                :timeData="TimeData1"
+                                                :leftdata="LeftData1"
+                                                :rightdata="RightData1"
+                                                :type1title="Typeleft1"
+                                                :type2title="Typeright1"
+                                                />
+                                            </v-col>
+                                            <v-col cols="6">
+                                                <OriDataChart v-if="chartloading[1]" :chartWidth="widthall" :chartHeight="height" :title="Title2" :charttitle="Charttitle2" :charttype="ChartType2"
+                                                :timeData="TimeData2"
+                                                :tempData="TempData2" 
+                                                :humidityData="HumidityData2"
+                                                :luminanceData="LuminanceData2"
+                                                :atpData="AtpData2"
+                                                :ecData="EcData2"
+                                                :phData="PhData2"
+                                                :soil_tempData="Soil_tempData2"
+                                                :soil_humidData="Soil_humidData2"
+                                                :uvData="UvData2"
+                                                :rainfallData="RainfallData2"
+                                                />
+                                                <OriDataChartTwoSer v-if="charttwoloading[1]" :chartWidth="widthall" :chartHeight="height" :title="Title2" :charttitle="Charttitle2" :charttype="ChartType2"
+                                                :timeData="TimeData2"
+                                                :leftdata="LeftData2"
+                                                :rightdata="RightData2"
+                                                :type1title="Typeleft2"
+                                                :type2title="Typeright2"
+                                                />
+                                            </v-col>
+                                            <v-col cols="6" class="mt-5">
+                                                <OriDataChart v-if="chartloading[2]" :chartWidth="widthall" :chartHeight="height" :title="Title3" :charttitle="Charttitle3" :charttype="ChartType3"
+                                                :timeData="TimeData3"
+                                                :tempData="TempData3" 
+                                                :humidityData="HumidityData3"
+                                                :luminanceData="LuminanceData3"
+                                                :atpData="AtpData3"
+                                                :ecData="EcData3"
+                                                :phData="PhData3"
+                                                :soil_tempData="Soil_tempData3"
+                                                :soil_humidData="Soil_humidData3"
+                                                :uvData="UvData3"
+                                                :rainfallData="RainfallData3"
+                                                />
+                                                <OriDataChartTwoSer v-if="charttwoloading[2]" :chartWidth="widthall" :chartHeight="height" :title="Title3" :charttitle="Charttitle3"  :charttype="ChartType3"
+                                                :timeData="TimeData3"
+                                                :leftdata="LeftData3"
+                                                :rightdata="RightData3"
+                                                :type1title="Typeleft3"
+                                                :type2title="Typeright3"
+                                                />
+                                            </v-col>
+                                            <v-col cols="6" class="mt-5">
+                                                <OriDataChart v-if="chartloading[3]" :chartWidth="widthall" :chartHeight="height" :title="Title4" :charttitle="Charttitle4" :charttype="ChartType4"
+                                                :timeData="TimeData4"
+                                                :tempData="TempData4" 
+                                                :humidityData="HumidityData4"
+                                                :luminanceData="LuminanceData4"
+                                                :atpData="AtpData4"
+                                                :ecData="EcData4"
+                                                :phData="PhData4"
+                                                :soil_tempData="Soil_tempData4"
+                                                :soil_humidData="Soil_humidData4"
+                                                :uvData="UvData4"
+                                                :rainfallData="RainfallData4"
+                                                />
+                                                <OriDataChartTwoSer v-if="charttwoloading[3]" :chartWidth="widthall" :chartHeight="height" :title="Title4" :charttitle="Charttitle4" :charttype="ChartType4"
+                                                :timeData="TimeData4"
+                                                :leftdata="LeftData4"
+                                                :rightdata="RightData4"
+                                                :type1title="Typeleft4"
+                                                :type2title="Typeright4"
+                                                />
+                                            </v-col>
+                                        </v-row>
+                                    </v-card>
+                                </v-tab-item>
+                                <v-tab-item value="tab-2" v-if="tabone">
                                    <v-card dark height="800px" tile>
-                                       
+                                       <v-row justify="center">
+                                            <v-col cols="12">
+                                                <OriDataChart v-if="chartloading[0]" :chartWidth="width" :chartHeight="height1" :title="Title1" :charttitle="Charttitle1" :charttype="ChartType1"
+                                                :timeData="TimeData1"
+                                                :tempData="TempData1" 
+                                                :humidityData="HumidityData1"
+                                                :luminanceData="LuminanceData1"
+                                                :atpData="AtpData1"
+                                                :ecData="EcData1"
+                                                :phData="PhData1"
+                                                :soil_tempData="Soil_tempData1"
+                                                :soil_humidData="Soil_humidData1"
+                                                :uvData="UvData1"
+                                                :rainfallData="RainfallData1"
+                                                />
+                                                <OriDataChartTwoSer v-if="charttwoloading[0]" :chartWidth="width" :chartHeight="height1" :title="Title1" :charttitle="Charttitle1" :charttype="ChartType1"
+                                                :timeData="TimeData1"
+                                                :leftdata="LeftData1"
+                                                :rightdata="RightData1"
+                                                :type1title="Typeleft1"
+                                                :type2title="Typeright1"
+                                                />
+                                            </v-col>
+                                        </v-row>
                                    </v-card>
                                 </v-tab-item>
-                                <v-tab-item value="tab-2">
+                                <v-tab-item value="tab-3" v-if="tabtwo">
                                    <v-card dark height="800px" tile>
-                                       
+                                       <v-row justify="center">
+                                            <v-col cols="12">
+                                                <OriDataChart v-if="chartloading[1]" :chartWidth="width" :chartHeight="height2" :title="Title2" :charttitle="Charttitle2" :charttype="ChartType2"
+                                                :timeData="TimeData2"
+                                                :tempData="TempData2" 
+                                                :humidityData="HumidityData2"
+                                                :luminanceData="LuminanceData2"
+                                                :atpData="AtpData2"
+                                                :ecData="EcData2"
+                                                :phData="PhData2"
+                                                :soil_tempData="Soil_tempData2"
+                                                :soil_humidData="Soil_humidData2"
+                                                :uvData="UvData2"
+                                                :rainfallData="RainfallData2"
+                                                />
+                                                <OriDataChartTwoSer v-if="charttwoloading[1]" :chartWidth="width" :chartHeight="height2" :title="Title2" :charttitle="Charttitle2" :charttype="ChartType2"
+                                                :timeData="TimeData2"
+                                                :leftdata="LeftData2"
+                                                :rightdata="RightData2"
+                                                :type1title="Typeleft2"
+                                                :type2title="Typeright2"
+                                                />
+                                            </v-col>
+                                        </v-row>
                                    </v-card>
                                 </v-tab-item>
-                                <v-tab-item value="tab-3">
+                                <v-tab-item value="tab-4" v-if="tabthree">
                                    <v-card dark height="800px" tile>
-                                       
+                                       <v-row justify="center">
+                                            <v-col cols="12">
+                                                <OriDataChart v-if="chartloading[2]" :chartWidth="width" :chartHeight="height3" :title="Title3" :charttitle="Charttitle3" :charttype="ChartType3"
+                                                :timeData="TimeData3"
+                                                :tempData="TempData3" 
+                                                :humidityData="HumidityData3"
+                                                :luminanceData="LuminanceData3"
+                                                :atpData="AtpData3"
+                                                :ecData="EcData3"
+                                                :phData="PhData3"
+                                                :soil_tempData="Soil_tempData3"
+                                                :soil_humidData="Soil_humidData3"
+                                                :uvData="UvData3"
+                                                :rainfallData="RainfallData3"
+                                                />
+                                                <OriDataChartTwoSer v-if="charttwoloading[2]" :chartWidth="width" :chartHeight="height3" :title="Title3" :charttitle="Charttitle3" :charttype="ChartType3"
+                                                :timeData="TimeData3"
+                                                :leftdata="LeftData3"
+                                                :rightdata="RightData3"
+                                                :type1title="Typeleft3"
+                                                :type2title="Typeright3"
+                                                />
+                                            </v-col>
+                                        </v-row>
                                    </v-card>
                                 </v-tab-item>
-                                <v-tab-item value="tab-4">
+                                <v-tab-item value="tab-5" v-if="tabfour">
                                    <v-card dark height="800px" tile>
-                                       
+                                       <v-row justify="center">
+                                            <v-col cols="12">
+                                                <OriDataChart v-if="chartloading[3]" :chartWidth="width" :chartHeight="height4" :title="Title4" :charttitle="Charttitle4" :charttype="ChartType4"
+                                                :timeData="TimeData4"
+                                                :tempData="TempData4" 
+                                                :humidityData="HumidityData4"
+                                                :luminanceData="LuminanceData4"
+                                                :atpData="AtpData4"
+                                                :ecData="EcData4"
+                                                :phData="PhData4"
+                                                :soil_tempData="Soil_tempData4"
+                                                :soil_humidData="Soil_humidData4"
+                                                :uvData="UvData4"
+                                                :rainfallData="RainfallData4"
+                                                />
+                                                <OriDataChartTwoSer v-if="charttwoloading[3]" :chartWidth="width" :chartHeight="height4" :title="Title4" :charttitle="Charttitle4" :charttype="ChartType4"
+                                                :timeData="TimeData4"
+                                                :leftdata="LeftData4"
+                                                :rightdata="RightData4"
+                                                :type1title="Typeleft4"
+                                                :type2title="Typeright4"
+                                                />
+                                            </v-col>
+                                        </v-row>
                                    </v-card>
                                 </v-tab-item>
-                                <v-tab-item value="tab-5">
-                                   <v-card dark height="800px" tile>
-                                       
-                                   </v-card>
+                                <v-tab-item value="tab-6">
                                 </v-tab-item>
                             </v-tabs-items>
                         </v-card>
-                    </v-col>
-                </v-row>
-                <v-row justify="center">
-                    <v-col cols="12">
-                        <v-progress-linear
-                            :active="loading"
-                            :indeterminate="loading"
-                            absolute
-                            top
-                            color="#40b47f"
-                        ></v-progress-linear>
-                        <OriDataChart v-if="chartloading" :chartWidth="width" :chartHeight="height" :title="Title" :charttitle="Charttitle"
-                        :timeData="TimeData"
-                        :tempData="TempData" 
-                        :humidityData="HumidityData"
-                        :luminanceData="LuminanceData"
-                        :atpData="AtpData"
-                        :ecData="EcData"
-                        :phData="PhData"
-                        :soil_tempData="Soil_tempData"
-                        :soil_humidData="Soil_humidData"
-                        :uvData="UvData"
-                        :rainfallData="RainfallData"
-                        />
-                        <OriDataChartTwoSer v-if="charttwoloading" :chartWidth="width" :chartHeight="height" :title="Title" :charttitle="Charttitle"
-                        :timeData="TimeData"
-                        :leftdata="LeftData"
-                        :rightdata="RightData"
-                        :type1title="Type1"
-                        :type2title="Type2"
-                        />
                     </v-col>
                 </v-row>
             </v-container>

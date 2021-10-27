@@ -11,10 +11,12 @@ export default {
             type: Array
         },
         chartHeight: {
-            type: String
+            type: String,
+            default: '700px',
         },
         chartWidth: {
-            type: String
+            type: String,
+            default: '98%',
         },
         title: {
             type: Array
@@ -27,10 +29,16 @@ export default {
         },
         charttitle: {
             type: String
+        },
+        charttype: {
+            type: String,
+            default: 'line',
         }
     },
     data() {
-        return {};
+        return {
+            
+        };
     },
     methods: {
         echartsInit() {
@@ -41,13 +49,19 @@ export default {
             title: {
                 show: true,
                 text: this.charttitle,
-                left: "left",
+                left: "center",
+                top: "bottom",
                 textStyle: {
                     fontWeight: "normal",
                     color: "#03A9F4",
-                    fontSize: 16
+                    fontSize: 12
                 }
             },
+            dataZoom: [
+                {
+                    type: 'inside'
+                },
+            ],
             tooltip: {
                 trigger: "axis",
                 axisPointer: {
@@ -75,7 +89,7 @@ export default {
             grid: {
                 left: "3%",
                 right: "4%",
-                bottom: "3%",
+                bottom: "7%",
                 containLabel: true
             },
             xAxis: {
@@ -84,6 +98,13 @@ export default {
                 axisTick: {
                     alignWithLabel: true
                 },
+                silent: false,
+                splitLine: {
+                    show: false
+                },
+                splitArea: {
+                    show: false
+                }
             },
             yAxis: [
                 {
@@ -96,6 +117,9 @@ export default {
                     position: 'left',
                     axisLabel:{
                         color:'#40b47f'
+                    },
+                    splitArea: {
+                        show: false
                     }
                 },
                 {
@@ -108,13 +132,16 @@ export default {
                     position: 'right',
                     axisLabel:{
                         color:'#f49f42'
+                    },
+                    splitArea: {
+                        show: false
                     }
                 },
             ],
             series: [
                 {
                     name: this.type1title,
-                    type: "line",
+                    type: this.charttype,
                     color: [
                         '#40b47f',
                         '#759aa0',
@@ -133,10 +160,11 @@ export default {
                             width: 2,
                     },
                     data: this.leftdata,
+                    large: true,
                 },
                 {
                     name: this.type2title,
-                    type: "line",
+                    type: this.charttype,
                     yAxisIndex: 1,
                     color: [
                         '#f49f42',
@@ -155,6 +183,7 @@ export default {
                             width: 2,
                     },
                     data: this.rightdata,
+                    large: true,
                 },
             ]
         });
@@ -173,7 +202,7 @@ export default {
                 <div 
                 ref="ComprehensiveChart"
                 class="ComprehensiveChart"
-                :style="{width:chartWidth,height:chartHeight}"
+                :style="{width:chartWidth, height:chartHeight}"
                 ></div>
             </v-col>
         </v-row>

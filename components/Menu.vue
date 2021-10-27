@@ -52,13 +52,14 @@ export default {
             <router-link to="/">
                 <v-list-item link>
                     <v-list-item-icon>
-                    <!-- <v-avatar
-                        size="26"
+                    <v-avatar
+                        size="32"
                         tile
+                        class="pr-2 pb-2"
                     >
-                        <v-img :src="require('~/assets/tea.svg')"></v-img>
-                    </v-avatar> -->
-                    <v-icon>mdi-leaf</v-icon>
+                        <v-img :src="require('~/assets/wtea.svg')"></v-img>
+                    </v-avatar>
+                    <!-- <v-icon>mdi-leaf</v-icon> -->
                     </v-list-item-icon>
                     <v-list-item-title>茶農管理系統</v-list-item-title>
                 </v-list-item>
