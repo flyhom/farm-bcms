@@ -340,6 +340,14 @@ export default {
             else {
                 return false;
             }
+        },
+        searchbtncheck(){
+            if (this.chartItem.length > 0) {
+                return false;
+            }
+            else {
+                return true;
+            }
         }
     },
     methods:{
@@ -364,10 +372,27 @@ export default {
                     'value': this.value,
                 }
             );
-            // this.advanced =  this.chartItem[this.idx].advanced;
             this.chartItem[this.idx].advanced.idx += 1;
         },
-        advanced_close(y,item){
+        advanced_close(y){
+            this.chartItem[this.idx].advanced.splice(y.idx,1);
+            this.chartItem[this.idx].advanced.forEach(i => {
+                if (i.idx > y.idx) {
+                    i.idx = i.idx - 1;
+                }
+            })
+            this.chartItem[this.idx].chip.splice(y.idx,1);
+            this.chartItem[this.idx].chip.forEach(i => {
+                if (i.idx > y.idx) {
+                    i.idx = i.idx - 1;
+                }
+            })  
+            this.chartItem[this.idx].advanced.idx -= 1;
+            if (this.chartItem[this.idx].advanced.length == 0) {
+                this.chartItem[this.idx].funcdone = false;
+            }
+        },
+        advanced_chip_close(y,item){
             this.chartItem[item.idx].advanced.splice(y.idx,1);
             this.chartItem[item.idx].advanced.forEach(i => {
                 if (i.idx > y.idx) {
@@ -379,7 +404,7 @@ export default {
                 if (i.idx > y.idx) {
                     i.idx = i.idx - 1;
                 }
-            })
+            })  
             this.chartItem[item.idx].advanced.idx -= 1;
             if (this.chartItem[item.idx].advanced.length == 0) {
                 this.chartItem[item.idx].funcdone = false;
@@ -446,7 +471,6 @@ export default {
         },
         //search
         async searchdata(){
-            // console.log(this.chartItem);
             this.loading = true;
             await this.$store.dispatch("handClearchartmulti");
             this.editdialog = false;
@@ -465,8 +489,11 @@ export default {
             this.tabfour = false;
             for (let i = 0; i < this.chartItem.length; i++) {
                 await this.$store.dispatch('handchartitemlength', this.chartItem.length);
+                
                 await this.$store.dispatch('handTypemulti', { arr: this.chartItem[i].type, id: i});
+                
                 await this.$store.dispatch('handTypeChmulti', { arr: this.chartItem[i].type_ch, id: i});
+                
                 await this.$store.dispatch('chartmultidata', {
                     type: this.chartItem[i].type, 
                     advanced: this.chartItem[i].advanced,
@@ -482,28 +509,7 @@ export default {
                 else {
                     this.chartloading[i] = true;
                 } 
-                // console.log(`${this.$store.getters.IsChart1}`);
-                // if (`${this.$store.getters.IsChart1}` == true) {
-                //     this.old_type = this.chartItem[i].type;
-                //     if (this.chartItem[i].type.length == 2) {
-                //         this.charttwoloading = true;
-                //     }
-                //     else {
-                //         this.chartloading = true;
-                //     }
-                // }
-                // else {
-                //     if (this.old_type.length == 2) {
-                //         this.charttwoloading = true;
-                //     }
-                //     else if (this.old_type.length == 0){
-                //         this.chartloading = false;
-                //         this.charttwoloading = false;
-                //     }
-                //     else{
-                //         this.chartloading = true;
-                //     }
-                // }                  
+                  
             }
             this.taball = true;
             this.tabone = true;
@@ -1024,7 +1030,7 @@ export default {
                                             </v-btn>
                                         </v-col>
                                         <v-col v-if="item.funcdone" cols="12">
-                                            <v-chip v-for="y in chartItem[item.idx].chipAdvanced" :key="y.idx" close class="mr-2" @click:close="advanced_close(y, item)" color="primary">
+                                            <v-chip v-for="y in chartItem[item.idx].chipAdvanced" :key="y.idx" close class="mr-2" @click:close="advanced_chip_close(y, item)" color="primary">
                                                 <span v-if="y.sensor == 'temp'">溫度 {{y.operation}} {{y.value}}</span> 
                                                 <span v-if="y.sensor == 'humidity'">濕度 {{y.operation}} {{y.value}}</span> 
                                                 <span v-if="y.sensor == 'luminance'">光照 {{y.operation}} {{y.value}}</span> 
@@ -1043,7 +1049,7 @@ export default {
                                     <v-spacer></v-spacer>
                                     <v-btn dark class="mr-2" @click="closeEditdialog">取消</v-btn>
                                     <v-btn dark color="error" class="mr-2" @click="clear">清除</v-btn>
-                                    <v-btn dark color="success" class="mr-2" @click="searchdata">搜尋</v-btn>
+                                    <v-btn dark color="success" class="mr-2" @click="searchdata" :disabled="searchbtncheck">搜尋</v-btn>
                                 </v-card-actions>
                             </v-card>
                         </v-dialog>
@@ -1066,9 +1072,9 @@ export default {
                                 </v-toolbar> 
                                 <v-card-text>
                                     <v-container>
-                                        <v-row v-for="x in advanced" :key="x.idx">
+                                        <v-row v-for="y in advanced" :key="y.idx">
                                             <v-col cols="1" class="mr-2">
-                                                <v-btn color="red lighten-2" small text icon @click="advanced_close(x)" class="mt-5"> 
+                                                <v-btn color="red lighten-2" small text icon @click="advanced_close(y)" class="mt-5"> 
                                                     <v-icon>
                                                         mdi-close
                                                     </v-icon>
@@ -1076,30 +1082,30 @@ export default {
                                             </v-col>
                                             <v-col>
                                                 <v-select
-                                                    v-model="x.sensor"
+                                                    v-model="y.sensor"
                                                     :items="chartItem[idx].type_ch"
                                                     item-text="text"
                                                     item-value="id"
                                                     label="感測器"
                                                     hide-details
-                                                    @input="advanced_selecttype(x)"
+                                                    @input="advanced_selecttype(y)"
                                                 ></v-select>    
                                             </v-col>
                                             <v-col>
                                                 <v-select
-                                                    v-model="x.operation"
+                                                    v-model="y.operation"
                                                     :items="['>','>=','=','<=','<']"
                                                     label="判斷"
                                                     hide-details
-                                                    @input="advanced_selectoption(x)"
+                                                    @input="advanced_selectoption(y)"
                                                 ></v-select> 
                                             </v-col>
                                             <v-col>
                                                 <v-text-field 
-                                                    v-model="x.value"
-                                                    @input="advanced_value(x)"
+                                                    v-model="y.value"
+                                                    @input="advanced_value(y)"
                                                 >
-                                                    {{x.value}}
+                                                    {{y.value}}
                                                 </v-text-field>
                                             </v-col>
                                         </v-row>

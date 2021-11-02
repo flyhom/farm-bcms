@@ -137,7 +137,7 @@ export const actions = {
     handTypeChmulti({commit}, payload){
         commit('type_ch_multi', payload);
     },
-    handchartitemlength({commit},length){
+    handchartitemlength({commit}, length){
         commit('chartitemlength', length);
     },
     async farmdata({ commit }, payload){
@@ -640,8 +640,13 @@ export const mutations = {
             if (id == state.chartitemle-1) {
                 this.$toast.success(res.data.msg, { icon: 'check_circle' });
             }
+            if (res.data.datas[0].time == null) {
+                state.chartmultidata[id].timeArr == [];
+            }
+            else {
+                state.chartmultidata[id].timeArr = res.data.datas[0].time;
+            }
             state.chartmultidata[id].charttype = charttype;
-            state.chartmultidata[id].timeArr = res.data.datas[0].time;
             state.chartmultidata[id].tempArr = res.data.datas[0].temp;
             state.chartmultidata[id].humidityArr = res.data.datas[0].humidity;
             state.chartmultidata[id].luminanceArr = res.data.datas[0].luminance;
@@ -714,7 +719,6 @@ export const mutations = {
             else if (state.chartmultidata[id].typeright == "雨量(mm)") {
                 state.chartmultidata[id].rightArr = state.chartmultidata[id].rainfallArr;
             }
-            // console.log(state.chartmultidata[id]);
             state.chartmultidata[id].isChart = true;
         }
         else {
@@ -783,7 +787,7 @@ export const mutations = {
                     state.analyticsArr[i].header = "大氣壓力";
                 }
                 else if (state.analyticsArr[i].header == "ec") {
-                    state.analyticsArr[i].header = "EC值";
+                    state.analyticsArr[i].header = "導電度";
                 }
                 else if (state.analyticsArr[i].header == "ph") {
                     state.analyticsArr[i].header = "PH值";
