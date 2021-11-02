@@ -47,6 +47,8 @@ export const state = () => ({
             rightArr:[],
             isChart:false,
             charttype:'',
+            start: '',
+            end: ''
         },
         {
             type_ch: [],
@@ -67,6 +69,8 @@ export const state = () => ({
             rightArr:[],
             isChart:false,
             charttype:'',
+            start: '',
+            end: ''
         },
         {
             type_ch: [],
@@ -87,6 +91,8 @@ export const state = () => ({
             rightArr:[],
             isChart:false,
             charttype:'',
+            start: '',
+            end: ''
         },
         {
             type_ch: [],
@@ -107,6 +113,8 @@ export const state = () => ({
             rightArr:[],
             isChart:false,
             charttype:'',
+            start: '',
+            end: ''
         },
     ]
     //chartmulti2
@@ -185,7 +193,7 @@ export const actions = {
         // console.log(type, start_time, end_time, time);
         try {
             const res = await apipostchart({ type, advanced, start_time, end_time, time });
-            commit('postchartmultidata', { res, id, charttype});
+            commit('postchartmultidata', { res, id, charttype, start_time, end_time});
         } catch (error) {
             console.log(error);
             this.$toast.error("連線超時，請縮短查詢區間", { 
@@ -303,6 +311,8 @@ export const mutations = {
                 rightArr:[],
                 isChart: false,
                 charttype:'',
+                start: '',
+                end: ''
             },
             {
                 type_ch: [],
@@ -323,6 +333,8 @@ export const mutations = {
                 rightArr:[],
                 isChart: false,
                 charttype:'',
+                start: '',
+                end: ''
             },
             {
                 type_ch: [],
@@ -343,6 +355,8 @@ export const mutations = {
                 rightArr:[],
                 isChart: false,
                 charttype:'',
+                start: '',
+                end: ''
             },
             {
                 type_ch: [],
@@ -363,6 +377,8 @@ export const mutations = {
                 rightArr:[],
                 isChart: false,
                 charttype:'',
+                start: '',
+                end: ''
             },
         ]
     },
@@ -635,7 +651,7 @@ export const mutations = {
         }
     },
     postchartmultidata(state, payload){
-        const { res, id, charttype } = payload;
+        const { res, id, charttype, start_time, end_time } = payload;
         if (res.data.status == 200){
             if (id == state.chartitemle-1) {
                 this.$toast.success(res.data.msg, { icon: 'check_circle' });
@@ -657,6 +673,8 @@ export const mutations = {
             state.chartmultidata[id].soil_humidArr = res.data.datas[0].soil_humid;
             state.chartmultidata[id].uvArr = res.data.datas[0].uv;
             state.chartmultidata[id].rainfallArr = res.data.datas[0].rainfall;
+            state.chartmultidata[id].start = start_time;
+            state.chartmultidata[id].end = end_time;
             //type1
             if (state.chartmultidata[id].typeleft == "溫度(°C)") {
                 state.chartmultidata[id].leftArr = state.chartmultidata[id].tempArr;
@@ -1042,6 +1060,8 @@ export const getters = {
     Type_ch1: state => state.chartmultidata[0].type_ch,
     IsChart1: state => state.chartmultidata[0].isChart,
     ChartType1: state => state.chartmultidata[0].charttype,
+    Start1: state => state.chartmultidata[0].start,
+    End1: state => state.chartmultidata[0].end,
     //chartmulti2
     TimeData2: state => state.chartmultidata[1].timeArr,
     TempData2: state => state.chartmultidata[1].tempArr,
@@ -1061,6 +1081,8 @@ export const getters = {
     Type_ch2: state => state.chartmultidata[1].type_ch,
     IsChart2: state => state.chartmultidata[1].isChart,
     ChartType2: state => state.chartmultidata[1].charttype,
+    Start2: state => state.chartmultidata[1].start,
+    End2: state => state.chartmultidata[1].end,
     //chartmulti3
     TimeData3: state => state.chartmultidata[2].timeArr,
     TempData3: state => state.chartmultidata[2].tempArr,
@@ -1080,6 +1102,8 @@ export const getters = {
     Type_ch3: state => state.chartmultidata[2].type_ch,
     IsChart3: state => state.chartmultidata[2].isChart,
     ChartType3: state => state.chartmultidata[2].charttype,
+    Start3: state => state.chartmultidata[2].start,
+    End3: state => state.chartmultidata[2].end,
     //chartmulti4
     TimeData4: state => state.chartmultidata[3].timeArr,
     TempData4: state => state.chartmultidata[3].tempArr,
@@ -1099,4 +1123,6 @@ export const getters = {
     Type_ch4: state => state.chartmultidata[3].type_ch,
     IsChart4: state => state.chartmultidata[3].isChart,
     ChartType4: state => state.chartmultidata[3].charttype,
+    Start4: state => state.chartmultidata[3].start,
+    End4: state => state.chartmultidata[3].end,
 };

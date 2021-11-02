@@ -61,8 +61,6 @@ export default {
             timemin: "dark",
             startDate: '2021-03-01 00:00',
             endDate: '2021-04-01 00:00',
-            chartnormal: 'primary',
-            chartsmall: 'dark',
 
             tab: 'tab-1',
             editdialog: false,
@@ -140,7 +138,7 @@ export default {
             return `${this.$store.getters.Type_ch1}`;
         },
         Charttitle1(){
-            return `${this.$store.getters.Type_ch1} & ${this.start} - ${this.end}`;
+            return `${this.$store.getters.Type_ch1} & ${this.$store.getters.Start1} - ${this.$store.getters.End1}`;
         },
         ChartType1(){
             return this.$store.getters.ChartType1;
@@ -198,7 +196,7 @@ export default {
             return `${this.$store.getters.Type_ch2}`;
         },
         Charttitle2(){
-            return `${this.$store.getters.Type_ch2} & ${this.start} - ${this.end}`;
+            return `${this.$store.getters.Type_ch2} & ${this.$store.getters.Start2} - ${this.$store.getters.End2}`;
         },
         ChartType2(){
             return this.$store.getters.ChartType2;
@@ -256,7 +254,7 @@ export default {
             return `${this.$store.getters.Type_ch3}`;
         },
         Charttitle3(){
-            return `${this.$store.getters.Type_ch3} & ${this.start} - ${this.end}`;
+            return `${this.$store.getters.Type_ch3} & ${this.$store.getters.Start3} - ${this.$store.getters.End3}`;
         },
         ChartType3(){
             return this.$store.getters.ChartType3;
@@ -314,7 +312,7 @@ export default {
             return `${this.$store.getters.Type_ch4}`;
         },
         Charttitle4(){
-            return `${this.$store.getters.Type_ch4} & ${this.start} - ${this.end}`;
+            return `${this.$store.getters.Type_ch4} & ${this.$store.getters.Start4} - ${this.$store.getters.End4}`;
         },
         ChartType4(){
             return this.$store.getters.ChartType4;
@@ -421,12 +419,19 @@ export default {
         morefunc(item){
             this.idx = item.idx;
             this.advanced =  this.chartItem[this.idx].advanced;
+            this.type_ch = this.chartItem[this.idx].type_ch;
             this.dialogfunc = true;
         },
-        openstart(){
+        openstart(item){
+            this.idx = item.idx;
+            this.startdate = this.chartItem[this.idx].startdate;
+            this.starttime = this.chartItem[this.idx].starttime;
             this.menustart = true;
         },
-        openend(){
+        openend(item){
+            this.idx = item.idx;
+            this.enddate = this.chartItem[this.idx].enddate;
+            this.endtime = this.chartItem[this.idx].endtime;
             this.menuend = true;
         },
         closestart(){
@@ -459,6 +464,10 @@ export default {
             this.charttwoloading = [
                 false,false,false,false,
             ];
+            this.starttime = '00:00';
+            this.startdate = '2021-03-01';
+            this.enddate = '2021-04-01';
+            this.endtime = '00:00';
             this.old_type = [];
             this.charttitle = [];
             this.chartItem = [];
@@ -497,8 +506,8 @@ export default {
                 await this.$store.dispatch('chartmultidata', {
                     type: this.chartItem[i].type, 
                     advanced: this.chartItem[i].advanced,
-                    start_time: this.start, 
-                    end_time: this.end, 
+                    start_time: this.chartItem[i].start, 
+                    end_time: this.chartItem[i].end, 
                     time: this.chartItem[i].time,
                     id: i,
                     charttype: this.chartItem[i].charttype,
@@ -662,41 +671,30 @@ export default {
             item.type = item.type.filter(e => e !== "rainfall");
             item.type_ch = item.type_ch.filter(e => e.id !== "rainfall");
         },
-        setchartnormal(){
-            // this.chartloading = false;
-            // this.charttwoloading = false;
-            this.width = '98%';
-            this.chartnormal = 'primary';
-            this.chartsmall = 'dark';
-        },
-        setchartsmall(){
-            // this.chartloading = false;
-            // this.charttwoloading = false;
-            this.width = '1185px';
-            this.chartnormal = 'dark';
-            this.chartsmall = 'primary';
-        },
-        starttextset(){
-            this.start = this.startDate + ':00';
-            const a = this.startDate.split(" ");
+        starttextset(item){
+            this.chartItem[this.idx].start = item.startDate + ':00';
+            const a = item.startDate.split(" ");
+            this.chartItem[this.idx].startdate = a[0];
+            this.chartItem[this.idx].starttime = a[1];
             this.startdate = a[0];
             this.starttime = a[1];
         },
         startdatetime(){
-            this.startDate = this.startdate + " " + this.starttime;
-            this.start = this.startdate + " " + this.starttime + ":00";
+            this.chartItem[this.idx].startDate = this.startdate + " " + this.starttime;
+            this.chartItem[this.idx].start = this.startdate + " " + this.starttime + ":00";
             this.menustart = false;
         },
-        endtextset(){
-            this.end = this.endDate + ':00';
-            const a = this.endDate.split(" ");
+        endtextset(item){
+            this.chartItem[this.idx].end = item.endDate + ':00';
+            const a = item.endDate.split(" ");
+            this.chartItem[this.idx].enddate = a[0];
+            this.chartItem[this.idx].endtime = a[1];
             this.enddate = a[0];
             this.endtime = a[1];
         },
-        enddatetime(){
-            this.endDate = this.enddate + " " + this.endtime;
-            this.end = this.enddate + " " + this.endtime + ":00";
-            // console.log(this.endDate);
+        enddatetime(item){
+            this.chartItem[this.idx].endDate = this.enddate + " " + this.endtime;
+            this.chartItem[this.idx].end = this.enddate + " " + this.endtime + ":00";
             this.menuend = false;
         },
         advanced_selecttype(x){
@@ -724,6 +722,14 @@ export default {
                 this.chartItem.push(
                     {
                         'idx': this.editidx,
+                        'start': '2021-03-01 00:00:00',
+                        'startDate': '2021-03-01 00:00',
+                        'startdate': '2021-03-01',
+                        'starttime': '00:00',
+                        'end': '2021-04-01 00:00:00',
+                        'endDate': '2021-04-01 00:00',
+                        'enddate': '2021-04-01',
+                        'endtime': '00:00',
                         'type': [],
                         'type_ch': [],
                         'charttype': 'line',
@@ -799,229 +805,137 @@ export default {
                                 >
                                     <v-toolbar-title><h3>編輯</h3></v-toolbar-title>
                                     <v-spacer></v-spacer>
-                                    <v-text-field
-                                        v-model="startDate"
-                                        label="開始日"
-                                        hide-details
-                                        prepend-icon="mdi-calendar"
-                                        @click:prepend="openstart"
-                                        class="shrink"
-                                        @change="starttextset"
-                                    ></v-text-field>
-                    <!-- 起始日 --> <v-dialog
-                                        v-model="menustart"
-                                        persistent
-                                        width="600px"
-                                    >
-                                        <v-card dark>
-                                            <v-card-title>
-                                                <h3>開始日</h3>
-                                            </v-card-title>
-                                            <v-container>
-                                                <v-row>
-                                                    <v-col
-                                                    cols="12"
-                                                    sm="6"
-                                                    >
-                                                        <v-date-picker
-                                                        v-model="startdate"
-                                                        scrollable
-                                                        locale="zh-tw"
-                                                        full-width
-                                                        :max="(new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10)"
-                                                        >
-                                                        </v-date-picker>
-                                                    </v-col>
-                                                    <v-col
-                                                    cols="12"
-                                                    sm="6"
-                                                    >
-                                                        <v-time-picker
-                                                        v-model="starttime"
-                                                        ampm-in-title
-                                                        full-width
-                                                        ></v-time-picker>
-                                                    </v-col>
-                                                </v-row>
-                                            </v-container>
-                                            <v-card-actions>
-                                            <v-spacer></v-spacer>
-                                            <v-btn
-                                                dark
-                                                @click="closestart"
-                                            >
-                                                取消
-                                            </v-btn>
-                                            <v-btn
-                                                color="success"
-                                                @click="startdatetime()"
-                                                :disabled="startcheck"
-                                            >
-                                                確定
-                                            </v-btn>
-                                            </v-card-actions>
-                                        </v-card>                        
-                                    </v-dialog>
-                                    <v-spacer></v-spacer>
-                                    <v-text-field
-                                        v-model="endDate"
-                                        label="結束日"
-                                        prepend-icon="mdi-calendar"
-                                        @click:prepend="openend"
-                                        hide-details
-                                        @change="endtextset"
-                                        class="shrink"
-                                    ></v-text-field>
-                    <!-- 結束日 --> <v-dialog
-                                        v-model="menuend"
-                                        persistent
-                                        width="600px"
-                                    >
-                                    <v-card dark>
-                                        <v-card-title>
-                                            <h3>結束日</h3>
-                                        </v-card-title>
-                                            <v-container>
-                                            <v-row>
-                                                <v-col
-                                                cols="12"
-                                                sm="6"
-                                                >
-                                                    <v-date-picker
-                                                    v-model="enddate"
-                                                    scrollable
-                                                    locale="zh-tw"
-                                                    full-width
-                                                    :max="(new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10)"
-                                                    >
-                                                    </v-date-picker>
-                                                </v-col>
-                                                <v-col
-                                                cols="12"
-                                                sm="6"
-                                                
-                                                >
-                                                    <v-time-picker
-                                                    v-model="endtime"
-                                                    ampm-in-title
-                                                    full-width
-                                                    ></v-time-picker>
-                                                </v-col>
-                                            </v-row>
-                                            </v-container>      
-                                            <v-card-actions>
-                                            <v-spacer></v-spacer>
-                                                <v-btn
-                                                    dark
-                                                    @click="closeend"
-                                                >
-                                                    取消
-                                                </v-btn>
-                                                <v-btn
-                                                    color="success"
-                                                    @click="enddatetime()"
-                                                    :disabled="endcheck"
-                                                >
-                                                    確認
-                                                </v-btn>
-                                            </v-card-actions>
-                                        </v-card>                        
-                                    </v-dialog>
-                                    <v-spacer></v-spacer>
-                                    <v-btn :color="chartnormal" fab small elevation="3" @click="setchartnormal">原圖</v-btn>    
-                                    <v-btn :color="chartsmall" fab small elevation="3" @click="setchartsmall" class="mx-3">小圖</v-btn> 
-                                    <v-spacer></v-spacer>
                                     <v-btn :disabled="PlusEditbtn" color="primary" fab dark small @click="plusEditCol">
                                         <v-icon dark>mdi-plus</v-icon>
                                     </v-btn>
                                 </v-toolbar>
                                 <v-card-text>
-                                    <v-row v-for="item in chartItem" :key="item.idx" class="border">
-                                        <v-col cols="1">
-                                            <v-btn color="red lighten-2" small text icon @click="closeEditCol(item)" class="mt-5"> 
+                                    <v-row v-for="item in chartItem" :key="item.idx" class="border" no-gutters>
+                                        <v-col cols="1" class="mt-12 ml-5">
+                                            <v-btn color="red lighten-2" small text icon @click="closeEditCol(item)"> 
                                                 <v-icon>
                                                     mdi-close
                                                 </v-icon>
                                             </v-btn>
                                         </v-col>
-                                        <v-col lg="5" md="5" sm="4" cols="4">
+                                        <v-col lg="2" md="3" sm="2" cols="6" class="mt-3 mb-6">
+                                            <v-text-field
+                                                v-model="item.startDate"
+                                                label="開始日"
+                                                hide-details
+                                                prepend-icon="mdi-calendar"
+                                                @click:prepend="openstart(item)"
+                                                class="shrink"
+                                                @change="starttextset(item)"
+                                            ></v-text-field>
+                            <!-- 起始日 -->
+                                            <v-text-field
+                                                v-model="item.endDate"
+                                                label="結束日"
+                                                prepend-icon="mdi-calendar"
+                                                @click:prepend="openend(item)"
+                                                hide-details
+                                                @change="endtextset(item)"
+                                                class="shrink"
+                                            ></v-text-field>
+                            <!-- 結束日 -->
+                                        </v-col>
+                                        <v-col lg="4" md="4" sm="3" cols="4" class="mt-lg-7 mt-md-3">
                                             <v-btn   
                                                 class="ma-1"
                                                 :color="item.color.tempcolor"
                                                 @click="temp(item)"
                                                 elevation="10"
+                                                small
                                             >溫度</v-btn>
                                             <v-btn
                                                 class="ma-1"
                                                 :color="item.color.humiditycolor"
                                                 @click="humidity(item)"
                                                 elevation="10"
+                                                small
                                             >濕度</v-btn>
                                             <v-btn
                                                 class="ma-1"
                                                 :color="item.color.soil_tempcolor"
                                                 @click="soil_temp(item)"
                                                 elevation="10"
+                                                small
                                             >土壤溫度</v-btn>
                                             <v-btn
                                                 class="ma-1"
                                                 :color="item.color.soil_humidcolor"
                                                 @click="soil_humid(item)"
                                                 elevation="10"
+                                                small
                                             >土壤濕度</v-btn>
                                             <v-btn
                                                 class="ma-1"
                                                 :color="item.color.phcolor"
                                                 @click="ph(item)"
                                                 elevation="10"
+                                                small
                                             >PH值</v-btn>
                                             <v-btn
                                                 class="ma-1"
                                                 :color="item.color.eccolor"
                                                 @click="ec(item)"
                                                 elevation="10"
+                                                small
                                             >導電度</v-btn>
                                             <v-btn
                                                 class="ma-1"
                                                 :color="item.color.luminancecolor"
                                                 @click="luminance(item)"
                                                 elevation="10"
+                                                small
                                             >光照</v-btn>
                                             <v-btn
                                                 class="ma-1"
                                                 :color="item.color.uvcolor"
                                                 @click="uv(item)"
                                                 elevation="10"
+                                                small
                                             >UV值</v-btn>
                                             <v-btn
                                                 class="ma-1"
                                                 :color="item.color.atpcolor"
                                                 @click="atp(item)"
                                                 elevation="10"
+                                                small
                                             >大氣壓力</v-btn>
                                             <v-btn
                                                 class="ma-1"
                                                 :color="item.color.rainfallcolor"
                                                 @click="rainfall(item)"
                                                 elevation="10"
+                                                small
                                                 :disabled="item.rainbtn"
                                             >雨量</v-btn>
                                         </v-col>
-                                        <v-col lg="2" md="2" sm="3" cols="2">
-                                            <v-btn :color="item.charttypecolor.line" fab small elevation="3" @click="setchartLine(item)" class="mt-5">折線</v-btn>    
-                                            <v-btn :color="item.charttypecolor.bar" fab small elevation="3" @click="setchartBar(item)" class="mx-1 mt-5">長條</v-btn>     
+                                        <v-col lg="3" md="2" sm="3" cols="2" class="ml-2 mt-5 ml-md-4">
+                                            <v-row no-gutters>
+                                                <v-col lg="6" cols="12" class="mt-lg-5">
+                                                    <v-btn :color="item.charttypecolor.line" fab small elevation="3" @click="setchartLine(item)" >折線</v-btn>    
+                                                    <v-btn :color="item.charttypecolor.bar" fab small elevation="3" @click="setchartBar(item)" class="ml-1">長條</v-btn>
+                                                </v-col>
+                                                <v-col lg="6" cols="12" class="mt-lg-5 mt-2">
+                                                    <v-btn :color="item.timecolor.timeday" fab small elevation="3" @click="setday(item)">天</v-btn>    
+                                                    <v-btn :color="item.timecolor.timehour" fab small elevation="3" @click="sethour(item)" class="mx-1">時</v-btn>    
+                                                    <v-btn :color="item.timecolor.timemin" fab small elevation="3" @click="setmin(item)">分</v-btn> 
+                                                </v-col>
+                                            </v-row> 
                                         </v-col>
-                                        <v-col lg="2" md="2" sm="3" cols="3">
-                                            <v-btn :color="item.timecolor.timeday" fab small elevation="3" @click="setday(item)" class="mt-5">天</v-btn>    
-                                            <v-btn :color="item.timecolor.timehour" fab small elevation="3" @click="sethour(item)" class="mx-1 mt-5">時</v-btn>    
-                                            <v-btn :color="item.timecolor.timemin" fab small elevation="3" @click="setmin(item)" class="mt-5">分</v-btn> 
-                                        </v-col>
-                                        <v-col lg="1" md="1" sm="2" cols="3">
+                                        <!-- <v-col lg="2" md="2" sm="3" cols="3" class="ml-6 mt-10">
+                                            <v-btn :color="item.timecolor.timeday" fab small elevation="3" @click="setday(item)">天</v-btn>    
+                                            <v-btn :color="item.timecolor.timehour" fab small elevation="3" @click="sethour(item)" class="mx-1">時</v-btn>    
+                                            <v-btn :color="item.timecolor.timemin" fab small elevation="3" @click="setmin(item)">分</v-btn> 
+                                        </v-col> -->
+                                        <v-col lg="1" md="1" sm="2" cols="3" class="ml-5 mt-10">
                                             <v-btn
                                                 color="primary"
                                                 elevation="8"
                                                 @click="morefunc(item)"
-                                                class="mt-5 ml-5"
                                             >
                                                 <v-icon left>
                                                     mdi-cog-outline
@@ -1054,6 +968,115 @@ export default {
                             </v-card>
                         </v-dialog>
                         <v-dialog
+                            v-model="menustart"
+                            persistent
+                            width="600px"
+                        >
+                            <v-card dark>
+                                <v-card-title>
+                                    <h3>開始日</h3>
+                                </v-card-title>
+                                <v-container>
+                                    <v-row>
+                                        <v-col
+                                        cols="12"
+                                        sm="6"
+                                        >
+                                            <v-date-picker
+                                            v-model="startdate"
+                                            scrollable
+                                            locale="zh-tw"
+                                            full-width
+                                            :max="(new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10)"
+                                            >
+                                            </v-date-picker>
+                                        </v-col>
+                                        <v-col
+                                        cols="12"
+                                        sm="6"
+                                        >
+                                            <v-time-picker
+                                            v-model="starttime"
+                                            ampm-in-title
+                                            full-width
+                                            ></v-time-picker>
+                                        </v-col>
+                                    </v-row>
+                                </v-container>
+                                <v-card-actions>
+                                <v-spacer></v-spacer>
+                                <v-btn
+                                    dark
+                                    @click="closestart"
+                                >
+                                    取消
+                                </v-btn>
+                                <v-btn
+                                    color="success"
+                                    @click="startdatetime"
+                                    :disabled="startcheck"
+                                >
+                                    確定
+                                </v-btn>
+                                </v-card-actions>
+                            </v-card>                        
+                        </v-dialog>
+                        <v-dialog
+                            v-model="menuend"
+                            persistent
+                            width="600px"
+                        >
+                        <v-card dark>
+                            <v-card-title>
+                                <h3>結束日</h3>
+                            </v-card-title>
+                                <v-container>
+                                <v-row>
+                                    <v-col
+                                    cols="12"
+                                    sm="6"
+                                    >
+                                        <v-date-picker
+                                        v-model="enddate"
+                                        scrollable
+                                        locale="zh-tw"
+                                        full-width
+                                        :max="(new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10)"
+                                        >
+                                        </v-date-picker>
+                                    </v-col>
+                                    <v-col
+                                    cols="12"
+                                    sm="6"
+                                    
+                                    >
+                                        <v-time-picker
+                                        v-model="endtime"
+                                        ampm-in-title
+                                        full-width
+                                        ></v-time-picker>
+                                    </v-col>
+                                </v-row>
+                                </v-container>      
+                                <v-card-actions>
+                                <v-spacer></v-spacer>
+                                    <v-btn
+                                        dark
+                                        @click="closeend"
+                                    >
+                                        取消
+                                    </v-btn>
+                                    <v-btn
+                                        color="success"
+                                        @click="enddatetime"
+                                        :disabled="endcheck"
+                                    >
+                                        確認
+                                    </v-btn>
+                                </v-card-actions>
+                            </v-card>                        
+                        </v-dialog>
+                        <v-dialog
                             v-model="dialogfunc"
                             width="600px"
                         >
@@ -1083,7 +1106,7 @@ export default {
                                             <v-col>
                                                 <v-select
                                                     v-model="y.sensor"
-                                                    :items="chartItem[idx].type_ch"
+                                                    :items="type_ch"
                                                     item-text="text"
                                                     item-value="id"
                                                     label="感測器"
@@ -1373,7 +1396,7 @@ export default {
 
 <style scoped>
     .shrink{
-       width: auto;
+       width: 160px;
     }
     .border{
         border-bottom: 1px solid #686868;
