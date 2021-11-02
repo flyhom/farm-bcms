@@ -4,7 +4,21 @@ export default {
         return{
             loading: false,
             showtable: false,
+            showtableNoRain: false,
             headerArray: [
+                { text: '欄位名稱/相關係數', value: 'header', width: '100', align: 'center', divider: true, sortable: false },
+                { text: '光照', value: 'luminance', width: '100', align: 'center', divider: true, sortable: false },
+                { text: '溫度', value: 'temp', width: '100', align: 'center', divider: true, sortable: false },
+                { text: '濕度', value: 'humidity', width: '100', align: 'center', divider: true, sortable: false },
+                { text: '土壤溫度', value: 'soil_temp', width: '100', align: 'center', divider: true, sortable: false },
+                { text: '土壤濕度', value: 'soil_humid', width: '100', align: 'center', divider: true, sortable: false },
+                { text: '導電度', value: 'ec', width: '100', align: 'center', divider: true, sortable: false },
+                { text: 'PH值', value: 'ph', width: '100', align: 'center', divider: true, sortable: false },
+                { text: '雨量', value: 'rainfall', width: '100', align: 'center', divider: true, sortable: false },
+                { text: '大氣壓力', value: 'atp', width: '100', align: 'center', divider: true, sortable: false },
+                { text: 'UV值', value: 'uv', width: '100', align: 'center', divider: true, sortable: false },
+            ],
+            headerArrayNoRain: [
                 { text: '欄位名稱/相關係數', value: 'header', width: '100', align: 'center', divider: true, sortable: false },
                 { text: '光照', value: 'luminance', width: '100', align: 'center', divider: true, sortable: false },
                 { text: '溫度', value: 'temp', width: '100', align: 'center', divider: true, sortable: false },
@@ -16,10 +30,11 @@ export default {
                 { text: '大氣壓力', value: 'atp', width: '100', align: 'center', divider: true, sortable: false },
                 { text: 'UV值', value: 'uv', width: '100', align: 'center', divider: true, sortable: false },
             ],
+            height: '490px',
             page: 1,
             pageCount: 0,
             //datePicker
-            selecttime:'min',
+            selecttime:'hour',
             activePicker: null,
             menustart: false,
             menuend: false,
@@ -34,8 +49,8 @@ export default {
             //typebtn
             //timebtn
             timeday: "dark",
-            timehour: "dark",
-            timemin: "success",
+            timehour: "success",
+            timemin: "dark",
             
             analyticsdata: [],
             startDate: '2021-03-01 00:00',
@@ -52,6 +67,7 @@ export default {
                 soil_temp: '土壤溫度',
                 temp: '溫度',
                 uv: 'UV值',
+                rainfall: '雨量',
             }
         }
     },
@@ -108,7 +124,16 @@ export default {
                 time: this.selecttime
             });
             // console.log(this.typeheaders);
-            this.showtable = true;
+            if (this.selecttime == 'min') {
+                this.showtableNoRain = true;
+                this.showtable = false;
+                this.height = '490px'
+            }
+            else {
+                this.showtableNoRain = false;
+                this.showtable = true;
+                this.height = '530px'
+            }
             this.loading = false;
         },
         setday(){
@@ -298,8 +323,8 @@ export default {
                             </v-card>                        
                         </v-dialog>
                         <v-spacer></v-spacer>
-                            <v-btn :color="timeday" fab small elevation="3" @click="setday" disabled>天</v-btn>    
-                            <v-btn :color="timehour" fab small elevation="3" @click="sethour" class="mx-3" disabled>時</v-btn>    
+                            <v-btn :color="timeday" fab small elevation="3" @click="setday">天</v-btn>    
+                            <v-btn :color="timehour" fab small elevation="3" @click="sethour" class="mx-3">時</v-btn>    
                             <v-btn :color="timemin" fab small elevation="3" @click="setmin">分</v-btn>    
                         <v-spacer></v-spacer>
                         <v-btn
@@ -345,7 +370,26 @@ export default {
                                         :items="AnalyticsData"
                                         :headers="headerArray"
                                         fixed-header
-                                        height="490px"
+                                        :height="height"
+                                        loading-text="正在載入資料..."
+                                        no-data-text="無資料"
+                                        class="elevation-1 element"
+                                        hide-default-footer
+                                    >   
+                                        <tempplate v-slot:item.header="{ item }">
+                                            
+                                        </tempplate>
+                                        <template v-slot:no-data>
+                                            <div>無資料</div>
+                                        </template>
+                                    </v-data-table>
+                                    <v-data-table
+                                        v-if="showtableNoRain"
+                                        dark
+                                        :items="AnalyticsData"
+                                        :headers="headerArrayNoRain"
+                                        fixed-header
+                                        :height="height"
                                         loading-text="正在載入資料..."
                                         no-data-text="無資料"
                                         class="elevation-1 element"

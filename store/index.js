@@ -787,7 +787,7 @@ export const mutations = {
         }
     },
     postanalyticsdata(state, res){
-        // console.log(res.data);
+        console.log(res.data);
         if (res.data.status == 200){
             this.$toast.success(res.data.msg, { icon: 'check_circle' });
             state.analyticsArr = res.data.datas;
@@ -818,6 +818,9 @@ export const mutations = {
                 }
                 else if (state.analyticsArr[i].header == "uv") {
                     state.analyticsArr[i].header = "UV值";
+                }
+                else if (state.analyticsArr[i].header == "rainfall") {
+                    state.analyticsArr[i].header = "雨量";
                 }
             }
             
