@@ -35,11 +35,11 @@ export default {
             menustart: false,
             menuend: false,
             starttime: '00:00',
-            startdate: '2021-03-01',
-            start: '2021-03-01 00:00:00',
-            enddate: '2021-04-01',
+            startdate: '2021-02-01',
+            start: '2021-02-01 00:00:00',
+            enddate: '2021-03-01',
             endtime: '00:00',
-            end: '2021-04-01 00:00:00',
+            end: '2021-03-01 00:00:00',
             date: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
             datetime: null,
             tempcolor: "dark", 
@@ -59,8 +59,8 @@ export default {
             timeday: "success",
             timehour: "dark",
             timemin: "dark",
-            startDate: '2021-03-01 00:00',
-            endDate: '2021-04-01 00:00',
+            startDate: '2021-02-01 00:00',
+            endDate: '2021-03-01 00:00',
 
             tab: 'tab-1',
             editdialog: false,
@@ -135,7 +135,7 @@ export default {
             return this.$store.getters.Type_ch1;
         },
         TitleTab1(){
-            return `${this.$store.getters.Type_ch1}`;
+            return `${this.$store.getters.Start1} - ${this.$store.getters.End1}`;
         },
         Charttitle1(){
             return `${this.$store.getters.Type_ch1} & ${this.$store.getters.Start1} - ${this.$store.getters.End1}`;
@@ -193,7 +193,7 @@ export default {
             return this.$store.getters.Type_ch2;
         },
         TitleTab2(){
-            return `${this.$store.getters.Type_ch2}`;
+            return `${this.$store.getters.Start2} - ${this.$store.getters.End2}`;
         },
         Charttitle2(){
             return `${this.$store.getters.Type_ch2} & ${this.$store.getters.Start2} - ${this.$store.getters.End2}`;
@@ -251,7 +251,7 @@ export default {
             return this.$store.getters.Type_ch3;
         },
         TitleTab3(){
-            return `${this.$store.getters.Type_ch3}`;
+            return `${this.$store.getters.Start3} - ${this.$store.getters.End3}`;
         },
         Charttitle3(){
             return `${this.$store.getters.Type_ch3} & ${this.$store.getters.Start3} - ${this.$store.getters.End3}`;
@@ -309,7 +309,7 @@ export default {
             return this.$store.getters.Type_ch4;
         },
         TitleTab4(){
-            return `${this.$store.getters.Type_ch4}`;
+            return `${this.$store.getters.Start4} - ${this.$store.getters.End4}`;
         },
         Charttitle4(){
             return `${this.$store.getters.Type_ch4} & ${this.$store.getters.Start4} - ${this.$store.getters.End4}`;
@@ -330,7 +330,6 @@ export default {
             }
             return false;
         },
-
         PlusEditbtn(){
             if (this.chartItem.length == 4) {
                 return true;
@@ -465,8 +464,8 @@ export default {
                 false,false,false,false,
             ];
             this.starttime = '00:00';
-            this.startdate = '2021-03-01';
-            this.enddate = '2021-04-01';
+            this.startdate = '2021-02-01';
+            this.enddate = '2021-03-01';
             this.endtime = '00:00';
             this.old_type = [];
             this.charttitle = [];
@@ -480,52 +479,64 @@ export default {
         },
         //search
         async searchdata(){
-            this.loading = true;
-            await this.$store.dispatch("handClearchartmulti");
-            this.editdialog = false;
-            this.chartloading = [
-                false,false,false,false,
-            ];
-            this.charttwoloading = [
-                false,false,false,false,
-            ];
-            this.charttitle = [];
-            this.tab = 'tab-1';
-            this.taball = false;
-            this.tabone = false;
-            this.tabtwo = false;
-            this.tabthree = false;
-            this.tabfour = false;
-            for (let i = 0; i < this.chartItem.length; i++) {
-                await this.$store.dispatch('handchartitemlength', this.chartItem.length);
-                
-                await this.$store.dispatch('handTypemulti', { arr: this.chartItem[i].type, id: i});
-                
-                await this.$store.dispatch('handTypeChmulti', { arr: this.chartItem[i].type_ch, id: i});
-                
-                await this.$store.dispatch('chartmultidata', {
-                    type: this.chartItem[i].type, 
-                    advanced: this.chartItem[i].advanced,
-                    start_time: this.chartItem[i].start, 
-                    end_time: this.chartItem[i].end, 
-                    time: this.chartItem[i].time,
-                    id: i,
-                    charttype: this.chartItem[i].charttype,
-                });
-                if (this.chartItem[i].type.length == 2) {
-                    this.charttwoloading[i] = true;
+            for (let j = 0; j < this.chartItem.length; j++) {
+                if (this.chartItem[j].type.length == 0) {
+                    this.$toast.error("請選擇感測器", { 
+                        icon: 'error' ,
+                        duration: 3000,
+                    });
                 }
                 else {
-                    this.chartloading[i] = true;
-                } 
-                  
+                    if (j == this.chartItem.length - 1) {
+                        this.loading = true;
+                        await this.$store.dispatch("handClearchartmulti");
+                        this.editdialog = false;
+                        this.chartloading = [
+                            false,false,false,false,
+                        ];
+                        this.charttwoloading = [
+                            false,false,false,false,
+                        ];
+                        this.charttitle = [];
+                        this.tab = 'tab-1';
+                        this.taball = false;
+                        this.tabone = false;
+                        this.tabtwo = false;
+                        this.tabthree = false;
+                        this.tabfour = false;
+                        for (let i = 0; i < this.chartItem.length; i++) {
+                            await this.$store.dispatch('handchartitemlength', this.chartItem.length);
+                            
+                            await this.$store.dispatch('handTypemulti', { arr: this.chartItem[i].type, id: i});
+                            
+                            await this.$store.dispatch('handTypeChmulti', { arr: this.chartItem[i].type_ch, id: i});
+                            
+                            await this.$store.dispatch('chartmultidata', {
+                                type: this.chartItem[i].type, 
+                                advanced: this.chartItem[i].advanced,
+                                start_time: this.chartItem[i].start, 
+                                end_time: this.chartItem[i].end, 
+                                time: this.chartItem[i].time,
+                                id: i,
+                                charttype: this.chartItem[i].charttype,
+                            });
+                            if (this.chartItem[i].type.length == 2) {
+                                this.charttwoloading[i] = true;
+                            }
+                            else {
+                                this.chartloading[i] = true;
+                            } 
+                            
+                        }
+                        this.taball = true;
+                        this.tabone = true;
+                        this.tabtwo = true;
+                        this.tabthree = true;
+                        this.tabfour = true;
+                        this.loading = false;
+                    }
+                }
             }
-            this.taball = true;
-            this.tabone = true;
-            this.tabtwo = true;
-            this.tabthree = true;
-            this.tabfour = true;
-            this.loading = false;
         },
         temp(item){
             if (item.color.tempcolor === "dark"){
@@ -672,6 +683,7 @@ export default {
             item.type_ch = item.type_ch.filter(e => e.id !== "rainfall");
         },
         starttextset(item){
+            this.idx = item.idx;
             this.chartItem[this.idx].start = item.startDate + ':00';
             const a = item.startDate.split(" ");
             this.chartItem[this.idx].startdate = a[0];
@@ -685,6 +697,7 @@ export default {
             this.menustart = false;
         },
         endtextset(item){
+            this.idx = item.idx;
             this.chartItem[this.idx].end = item.endDate + ':00';
             const a = item.endDate.split(" ");
             this.chartItem[this.idx].enddate = a[0];
@@ -692,7 +705,7 @@ export default {
             this.enddate = a[0];
             this.endtime = a[1];
         },
-        enddatetime(item){
+        enddatetime(){
             this.chartItem[this.idx].endDate = this.enddate + " " + this.endtime;
             this.chartItem[this.idx].end = this.enddate + " " + this.endtime + ":00";
             this.menuend = false;
@@ -722,13 +735,13 @@ export default {
                 this.chartItem.push(
                     {
                         'idx': this.editidx,
-                        'start': '2021-03-01 00:00:00',
-                        'startDate': '2021-03-01 00:00',
-                        'startdate': '2021-03-01',
+                        'start': '2021-02-01 00:00:00',
+                        'startDate': '2021-02-01 00:00',
+                        'startdate': '2021-02-01',
                         'starttime': '00:00',
-                        'end': '2021-04-01 00:00:00',
-                        'endDate': '2021-04-01 00:00',
-                        'enddate': '2021-04-01',
+                        'end': '2021-03-01 00:00:00',
+                        'endDate': '2021-03-01 00:00',
+                        'enddate': '2021-03-01',
                         'endtime': '00:00',
                         'type': [],
                         'type_ch': [],
