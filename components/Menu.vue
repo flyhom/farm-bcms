@@ -4,8 +4,8 @@ export default {
         routertablelike(){
             this.$router.push('sensorlike');
         },
-        routerchartlike(){
-            this.$router.push('chartlike');
+        routerahp(){
+            this.$router.push('ahp');
         },
         routersensor(){
             this.$router.push('list');
@@ -28,16 +28,6 @@ export default {
 
 <template>
     <div>
-        <!-- <v-app-bar
-            color="#161616"
-            dark
-            app
-            flat
-            >
-            <v-toolbar-title>茶農管理系統</v-toolbar-title>
-
-            <v-spacer></v-spacer>
-        </v-app-bar> -->
         <v-navigation-drawer
             permanent
             color="primary"
@@ -64,22 +54,6 @@ export default {
                     <v-list-item-title>茶農管理系統</v-list-item-title>
                 </v-list-item>
             </router-link>
-            <!-- <router-link to="/list">
-                <v-list-item link>
-                    <v-list-item-icon>
-                    <v-icon>mdi-text-search</v-icon>
-                    </v-list-item-icon>
-                    <v-list-item-title>原始資料</v-list-item-title>
-                </v-list-item>
-            </router-link>
-            <router-link to="/chart">
-                <v-list-item link>
-                    <v-list-item-icon>
-                    <v-icon>mdi-chart-bell-curve</v-icon>
-                    </v-list-item-icon>
-                    <v-list-item-title>折線圖</v-list-item-title>
-                </v-list-item>
-            </router-link> -->
             <v-list-group
                 prepend-icon="mdi-file-document-multiple-outline"
                 no-action
@@ -133,16 +107,16 @@ export default {
                         <v-icon>mdi-text-box-search</v-icon>
                     </v-list-item-icon>
                 </v-list-item>
-                <v-list-item link @click="routerchartlike">
-                    <v-list-item-title>數據分析</v-list-item-title>
-                    <v-list-item-icon>
-                        <v-icon>mdi-chart-scatter-plot</v-icon>
-                    </v-list-item-icon>
-                </v-list-item>
                 <v-list-item link @click="routerchartmulti">
                     <v-list-item-title>多圖分析</v-list-item-title>
                     <v-list-item-icon>
                         <v-icon>mdi-chart-multiple</v-icon>
+                    </v-list-item-icon>
+                </v-list-item>
+                <v-list-item link @click="routerahp">
+                    <v-list-item-title>樹狀圖</v-list-item-title>
+                    <v-list-item-icon>
+                        <v-icon>mdi-sitemap</v-icon>
                     </v-list-item-icon>
                 </v-list-item>
             </v-list-group>

@@ -3,15 +3,15 @@ export default {
   data(){
     return {
       sensoritems:[
-        { name: '感測器', color: '#2196F3', src: require('~/assets/text-search.png'), link: this.tolist},
+        { name: '感測器', color: '#00BCD4', src: require('~/assets/text-search.png'), link: this.tolist},
         { name: '折線圖', color: '#00BCD4', src: require('~/assets/chart-bell-curve.png'), link: this.tochart},
-        { name: '長條圖', color: '#8BC34A', src: require('~/assets/chart-bar.png'), link: this.tochartbar},
-        { name: '感測器更新', color: '#CDDC39', src: require('~/assets/update.png'), link: this.toupdate},
+        { name: '長條圖', color: '#00BCD4', src: require('~/assets/chart-bar.png'), link: this.tochartbar},
+        { name: '感測器更新', color: '#00BCD4', src: require('~/assets/update.png'), link: this.toupdate},
       ],
       chartitems:[
-        { name: '相關係數', color: '#FFC107', src: require('~/assets/text-box-search.png'), link: this.tosensorlike},
-        { name: '數據分析', color: '#FF5722', src: require('~/assets/chart-scatter-plot.png'), link: this.tochartlike},
-        { name: '多圖分析', color: '#E53935', src: require('~/assets/chart-multiple.png'), link: this.tocharmulti},
+        { name: '相關係數', color: '#8BC34A', src: require('~/assets/text-box-search.png'), link: this.tosensorlike},
+        { name: '多圖分析', color: '#8BC34A', src: require('~/assets/chart-multiple.png'), link: this.tocharmulti},
+        { name: '樹狀圖', color: '#8BC34A', src: require('~/assets/sitemap.png'), link: this.toahp},
       ],
     }
   },
@@ -31,8 +31,8 @@ export default {
     tosensorlike(){
       this.$router.push('/sensorlike');
     },
-    tochartlike(){
-      this.$router.push('/chartlike');
+    toahp(){
+      this.$router.push('/ahp');
     },
     tocharmulti(){
       this.$router.push('/chartmulti');

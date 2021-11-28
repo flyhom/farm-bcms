@@ -1,4 +1,4 @@
-import { apipostfarm, apipostchart, apipostanalytics, apipostupdate } from "../api";
+import { apipostfarm, apipostchart, apipostanalytics, apipostupdate, apipostahp } from "../api";
 export const state = () => ({
     farmArr: [],
     type_ch: [],
@@ -24,7 +24,7 @@ export const state = () => ({
     isChart: false,
 
     analyticsArr: [],
-
+    ahpdata: {},
     //chartmulti1
     chartitemle: 0,
     chartmultidata: [
@@ -254,6 +254,26 @@ export const actions = {
         try {
             const res = await apipostupdate(payload);
             commit('postupdate', res);
+        } catch (error) {
+            console.log(error);
+            this.$toast.error("連線超時，請等待更新完畢", { 
+                icon: 'error' ,
+                duration: null,
+                action : {
+                    text : '關閉',
+                    onClick : (e, toastObject) => {
+                        toastObject.goAway(0);
+                    }
+                },
+            });
+        }
+    },
+    async ahp({ commit }, payload){
+        // const { FormFile } = payload;
+        // console.log(payload);
+        try {
+            const res = await apipostahp(payload);
+            commit('postahp', res);
         } catch (error) {
             console.log(error);
             this.$toast.error("連線超時，請等待更新完畢", { 
@@ -830,9 +850,27 @@ export const mutations = {
         }
     },
     postupdate(state, res){
-        // console.log(res);
         if (res.data.status == 200){
             this.$toast.success(res.data.msg, { icon: 'check_circle' });
+        }
+        else {
+            this.$toast.error(res.data.msg, { 
+                icon: 'error' ,
+                duration: null,
+                action : {
+                    text : '關閉',
+                    onClick : (e, toastObject) => {
+                        toastObject.goAway(0);
+                    }
+                },
+            });
+        }
+    },
+    postahp(state, res){
+        // console.log(res.data.datas);
+        if (res.data.status == 200){
+            this.$toast.success(res.data.msg, { icon: 'check_circle' });
+            state.ahpdata = res.data.datas;
         }
         else {
             this.$toast.error(res.data.msg, { 
@@ -1044,6 +1082,7 @@ export const getters = {
     Old_type: state => state.old_type,
     AnalyticsData: state => state.analyticsArr,
     Type_ch: state => state.type_ch,
+    AhpData: state => state.ahpdata,
     //chartmulti1
     TimeData1: state => state.chartmultidata[0].timeArr,
     TempData1: state => state.chartmultidata[0].tempArr,

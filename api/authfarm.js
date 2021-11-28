@@ -14,3 +14,5 @@ export const postanalytics = data => { authRequest.defaults.headers.common['Cont
                                         return authRequest.post("/analytics/correlation", data)};
 
 export const postupdate = data => authRequest.post("/update", data);
+
+export const postahp = data => authRequest.post("/analytics/ahp", data);
