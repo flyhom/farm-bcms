@@ -1,8 +1,10 @@
 <script>
 import AlzChartahp from '@/components/AlzChartahp';
+import TreeChart from "vue-tree-chart";
 export default {
     components:{
         AlzChartahp,
+        TreeChart
     },
     data(){
         return{
@@ -33,7 +35,28 @@ export default {
             
             startDate: '2021-03-01 00:00',
             endDate: '2021-04-01 00:00',
-
+             
+            testd: {
+                name: 'root',
+                children: [
+                {
+                    name: 'children1',
+                },
+                {
+                    name: 'children2',
+                    children: [
+                    {
+                        name: 'humidity -0.8534',
+                        
+                    },
+                    ]
+                },
+                {
+                    name: 'children3',
+                
+                }
+                ]
+            }
         }
     },
     mounted(){
@@ -55,6 +78,13 @@ export default {
             }
             return false;
         },
+        Show(){
+            if (this.showchart == true) {
+                return true;
+            } else {
+                return false;
+            }
+        }
     },
     methods:{
         openstart(){
@@ -122,6 +152,14 @@ export default {
             // console.log(this.endDate);
             this.menuend = false;
         },
+        refresh(){
+            this.showchart = false;
+            this.loading = true;
+            setTimeout(() => {
+                this.showchart = true;
+                this.loading = false;
+            }, 200);
+        }
     }
 }
 </script>
@@ -273,6 +311,17 @@ export default {
                             <v-btn :color="timemin" fab small elevation="3" @click="setmin">分</v-btn>    
                         <v-spacer></v-spacer>
                         <v-btn
+                            color="primary"
+                            class="mr-5"
+                            elevation="8"
+                            @click="refresh"
+                        >
+                            <v-icon left>
+                                mdi-restore
+                            </v-icon>
+                            重整
+                        </v-btn>
+                        <v-btn
                             color="#40b47f"
                             class="mr-5"
                             elevation="8"
@@ -293,12 +342,13 @@ export default {
                             top
                             color="#40b47f"
                         ></v-progress-linear>
-                        <AlzChartahp v-if="showchart" :chartHeight="height" :chartWidth="width" :data="AhpData"/>
+                        <AlzChartahp v-if="Show" :chartHeight="height" :chartWidth="width" :data="AhpData"/>
+                        <!-- <TreeChart :json="testd" /> -->
                     </v-card-text>
                 </v-card>
             </v-col>
         </v-row>
-    </div>
+    </div> 
 </template>
 
 <style scoped>

@@ -18,7 +18,18 @@ export default {
             let ComprehensiveChart = this.$echarts.init(
                 this.$refs.ComprehensiveChart,
             );
+            ComprehensiveChart.showLoading();
             let option = {
+                toolbox: {
+                    feature: {
+                        saveAsImage: {
+                        },
+                    },
+                    iconStyle:{
+                        color:'#000',//設定顏色
+                        borderColor: '#fff'
+                    }
+                },
                 tooltip: {
                     trigger: 'item',
                     triggerOn: 'mousemove',
@@ -27,7 +38,7 @@ export default {
                 series: [
                     {
                         type: 'tree',
-                        name: '樹狀圖',
+                        name: 'AHP',
                         data: [data],
                         left: '2%',
                         right: '2%',
@@ -43,8 +54,8 @@ export default {
                             verticalAlign: 'middle',
                             align: 'center',
                             fontSize: 14,
-                            backgroundColor: '#1e1e1e', 
-                            color: '#FFFFFF'
+                            backgroundColor: 'rgba(0,0,0,0)', 
+                            color: '#2196F3'
                         },
                         leaves: {
                             label: {
@@ -61,10 +72,10 @@ export default {
                         animationDurationUpdate: 750
                     }
                 ]
-            }
-            ComprehensiveChart.setOption(option);
-            
-            // ComprehensiveChart.on('mousedown',params => {
+            };
+            ComprehensiveChart.hideLoading();
+            ComprehensiveChart.setOption(option, true);
+            // ComprehensiveChart.on('mousedown', params => {
             //     const name = params.data.name;
             //     const curNode = ComprehensiveChart._chartsViews[0]._data.tree._nodes.filter(item => {
             //         return item.name === name;
@@ -82,7 +93,7 @@ export default {
             //                     if (item.name === name) {
             //                         item.isExpand = true;
             //                     } else {
-            //                         item.isExpand = false;
+            //                         item.isExpand = false
             //                     }
             //                 }
             //             }
@@ -90,18 +101,50 @@ export default {
             //     }
             // })
             // ComprehensiveChart.on('click', params => {
+            //     const name = params.data.name;
+            //     const curNode = ComprehensiveChart._chartsViews[0]._data.tree._nodes.filter(item => {
+            //         return item.name === name;
+            //     });
             //     if (params.event.target.culling === true) {
-                    
+            
             //     } else if (params.event.target.culling === false) {
             //         console.log("click");
-            //         ComprehensiveChart.clear();
-            //         ComprehensiveChart.setOption(option);
+            //         if(curNode.depth){
+            //             const depth = curNode.depth;
+            //             const curIsExpand = curNode.isExpand;
+            //             curNode._chartsViews[0]._data.tree._nodes.forEach(item => {
+            //                 if (params.event.target.culling === true) {
+            //                     if (item.depth === depth && item.name !== name && !curIsExpand) {
+            //                         item.isExpand = false;
+            //                     }
+            //                 } else if (params.event.target.culling === false) {
+            //                     if (item.depth === depth) {
+            //                         if (item.name === name) {
+            //                             item.isExpand = true;
+            //                         } else {
+            //                             item.isExpand = false;
+            //                             ComprehensiveChart.clear();
+            //                             ComprehensiveChart.setOption(option);
+            //                         }
+            //                     }
+            //                 }
+            //             });
+            //         }
             //     }
             // })
         },
+        echartsdestory(){
+            let ComprehensiveChart = this.$echarts.init(
+                this.$refs.ComprehensiveChart,
+            );
+            ComprehensiveChart.dispose();
+        }
     },
     mounted() {
         this.echartsInit(this.data);
+    },
+    beforeDestroy(){
+        this.echartsdestory();
     } 
 }
 </script>
