@@ -2,7 +2,7 @@ export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   ssr: false,
   head: {
-    title: '茶農管理系統',
+    title: '智茶之道',
     htmlAttrs: {
       lang: 'en'
     },

@@ -51,7 +51,7 @@ export default {
                     </v-avatar>
                     <!-- <v-icon>mdi-leaf</v-icon> -->
                     </v-list-item-icon>
-                    <v-list-item-title>茶農管理系統</v-list-item-title>
+                    <v-list-item-title>智茶之道</v-list-item-title>
                 </v-list-item>
             </router-link>
             <v-list-group
