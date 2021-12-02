@@ -20,11 +20,11 @@ export default {
             menustart: false,
             menuend: false,
             starttime: '00:00',
-            startdate: '2021-03-01',
-            start: '2021-03-01 00:00:00',
-            enddate: '2021-04-01',
+            startdate: '2021-01-01',
+            start: '2021-01-01 00:00:00',
+            enddate: '2021-02-01',
             endtime: '00:00',
-            end: '2021-04-01 00:00:00',
+            end: '2021-02-01 00:00:00',
             date: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
             datetime: null,
             //typebtn
@@ -33,30 +33,8 @@ export default {
             timehour: "dark",
             timemin: "success",
             
-            startDate: '2021-03-01 00:00',
-            endDate: '2021-04-01 00:00',
-             
-            testd: {
-                name: 'root',
-                children: [
-                {
-                    name: 'children1',
-                },
-                {
-                    name: 'children2',
-                    children: [
-                    {
-                        name: 'humidity -0.8534',
-                        
-                    },
-                    ]
-                },
-                {
-                    name: 'children3',
-                
-                }
-                ]
-            }
+            startDate: '2021-01-01 00:00',
+            endDate: '2021-02-01 00:00',
         }
     },
     mounted(){
