@@ -73,43 +73,43 @@ export default {
                 ]
             };
             ComprehensiveChart.setOption(option, true);
-            ComprehensiveChart.on('mousedown', e => {
-                const name = e.data.name;
-                const curNode = ComprehensiveChart._chartsViews[0]._data.tree._nodes.filter(item => {
-                    return item.name === name;
-                });
-                if(curNode[0].depth){
-                    const depth = curNode[0].depth;
-                    const curIsExpand = curNode[0].isExpand;
-                    ComprehensiveChart._chartsViews[0]._data.tree._nodes.forEach(item => {
-                        if (e.event.target.culling === true) {
-                            // if (item.depth === depth && item.name !== name && !curIsExpand) {
-                            //     item.isExpand = false;
-                            // }
-                            // if (item.depth === depth) {
-                            //     if (item.name === name) {
-                            //         item.isExpand = true;
-                            //     // } else if (item.name === name && curIsExpand === false){
-                            //     //     item.isExpand = false;
-                            //     //     console.log('2');
-                            //     } else {
-                            //         item.isExpand = false;
-                            //         console.log('3');
-                            //     }
-                            // }
-                        } else if (e.event.target.culling === false) {
-                            if (item.depth === depth) {
-                                if (item.name === name && curIsExpand === false) {
-                                    item.isExpand = false;
-                                } 
-                                else {
-                                    item.isExpand = false;
-                                }
-                            }
-                        }
-                    });
-                }
-            })
+            // ComprehensiveChart.on('mousedown', e => {
+            //     const name = e.data.name;
+            //     const curNode = ComprehensiveChart._chartsViews[0]._data.tree._nodes.filter(item => {
+            //         return item.name === name;
+            //     });
+            //     if(curNode[0].depth){
+            //         const depth = curNode[0].depth;
+            //         const curIsExpand = curNode[0].isExpand;
+            //         ComprehensiveChart._chartsViews[0]._data.tree._nodes.forEach(item => {
+            //             if (e.event.target.culling === true) {
+            //                 // if (item.depth === depth && item.name !== name && !curIsExpand) {
+            //                 //     item.isExpand = false;
+            //                 // }
+            //                 // if (item.depth === depth) {
+            //                 //     if (item.name === name) {
+            //                 //         item.isExpand = true;
+            //                 //     // } else if (item.name === name && curIsExpand === false){
+            //                 //     //     item.isExpand = false;
+            //                 //     //     console.log('2');
+            //                 //     } else {
+            //                 //         item.isExpand = false;
+            //                 //         console.log('3');
+            //                 //     }
+            //                 // }
+            //             } else if (e.event.target.culling === false) {
+            //                 if (item.depth === depth) {
+            //                     if (item.name === name && curIsExpand === false) {
+            //                         item.isExpand = false;
+            //                     } 
+            //                     else {
+            //                         item.isExpand = false;
+            //                     }
+            //                 }
+            //             }
+            //         });
+            //     }
+            // })
             // ComprehensiveChart.on('click', params => {
             //     if (params.event.target.culling === true) {
 
