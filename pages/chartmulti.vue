@@ -35,11 +35,11 @@ export default {
             menustart: false,
             menuend: false,
             starttime: '00:00',
-            startdate: '2021-02-01',
-            start: '2021-02-01 00:00:00',
-            enddate: '2021-03-01',
+            startdate: '2021-11-01',
+            start: '2021-11-01 00:00:00',
+            enddate: '2021-12-01',
             endtime: '00:00',
-            end: '2021-03-01 00:00:00',
+            end: '2021-12-01 00:00:00',
             date: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
             datetime: null,
             tempcolor: "dark", 
@@ -59,8 +59,8 @@ export default {
             timeday: "success",
             timehour: "dark",
             timemin: "dark",
-            startDate: '2021-02-01 00:00',
-            endDate: '2021-03-01 00:00',
+            startDate: '2021-11-01 00:00',
+            endDate: '2021-12-01 00:00',
 
             tab: 'tab-1',
             editdialog: false,
@@ -464,8 +464,8 @@ export default {
                 false,false,false,false,
             ];
             this.starttime = '00:00';
-            this.startdate = '2021-02-01';
-            this.enddate = '2021-03-01';
+            this.startdate = '2021-11-01';
+            this.enddate = '2021-12-01';
             this.endtime = '00:00';
             this.old_type = [];
             this.charttitle = [];
@@ -735,13 +735,13 @@ export default {
                 this.chartItem.push(
                     {
                         'idx': this.editidx,
-                        'start': '2021-02-01 00:00:00',
-                        'startDate': '2021-02-01 00:00',
-                        'startdate': '2021-02-01',
+                        'start': '2021-11-01 00:00:00',
+                        'startDate': '2021-11-01 00:00',
+                        'startdate': '2021-11-01',
                         'starttime': '00:00',
-                        'end': '2021-03-01 00:00:00',
-                        'endDate': '2021-03-01 00:00',
-                        'enddate': '2021-03-01',
+                        'end': '2021-12-01 00:00:00',
+                        'endDate': '2021-12-01 00:00',
+                        'enddate': '2021-12-01',
                         'endtime': '00:00',
                         'type': [],
                         'type_ch': [],
